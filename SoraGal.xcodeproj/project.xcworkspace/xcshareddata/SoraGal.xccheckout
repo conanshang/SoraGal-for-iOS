@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D9141B3D-EED4-47E2-AB11-738E4C96BF03</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SoraGal</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E7A01147-EDE3-4078-AB4E-B2923168CA34</key>
+		<string>https://github.com/conanshang/SoraGal-for-iOS.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>SoraGal/SoraGal.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E7A01147-EDE3-4078-AB4E-B2923168CA34</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/conanshang/SoraGal-for-iOS.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E7A01147-EDE3-4078-AB4E-B2923168CA34</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E7A01147-EDE3-4078-AB4E-B2923168CA34</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SoraGal for iOS</string>
+		</dict>
+	</array>
+</dict>
+</plist>
