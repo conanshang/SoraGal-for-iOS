@@ -15,6 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *CGView;
 
+
 @end
 
 @implementation SGViewController
