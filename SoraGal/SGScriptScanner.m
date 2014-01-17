@@ -18,6 +18,7 @@
 #define OTHER_STRING_STATE 5
 #define STRING_STATE 6
 #define GAMESCRIPT_STRING_STATE 7
+#define MAX_SCRIPT_STATUS_NUMBER 8
 
 @interface SGScriptScanner()
 
@@ -68,26 +69,223 @@
     return type;
 }
 
-- (NSString *)nextToken{
+- (NSUInteger)nextToken{
     [self.scriptHelper createScriptTokens];
     self._bufferString = @"";
     
     while(YES){
-       
-        
-        
-        
-        
-        
+        switch (self.currentStatus) {
+            //If in the START_STATE.
+            case START_STATE:{
+                unichar c = [self.scriptReader nextCharacter];
+                
+                if(c == '\n' || c == '\r'){
+                    self.currentLine++;
+                    self.ifInTheProcessOf_GAMEDEFINEDFUNCTION_STATE = NO;
+                    
+                    if(!self.ifSkipNewLine){
+                        NSUInteger newTokenType = [[self.scriptHelper.scriptTokens objectForKey:@"NEWLINE_TOKEN"] unsignedIntegerValue];
+                        return [self makeTokenWithType:newTokenType andText:nil];
+                    }
+                    
+                    continue;
+                }
+                
+                if(c == 0x00B6){
+                    NSUInteger newTokenType = [[self.scriptHelper.scriptTokens objectForKey:@"EOS_TOKEN"] unsignedIntegerValue];
+                    return [self makeTokenWithType:newTokenType andText:nil];
+                }
+                
+                if(self.ifInTheProcessOf_GAMEDEFINEDFUNCTION_STATE){
+                    switch (c) {
+                        case 0x0022: case 0x0027:{
+                            self.currentStatus = STRING_STATE;
+                            self._bufferString = [NSString stringWithCharacters:&c length:1];
+                        }
+                            break;
+                        
+                        case ',':{
+                            NSUInteger newTokenType = [[self.scriptHelper.scriptTokens objectForKey:@"COMMA_TOKEN"] unsignedIntegerValue];
+                            return [self makeTokenWithType:newTokenType andText:nil];
+                        }
+                            break;
+                            
+                        case ';':{
+                            NSUInteger newTokenType = [[self.scriptHelper.scriptTokens objectForKey:@"SEMICOLON_TOKEN"] unsignedIntegerValue];
+                            return [self makeTokenWithType:newTokenType andText:nil];
+                        }
+                            break;
+                            
+                        default:{
+                            self.currentStatus = OTHER_STRING_STATE;
+                        }
+                            break;
+                    }
+                }
+                else{
+                    self.currentStatus = GAMESCRIPT_STRING_STATE;
+                }
+            }
+                break;
+            
+            //In GAMEDEFINEDFUNCTION_STATE.
+            case GAMEDEFINEDFUNCTION_STATE:{
+                NSUInteger result = [self processGAMEDEFINEDFUNCTION_STATE];
+                if(result < MAX_SCRIPT_STATUS_NUMBER){
+                    return result;
+                }
+            }
+                break;
+                
+            //In JavaScriptBlock_STATE.
+            case JavaScriptBlock_STATE:{
+                NSUInteger result = [self processJavaScriptBlock_STATE];
+                if(result < MAX_SCRIPT_STATUS_NUMBER){
+                    return result;
+                }
+            }
+                break;
+            
+            //In GAMESCRIPT_STRING_STATE.
+            case GAMESCRIPT_STRING_STATE:{
+                NSUInteger result = [self processGAMESCRIPT_STRING_STATE];
+                if(result < MAX_SCRIPT_STATUS_NUMBER){
+                    return result;
+                }
+            }
+                break;
+                
+            //In STRING_STATE.
+            case STRING_STATE:{
+                NSUInteger result = [self processSTRING_STATE];
+                if(result < MAX_SCRIPT_STATUS_NUMBER){
+                    return result;
+                }
+            }
+                break;
+                
+            //In OTHER_STRING_STATE.
+            case OTHER_STRING_STATE:{
+                NSUInteger result = [self processOTHER_STRING_STATE];
+                if(result < MAX_SCRIPT_STATUS_NUMBER){
+                    return result;
+                }
+            }
+                break;
+        }
     }
-    
-    
-    
-    
 }
 
+- (NSUInteger)processGAMESCRIPT_STRING_STATE{
+    unichar theChar, theNextChar;
+    BOOL ifEnd = NO;
+    BOOL ifFirstLine = YES;
+    NSMutableArray *lines = [[NSMutableArray alloc] init];
+    NSDictionary *tokens = self.scriptHelper.scriptTokens;
+    self._bufferString = @"";
+    
+    [self.scriptReader retractNCharacter:1];
+    
+    while(!ifEnd){
+        theChar = [self.scriptReader nextCharacter];
+        if(theChar == '@'){
+            if([lines count] > 0){
+                [self.scriptReader retractNCharacter:1];
+                self.currentStatus = START_STATE;
+                
+                NSUInteger newTokenType = [[tokens objectForKey:@"GAMESCRIPTSTRING_TOKEN"] unsignedIntegerValue];
+                NSString *tokenString = [lines componentsJoinedByString:@"\r\n"];
+                return [self makeTokenWithType:newTokenType andText:tokenString];
+            }
+        
+        
+            theNextChar = [self.scriptReader nextCharacter];
+            if(theNextChar == '{'){
+                self.currentStatus = JavaScriptBlock_STATE;
+                return MAX_SCRIPT_STATUS_NUMBER;
+            }
+            
+            if((theNextChar>='a' && theNextChar<='z') || (theNextChar>='A' && theNextChar<='Z') || (theNextChar == '_')){
+                self.currentStatus = GAMEDEFINEDFUNCTION_STATE;
+                self._bufferString = [NSString stringWithCharacters:&theNextChar length:1];
+                return MAX_SCRIPT_STATUS_NUMBER;
+            }
+        }
+        
+        if((theChar == 0x00B6) && ([[self.scriptHelper trimTheWhiteSpaceOfAString:self._bufferString] isEqualToString:@""])){
+            self.currentStatus = START_STATE;
+            [lines addObject:self._bufferString];
+            
+            NSUInteger newTokenType = [[tokens objectForKey:@"GAMESCRIPTSTRING_TOKEN"] unsignedIntegerValue];
+            NSString *tokenString = [lines componentsJoinedByString:@"\r\n"];
+            return [self makeTokenWithType:newTokenType andText:tokenString];
+        }
+        
+        if((theChar == 0x00B6) && ([lines count] != 0)){
+            break;
+        }
+        
+        if(theChar == 0x00B6){
+            self.currentStatus = START_STATE;
+            return MAX_SCRIPT_STATUS_NUMBER;
+        }
+        
+        if((theChar != '\r') && (theChar != '\n')){
+            NSString *string = [NSString stringWithCharacters:&theChar length:1];
+            self._bufferString = [self._bufferString stringByAppendingString:string];
+            
+            if((ifFirstLine == YES) && ([[self.scriptHelper trimTheWhiteSpaceOfAString:self._bufferString] isEqualToString:@""])){
+                ifFirstLine = NO;
+            }
+        }
+        else{
+            self.currentLine++;
+            self._bufferString = [self.scriptHelper trimTheWhiteSpaceOfAString:self._bufferString];
+            
+            if([self._bufferString isEqualToString:@""] && ifFirstLine == NO){
+                ifEnd = YES;
+            }
+            
+            if([self._bufferString isEqualToString:@""] && ifFirstLine == YES){
+                theChar = [self.scriptReader nextCharacter];
+                continue;
+            }
+            
+            if([self._bufferString isEqualToString:@""] && ifFirstLine == YES){
+                ifFirstLine = NO;
+            }
+            
+            [lines addObject:self._bufferString];
+            self._bufferString = @"";
+        }
+    }
+    
+    self.currentStatus = START_STATE;
+    
+    NSUInteger newTokenType = [[tokens objectForKey:@"GAMESCRIPTSTRING_TOKEN"] unsignedIntegerValue];
+    NSString *tokenString = [lines componentsJoinedByString:@"\r\n"];
+    return [self makeTokenWithType:newTokenType andText:tokenString];
+}
 
+- (NSUInteger)processJavaScriptBlock_STATE{
+    
+    return 8;
+}
 
+- (NSUInteger)processGAMEDEFINEDFUNCTION_STATE{
+    
+    return 8;
+}
+
+- (NSUInteger)processSTRING_STATE{
+    
+    return 8;
+}
+
+- (NSUInteger)processOTHER_STRING_STATE{
+    
+    return 8;
+}
 
 
 

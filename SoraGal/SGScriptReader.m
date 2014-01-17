@@ -46,7 +46,7 @@
     unichar nextChar = 0;
     //If the reveived script is empty set nextChar to -1.
     if(self.currentPosition >= self.scriptStringLength){
-        nextChar = -1;
+        nextChar = 0x00B6; //Use this unicode to indicate the end.
     }
     //For Windows format txt, which new line mark is /r/n.
     if(([self.dataString characterAtIndex:self.currentPosition + 1] == '\r') && ([self.dataString characterAtIndex:self.currentPosition + 2] == '\n')){

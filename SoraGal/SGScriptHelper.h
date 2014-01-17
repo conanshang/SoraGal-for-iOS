@@ -18,5 +18,7 @@
 //Before use the tokens.
 //First need to execute this function to create tokens.
 - (void)createScriptTokens;
+//Remove all the white space from a string.
+- (NSString *)trimTheWhiteSpaceOfAString:(NSString *)string;
 
 @end

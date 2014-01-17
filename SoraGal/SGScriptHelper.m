@@ -49,4 +49,12 @@
     self.tempBackwardScriptTokensMap = nil;
 }
 
+- (NSString *)trimTheWhiteSpaceOfAString:(NSString *)string{
+    NSArray *newString = [string componentsSeparatedByCharactersInSet :[NSCharacterSet whitespaceCharacterSet]];
+    NSString *noSpaceString = [newString componentsJoinedByString:@""];
+    return noSpaceString;
+}
+
+
+
 @end
