@@ -7,12 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SGScriptExecutor.h"
 
-@interface SGScriptReader : NSObject
+@interface SGScriptReader : SGScriptExecutor
 
+//Create a new Reader by send a string.
 - (id)initWithString:(NSString *)scriptString;
+//Get the next char in the string.
 - (unichar)nextCharacter;
+//Retract n char in from current position.
 - (void)retractNCharacter:(NSUInteger) n;
-
 
 @end

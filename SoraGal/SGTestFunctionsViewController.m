@@ -50,6 +50,10 @@
     self.testSGScriptHelper = [[SGScriptHelper alloc] init];
     [self.testSGScriptHelper createScriptTokens];
     NSString *theString2 = [self.testSGScriptHelper.scriptTokens description];
+    //NSString *theString = [self.testSGScriptHelper.scriptTokens objectForKey:@"JS_TOKEN"];
+    if([[self.testSGScriptHelper.scriptTokens objectForKey:@"JS_TOKEN"] isKindOfClass:[NSNumber class]]){
+        NSLog(@"It's NSNumber.");
+    }
     
     self.testDialogView.text = theString2;
 }

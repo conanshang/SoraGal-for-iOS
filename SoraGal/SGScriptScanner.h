@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SGScriptExecutor.h"
 
-@interface SGScriptScanner : NSObject
+@interface SGScriptScanner : SGScriptExecutor
+
+- (id)initWithString:(NSString *)string;
 
 @end

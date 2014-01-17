@@ -10,6 +10,7 @@
 
 @interface SGScriptHelper()
 
+//Mutable version for temporary use.
 @property (nonatomic, strong) NSMutableDictionary *tempScriptTokens;
 @property (nonatomic, strong) NSMutableArray *tempBackwardScriptTokensMap;
 
@@ -29,16 +30,23 @@
     self.tempScriptTokens = [[NSMutableDictionary alloc] init];
     self.tempBackwardScriptTokensMap = [[NSMutableArray alloc] init];
     
+    //Token names array.
     NSArray *array = [NSArray arrayWithObjects:@"EOS_TOKEN",@"JS_TOKEN",@"NEWLINE_TOKEN",@"EMPTYLINE_TOKEN",@"COMMA_TOKEN",@"SEMICOLON_TOKEN",@"DOT_TOKEN",@"STRING_TOKEN",@"OTHER_STRING_TOKEN",@"GAMESCRIPTSTRING_TOKEN",@"GAMESCRIPT_GOTO_TOKEN",@"GAMESCRIPT_LABEL_TOKEN",@"GAMESCRIPT_IDENTIFIER_TOKEN",@"GAMESCRIPT_IF_TOKEN",@"GAMESCRIPT_SELECT_TOKEN",@"LINECOMMENT_TOKEN",@"BLOCKCOMMENT_TOKEN",nil];
     
+    //Create the tokens.
     for(int i=0; i<[array count]; i++){
         NSString *tokenName = [[array objectAtIndex:i] uppercaseString];
-        [self.tempScriptTokens setObject:[NSString stringWithFormat:@"%u", i] forKey:tokenName];
+        [self.tempScriptTokens setObject:[NSNumber numberWithInt:i] forKey:tokenName];
         [self.tempBackwardScriptTokensMap addObject:tokenName];
     }
     
+    //Create the non-mutable version.
     self.scriptTokens = [NSDictionary dictionaryWithDictionary:self.tempScriptTokens];
     self.backwardScriptTokensMap = [NSArray arrayWithArray:self.tempBackwardScriptTokensMap];
+    
+    //Let the system to release the temporary tokens.
+    self.tempScriptTokens = nil;
+    self.tempBackwardScriptTokensMap = nil;
 }
 
 @end
