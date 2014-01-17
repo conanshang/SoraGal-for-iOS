@@ -12,6 +12,9 @@
 		0F15E3821887E31300B83AEF /* scriptExample.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0F15E3811887E31300B83AEF /* scriptExample.txt */; };
 		0F15E3851887E3BB00B83AEF /* SGScriptExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F15E3841887E3BB00B83AEF /* SGScriptExecutor.m */; };
 		0F15E38918882A5600B83AEF /* SGScriptReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F15E38818882A5600B83AEF /* SGScriptReader.m */; };
+		0F15E38C18883B3300B83AEF /* SGScriptScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F15E38B18883B3300B83AEF /* SGScriptScanner.m */; };
+		0F15E38F1889288300B83AEF /* SGScriptToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F15E38E1889288300B83AEF /* SGScriptToken.m */; };
+		0F15E3921889324F00B83AEF /* SGScriptHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F15E3911889324F00B83AEF /* SGScriptHelper.m */; };
 		0F3344E61886D77D00E7C463 /* eden_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F3344E41886D77D00E7C463 /* eden_1.jpg */; };
 		0F3344E71886D77D00E7C463 /* eden_1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F3344E51886D77D00E7C463 /* eden_1@2x.jpg */; };
 		0FB494531886C8D1000C743C /* SGBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB494521886C8D1000C743C /* SGBackgroundView.m */; };
@@ -52,6 +55,12 @@
 		0F15E3841887E3BB00B83AEF /* SGScriptExecutor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptExecutor.m; sourceTree = "<group>"; };
 		0F15E38718882A5600B83AEF /* SGScriptReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScriptReader.h; sourceTree = "<group>"; };
 		0F15E38818882A5600B83AEF /* SGScriptReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptReader.m; sourceTree = "<group>"; };
+		0F15E38A18883B3300B83AEF /* SGScriptScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScriptScanner.h; sourceTree = "<group>"; };
+		0F15E38B18883B3300B83AEF /* SGScriptScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptScanner.m; sourceTree = "<group>"; };
+		0F15E38D1889288300B83AEF /* SGScriptToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScriptToken.h; sourceTree = "<group>"; };
+		0F15E38E1889288300B83AEF /* SGScriptToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptToken.m; sourceTree = "<group>"; };
+		0F15E3901889324F00B83AEF /* SGScriptHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScriptHelper.h; sourceTree = "<group>"; };
+		0F15E3911889324F00B83AEF /* SGScriptHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptHelper.m; sourceTree = "<group>"; };
 		0F3344E41886D77D00E7C463 /* eden_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = eden_1.jpg; sourceTree = "<group>"; };
 		0F3344E51886D77D00E7C463 /* eden_1@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "eden_1@2x.jpg"; sourceTree = "<group>"; };
 		0FB494511886C8D1000C743C /* SGBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGBackgroundView.h; sourceTree = "<group>"; };
@@ -172,6 +181,12 @@
 				0F15E3841887E3BB00B83AEF /* SGScriptExecutor.m */,
 				0F15E38718882A5600B83AEF /* SGScriptReader.h */,
 				0F15E38818882A5600B83AEF /* SGScriptReader.m */,
+				0F15E38A18883B3300B83AEF /* SGScriptScanner.h */,
+				0F15E38B18883B3300B83AEF /* SGScriptScanner.m */,
+				0F15E38D1889288300B83AEF /* SGScriptToken.h */,
+				0F15E38E1889288300B83AEF /* SGScriptToken.m */,
+				0F15E3901889324F00B83AEF /* SGScriptHelper.h */,
+				0F15E3911889324F00B83AEF /* SGScriptHelper.m */,
 				0F15E3861887E3CB00B83AEF /* ViewControllers */,
 				0FB494501886A650000C743C /* Views */,
 				0FBFF4D11884410000F1E1DC /* Main.storyboard */,
@@ -317,12 +332,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FB494561886C8E1000C743C /* SGDialogView.m in Sources */,
+				0F15E38C18883B3300B83AEF /* SGScriptScanner.m in Sources */,
 				0FBFF4D01884410000F1E1DC /* SGAppDelegate.m in Sources */,
 				0F15E3801887DE4A00B83AEF /* SGTestFunctionsViewController.m in Sources */,
 				0F15E3851887E3BB00B83AEF /* SGScriptExecutor.m in Sources */,
 				0F15E38918882A5600B83AEF /* SGScriptReader.m in Sources */,
+				0F15E3921889324F00B83AEF /* SGScriptHelper.m in Sources */,
 				0FBFF4D61884410000F1E1DC /* SGViewController.m in Sources */,
 				0FB494531886C8D1000C743C /* SGBackgroundView.m in Sources */,
+				0F15E38F1889288300B83AEF /* SGScriptToken.m in Sources */,
 				0FBFF4CC1884410000F1E1DC /* main.m in Sources */,
 				0F15E37D18878A6E00B83AEF /* SGSettingsViewController.m in Sources */,
 			);

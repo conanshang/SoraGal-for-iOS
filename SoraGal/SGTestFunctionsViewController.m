@@ -7,7 +7,7 @@
 //
 
 #import "SGTestFunctionsViewController.h"
-#import "SGScriptReader.h"
+#import "SGScriptHelper.h"
 
 
 @interface SGTestFunctionsViewController ()
@@ -16,7 +16,7 @@
 
 @property (strong, nonatomic) NSString *testDialogString;
 
-@property (strong, nonatomic) SGScriptReader *testScriptReader;
+@property (strong, nonatomic) SGScriptHelper *testSGScriptHelper;
 
 @end
 
@@ -47,20 +47,11 @@
 }
 
 - (void)displayCharInTextView{
-    self.testScriptReader = [[SGScriptReader alloc] initWithString:self.testDialogString];
-    unichar nextChar = [self.testScriptReader nextCharacter];
-    NSString *theString = [NSString stringWithCharacters:&nextChar length:1];
+    self.testSGScriptHelper = [[SGScriptHelper alloc] init];
+    [self.testSGScriptHelper createScriptTokens];
+    NSString *theString2 = [self.testSGScriptHelper.scriptTokens description];
     
-    int n = 60;
-    while(n>0){
-        nextChar = [self.testScriptReader nextCharacter];
-        NSString *newString = [NSString stringWithCharacters:&nextChar length:1];
-        theString = [theString stringByAppendingString:newString];
-        
-        n--;
-    }
-    
-    self.testDialogView.text = theString;
+    self.testDialogView.text = theString2;
 }
 
 

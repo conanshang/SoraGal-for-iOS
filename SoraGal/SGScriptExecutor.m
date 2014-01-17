@@ -8,6 +8,23 @@
 
 #import "SGScriptExecutor.h"
 
-@implementation SGScriptExecutor
+@interface SGScriptExecutor()
 
 @end
+
+@implementation SGScriptExecutor
+
+- (id)init{
+    self = [super init];
+    if(self){
+        
+    }
+    return self;
+}
+
+
+@end
+
+
+
+
