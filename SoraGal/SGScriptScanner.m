@@ -7,7 +7,6 @@
 //
 
 #import "SGScriptScanner.h"
-#import "SGScriptReader.h"
 #import "SGScriptToken.h"
 #import "SGScriptHelper.h"
 
@@ -45,12 +44,13 @@
     return self;
 }
 
-- (id)initWithString:(NSString *)receivedString{
+- (id)initWithReaderInstance:(SGScriptReader *)receivedReaderInstacnce{
     self = [super init];
     if(self){
-        self.scriptReader = [self.scriptReader initWithString:receivedString];
+        self.scriptReader = receivedReaderInstacnce;
         self.currentScriptToken = [[SGScriptToken alloc] init];
         self.scriptHelper = [[SGScriptHelper alloc] init];
+        [self.scriptHelper createScriptTokens];
         
         self.currentLine = 0;
         self.ifSkipNewLine = YES;
@@ -70,7 +70,6 @@
 }
 
 - (NSUInteger)nextToken{
-    [self.scriptHelper createScriptTokens];
     self._bufferString = @"";
     
     while(YES){
@@ -268,13 +267,69 @@
 }
 
 - (NSUInteger)processJavaScriptBlock_STATE{
+    NSDictionary *tokens = self.scriptHelper.scriptTokens;
+    self._bufferString = @"";
     
-    return 8;
+    unichar theChar = [self.scriptReader nextCharacter];
+    unichar theNextChar = [self.scriptReader nextCharacter];
+    
+    while (theChar != 0x00B6) {
+        if(theChar == '}' && theChar == '@'){
+            break;
+        }
+        
+        self._bufferString = [self._bufferString stringByAppendingString:[NSString stringWithCharacters:&theChar length:1]];
+        
+        if(theChar == '\r' || theChar == '\n'){
+            self.currentLine++;
+        }
+        
+        theChar = theNextChar;
+        theNextChar = [self.scriptReader nextCharacter];
+    }
+    
+    self.currentStatus = START_STATE;
+    
+    NSUInteger newTokenType = [[tokens objectForKey:@"JS_TOKEN"] unsignedIntegerValue];
+    NSString *newTokenString = self._bufferString;
+    return [self makeTokenWithType:newTokenType andText:newTokenString];
 }
 
 - (NSUInteger)processGAMEDEFINEDFUNCTION_STATE{
+    NSString *bufferString = self._bufferString;
+    self._bufferString = @"";
+    NSDictionary *tokens = self.scriptHelper.scriptTokens;
     
-    return 8;
+    while((![bufferString isEqualToString:@"\r"]) && (![bufferString isEqualToString:@"\n"]) && (![bufferString isEqualToString:@" "])){
+        self._bufferString = [self._bufferString stringByAppendingString:bufferString];
+        
+        unichar theChar = [self.scriptReader nextCharacter];
+        bufferString = [NSString stringWithCharacters:&theChar length:1];
+    }
+    NSString *functionName = self._bufferString;
+    
+    if((![bufferString isEqualToString:@"\r"]) && (![bufferString isEqualToString:@"\n"])){
+        self.ifInTheProcessOf_GAMEDEFINEDFUNCTION_STATE = YES;
+        self.currentStatus = START_STATE;
+    }
+    else{
+        self.currentLine++;
+        self.ifInTheProcessOf_GAMEDEFINEDFUNCTION_STATE = NO;
+        self.currentStatus = START_STATE;
+    }
+    
+    if([functionName isEqualToString:@"goto"]){
+        NSUInteger newTokenType = [[tokens objectForKey:@"GAMESCRIPT_GOTO_TOKEN"] unsignedIntegerValue];
+        return [self makeTokenWithType:newTokenType andText:nil];
+    }
+    else if([functionName isEqualToString:@"label"]){
+        NSUInteger newTokenType = [[tokens objectForKey:@"GAMESCRIPT_LABEL_TOKEN"] unsignedIntegerValue];
+        return [self makeTokenWithType:newTokenType andText:nil];
+    }
+    else{
+        NSUInteger newTokenType = [[tokens objectForKey:@"GAMESCRIPT_IDENTIFIER_TOKEN"] unsignedIntegerValue];
+        return [self makeTokenWithType:newTokenType andText:functionName];
+    }
 }
 
 - (NSUInteger)processSTRING_STATE{

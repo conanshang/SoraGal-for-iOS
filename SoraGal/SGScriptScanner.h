@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "SGScriptExecutor.h"
+#import "SGScriptReader.h"
 
 @interface SGScriptScanner : SGScriptExecutor
 
-- (id)initWithString:(NSString *)string;
+- (id)initWithReaderInstance:(SGScriptReader *)receivedReaderInstacnce;
 
 @end
