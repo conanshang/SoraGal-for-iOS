@@ -333,13 +333,78 @@
 }
 
 - (NSUInteger)processSTRING_STATE{
+    NSDictionary *tokens = self.scriptHelper.scriptTokens;
+    unichar theChar = [self.scriptReader nextCharacter];
+    NSString *quotesType = self._bufferString;
+    self._bufferString = @"";
+    unichar preChar = 0;
     
-    return 8;
+    while(YES){
+        if((([[NSString stringWithCharacters:&theChar length:1] isEqualToString:quotesType]) && (preChar != 0x005C)) || (theChar == 0x00B6)){ //0x005C is '\\' in unicode.
+            break;
+        }
+        
+        self._bufferString = [self._bufferString stringByAppendingString:[NSString stringWithCharacters:&theChar length:1]];
+        preChar = theChar;
+        theChar = [self.scriptReader nextCharacter];
+        
+        if(theChar != '\n' && theChar != '\r'){
+            self.currentLine++;
+        }
+    }
+    
+    NSUInteger tokenType = [[tokens objectForKey:@"STRING_TOKEN"] unsignedIntegerValue];
+    NSString *subBuffer = @"";
+    
+    if(self.ifInTheProcessOf_GAMEDEFINEDFUNCTION_STATE){
+        theChar = [self.scriptReader nextCharacter];
+        while(YES){
+            if(theChar == ';' || theChar == '\n' || theChar == '\r' || theChar == ',' || theChar == 0x00B6){
+                if(theChar == '\n' || theChar == '\r' || theChar == ','){
+                    [self.scriptReader retractNCharacter:1];
+                }
+                break;
+            }
+
+            subBuffer = [subBuffer stringByAppendingString:[NSString stringWithCharacters:&theChar length:1]];
+            theChar = [self.scriptReader nextCharacter];
+        }
+        
+        if(![[self.scriptHelper trimTheWhiteSpaceOfAString:subBuffer] isEqualToString:@""]){
+            unichar tempChar = '"';
+            NSString *tempString = [NSString stringWithCharacters:&tempChar length:1];
+            
+            self._bufferString = [[[tempString stringByAppendingString:self._bufferString] stringByAppendingString:tempString] stringByAppendingString:subBuffer];
+            tokenType = [[tokens objectForKey:@"OTHER_STRING_TOKEN"] unsignedIntegerValue];
+        }
+    }
+    
+    self.currentStatus = START_STATE;
+    return [self makeTokenWithType:tokenType andText:self._bufferString];
 }
 
 - (NSUInteger)processOTHER_STRING_STATE{
+    NSDictionary *tokens = self.scriptHelper.scriptTokens;
+    [self.scriptReader retractNCharacter:1];
+    unichar theChar = [self.scriptReader nextCharacter];
+    self._bufferString = @"";
     
-    return 8;
+    while(YES){
+        if(theChar == ';' || theChar == '\n' || theChar == '\r' || theChar == ',' || theChar == 0x00B6){
+            if(theChar == '\n' || theChar == '\r' || theChar == ','){
+                [self.scriptReader retractNCharacter:1];
+            }
+            break;
+        }
+        
+        self._bufferString = [self._bufferString stringByAppendingString:[NSString stringWithCharacters:&theChar length:1]];
+        theChar = [self.scriptReader nextCharacter];
+    }
+    
+    self.currentStatus = START_STATE;
+    
+    NSUInteger newTokenType = [[tokens objectForKey:@"OTHER_STRING_TOKEN"] unsignedIntegerValue];
+    return [self makeTokenWithType:newTokenType andText:self._bufferString];
 }
 
 
