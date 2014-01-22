@@ -15,7 +15,7 @@
 #define OTHER_STRING_STATE 5
 #define STRING_STATE 6
 #define GAMESCRIPT_STRING_STATE 7
-#define MAX_SCRIPT_STATUS_NUMBER 8
+#define MAX_SCRIPT_STATUS_NUMBER -1
 
 @interface SGScriptScanner()
 
@@ -94,7 +94,8 @@
                     switch (c) {
                         case 0x0022: case 0x0027:{
                             self.currentStatus = STRING_STATE;
-                            self._bufferString = [NSString stringWithCharacters:&c length:1];
+                            NSString *tempString = [NSString stringWithCharacters:&c length:1];
+                            self._bufferString = [self._bufferString stringByAppendingString:tempString];
                         }
                             break;
                         
@@ -125,7 +126,7 @@
             //In GAMEDEFINEDFUNCTION_STATE.
             case GAMEDEFINEDFUNCTION_STATE:{
                 NSUInteger result = [self processGAMEDEFINEDFUNCTION_STATE];
-                if(result < MAX_SCRIPT_STATUS_NUMBER){
+                if(result != MAX_SCRIPT_STATUS_NUMBER){
                     return result;
                 }
             }
@@ -134,7 +135,7 @@
             //In JavaScriptBlock_STATE.
             case JavaScriptBlock_STATE:{
                 NSUInteger result = [self processJavaScriptBlock_STATE];
-                if(result < MAX_SCRIPT_STATUS_NUMBER){
+                if(result != MAX_SCRIPT_STATUS_NUMBER){
                     return result;
                 }
             }
@@ -143,7 +144,7 @@
             //In GAMESCRIPT_STRING_STATE.
             case GAMESCRIPT_STRING_STATE:{
                 NSUInteger result = [self processGAMESCRIPT_STRING_STATE];
-                if(result < MAX_SCRIPT_STATUS_NUMBER){
+                if(result != MAX_SCRIPT_STATUS_NUMBER){
                     return result;
                 }
             }
@@ -152,7 +153,7 @@
             //In STRING_STATE.
             case STRING_STATE:{
                 NSUInteger result = [self processSTRING_STATE];
-                if(result < MAX_SCRIPT_STATUS_NUMBER){
+                if(result != MAX_SCRIPT_STATUS_NUMBER){
                     return result;
                 }
             }
@@ -161,7 +162,7 @@
             //In OTHER_STRING_STATE.
             case OTHER_STRING_STATE:{
                 NSUInteger result = [self processOTHER_STRING_STATE];
-                if(result < MAX_SCRIPT_STATUS_NUMBER){
+                if(result != MAX_SCRIPT_STATUS_NUMBER){
                     return result;
                 }
             }
@@ -201,7 +202,8 @@
             
             if((theNextChar>='a' && theNextChar<='z') || (theNextChar>='A' && theNextChar<='Z') || (theNextChar == '_')){
                 self.currentStatus = GAMEDEFINEDFUNCTION_STATE;
-                self._bufferString = [NSString stringWithCharacters:&theNextChar length:1];
+                NSString *tempString = [NSString stringWithCharacters:&theNextChar length:1];
+                self._bufferString = [self._bufferString stringByAppendingString:tempString];
                 return MAX_SCRIPT_STATUS_NUMBER;
             }
         }
