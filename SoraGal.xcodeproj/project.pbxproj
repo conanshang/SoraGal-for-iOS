@@ -17,6 +17,8 @@
 		0F15E3921889324F00B83AEF /* SGScriptHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F15E3911889324F00B83AEF /* SGScriptHelper.m */; };
 		0F3344E61886D77D00E7C463 /* eden_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F3344E41886D77D00E7C463 /* eden_1.jpg */; };
 		0F3344E71886D77D00E7C463 /* eden_1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F3344E51886D77D00E7C463 /* eden_1@2x.jpg */; };
+		0F7DEFB4188FE6200096FFE4 /* SGScriptParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7DEFB3188FE6200096FFE4 /* SGScriptParser.m */; };
+		0F7DEFB6188FFC240096FFE4 /* TestScript.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0F7DEFB5188FFC240096FFE4 /* TestScript.txt */; };
 		0FB494531886C8D1000C743C /* SGBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB494521886C8D1000C743C /* SGBackgroundView.m */; };
 		0FB494561886C8E1000C743C /* SGDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB494551886C8E1000C743C /* SGDialogView.m */; };
 		0FBFF4C01884410000F1E1DC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FBFF4BF1884410000F1E1DC /* Foundation.framework */; };
@@ -63,6 +65,9 @@
 		0F15E3911889324F00B83AEF /* SGScriptHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptHelper.m; sourceTree = "<group>"; };
 		0F3344E41886D77D00E7C463 /* eden_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = eden_1.jpg; sourceTree = "<group>"; };
 		0F3344E51886D77D00E7C463 /* eden_1@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "eden_1@2x.jpg"; sourceTree = "<group>"; };
+		0F7DEFB2188FE6200096FFE4 /* SGScriptParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScriptParser.h; sourceTree = "<group>"; };
+		0F7DEFB3188FE6200096FFE4 /* SGScriptParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptParser.m; sourceTree = "<group>"; };
+		0F7DEFB5188FFC240096FFE4 /* TestScript.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestScript.txt; sourceTree = "<group>"; };
 		0FB494511886C8D1000C743C /* SGBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGBackgroundView.h; sourceTree = "<group>"; };
 		0FB494521886C8D1000C743C /* SGBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGBackgroundView.m; sourceTree = "<group>"; };
 		0FB494541886C8E1000C743C /* SGDialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGDialogView.h; sourceTree = "<group>"; };
@@ -138,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				0F15E3811887E31300B83AEF /* scriptExample.txt */,
+				0F7DEFB5188FFC240096FFE4 /* TestScript.txt */,
 				0F3344E41886D77D00E7C463 /* eden_1.jpg */,
 				0F3344E51886D77D00E7C463 /* eden_1@2x.jpg */,
 			);
@@ -183,6 +189,8 @@
 				0F15E38818882A5600B83AEF /* SGScriptReader.m */,
 				0F15E38A18883B3300B83AEF /* SGScriptScanner.h */,
 				0F15E38B18883B3300B83AEF /* SGScriptScanner.m */,
+				0F7DEFB2188FE6200096FFE4 /* SGScriptParser.h */,
+				0F7DEFB3188FE6200096FFE4 /* SGScriptParser.m */,
 				0F15E38D1889288300B83AEF /* SGScriptToken.h */,
 				0F15E38E1889288300B83AEF /* SGScriptToken.m */,
 				0F15E3901889324F00B83AEF /* SGScriptHelper.h */,
@@ -311,6 +319,7 @@
 				0F3344E71886D77D00E7C463 /* eden_1@2x.jpg in Resources */,
 				0FBFF4D81884410000F1E1DC /* Images.xcassets in Resources */,
 				0F3344E61886D77D00E7C463 /* eden_1.jpg in Resources */,
+				0F7DEFB6188FFC240096FFE4 /* TestScript.txt in Resources */,
 				0FBFF4CA1884410000F1E1DC /* InfoPlist.strings in Resources */,
 				0FBFF4D31884410000F1E1DC /* Main.storyboard in Resources */,
 			);
@@ -335,6 +344,7 @@
 				0F15E38C18883B3300B83AEF /* SGScriptScanner.m in Sources */,
 				0FBFF4D01884410000F1E1DC /* SGAppDelegate.m in Sources */,
 				0F15E3801887DE4A00B83AEF /* SGTestFunctionsViewController.m in Sources */,
+				0F7DEFB4188FE6200096FFE4 /* SGScriptParser.m in Sources */,
 				0F15E3851887E3BB00B83AEF /* SGScriptExecutor.m in Sources */,
 				0F15E38918882A5600B83AEF /* SGScriptReader.m in Sources */,
 				0F15E3921889324F00B83AEF /* SGScriptHelper.m in Sources */,

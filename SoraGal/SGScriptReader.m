@@ -44,10 +44,12 @@
 
 - (unichar)nextCharacter{
     unichar nextChar = 0;
-    //If the reveived script is empty set nextChar to -1.
-    if(self.currentPosition >= self.scriptStringLength){
+    //If the reveived script is empty set nextChar to 0x00B6.
+    if(self.currentPosition + 1 >= self.scriptStringLength){
         nextChar = 0x00B6; //Use this unicode to indicate the end.
+        return nextChar;
     }
+    
     //For Windows format txt, which new line mark is /r/n.
     if(([self.dataString characterAtIndex:self.currentPosition + 1] == '\r') && ([self.dataString characterAtIndex:self.currentPosition + 2] == '\n')){
         self.currentPosition += 2; //Skip the first one - /r.

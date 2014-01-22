@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SGScriptHelper.h"
 
 @interface SGScriptExecutor : NSObject
 
+@property (nonatomic, strong) SGScriptHelper *scriptHelper;
 
 @end

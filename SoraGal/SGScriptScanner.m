@@ -7,8 +7,6 @@
 //
 
 #import "SGScriptScanner.h"
-#import "SGScriptToken.h"
-#import "SGScriptHelper.h"
 
 #define START_STATE 1
 #define IDENTIFIER_STATE 2
@@ -22,8 +20,6 @@
 @interface SGScriptScanner()
 
 @property (nonatomic, strong) SGScriptReader *scriptReader;
-@property (nonatomic, strong) SGScriptToken *currentScriptToken;
-@property (nonatomic, strong) SGScriptHelper *scriptHelper;
 
 @property NSUInteger currentLine;
 @property BOOL ifSkipNewLine;
@@ -49,8 +45,6 @@
     if(self){
         self.scriptReader = receivedReaderInstacnce;
         self.currentScriptToken = [[SGScriptToken alloc] init];
-        self.scriptHelper = [[SGScriptHelper alloc] init];
-        [self.scriptHelper createScriptTokens];
         
         self.currentLine = 0;
         self.ifSkipNewLine = YES;
@@ -70,6 +64,7 @@
 }
 
 - (NSUInteger)nextToken{
+    NSDictionary *tokens = self.scriptHelper.scriptTokens;
     self._bufferString = @"";
     
     while(YES){
@@ -83,7 +78,7 @@
                     self.ifInTheProcessOf_GAMEDEFINEDFUNCTION_STATE = NO;
                     
                     if(!self.ifSkipNewLine){
-                        NSUInteger newTokenType = [[self.scriptHelper.scriptTokens objectForKey:@"NEWLINE_TOKEN"] unsignedIntegerValue];
+                        NSUInteger newTokenType = [[tokens objectForKey:@"NEWLINE_TOKEN"] unsignedIntegerValue];
                         return [self makeTokenWithType:newTokenType andText:nil];
                     }
                     
@@ -91,7 +86,7 @@
                 }
                 
                 if(c == 0x00B6){
-                    NSUInteger newTokenType = [[self.scriptHelper.scriptTokens objectForKey:@"EOS_TOKEN"] unsignedIntegerValue];
+                    NSUInteger newTokenType = [[tokens objectForKey:@"EOS_TOKEN"] unsignedIntegerValue];
                     return [self makeTokenWithType:newTokenType andText:nil];
                 }
                 
@@ -104,13 +99,13 @@
                             break;
                         
                         case ',':{
-                            NSUInteger newTokenType = [[self.scriptHelper.scriptTokens objectForKey:@"COMMA_TOKEN"] unsignedIntegerValue];
+                            NSUInteger newTokenType = [[tokens objectForKey:@"COMMA_TOKEN"] unsignedIntegerValue];
                             return [self makeTokenWithType:newTokenType andText:nil];
                         }
                             break;
                             
                         case ';':{
-                            NSUInteger newTokenType = [[self.scriptHelper.scriptTokens objectForKey:@"SEMICOLON_TOKEN"] unsignedIntegerValue];
+                            NSUInteger newTokenType = [[tokens objectForKey:@"SEMICOLON_TOKEN"] unsignedIntegerValue];
                             return [self makeTokenWithType:newTokenType andText:nil];
                         }
                             break;
