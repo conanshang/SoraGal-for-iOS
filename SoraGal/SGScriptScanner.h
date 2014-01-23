@@ -15,8 +15,10 @@
 
 @property (nonatomic, strong) SGScriptToken *currentScriptToken;
 
+@property BOOL ifSkipNewLine;
+@property NSUInteger currentLine;
+
 - (id)initWithReaderInstance:(SGScriptReader *)receivedReaderInstacnce;
 - (NSUInteger)nextToken;
-
 
 @end

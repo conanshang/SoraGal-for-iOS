@@ -48,8 +48,8 @@
 
 - (void)getStringDataFromFile{
     //The path of the script txt.
-    //NSString *path = [[NSBundle mainBundle] pathForResource:@"scriptExample" ofType:@"txt"];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"TestScript" ofType:@"txt"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"scriptExample" ofType:@"txt"];
+    //NSString *path = [[NSBundle mainBundle] pathForResource:@"TestScript" ofType:@"txt"];
     //Put the script to a string.
     self.testDialogString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }

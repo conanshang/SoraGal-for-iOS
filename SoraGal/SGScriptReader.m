@@ -32,8 +32,8 @@
         if(!scriptString){
             scriptString = [[NSString alloc] init];
         }
-        //Set the dateString from the received string.
-        self.dataString = scriptString;
+        //Set the dateString from the received string, add extra space to the begining and ending.
+        self.dataString = [[@" " stringByAppendingString:scriptString] stringByAppendingString:@" "];
         //Get the length of the string.
         self.scriptStringLength = [scriptString length];
         //Set the current position to the start point.
@@ -42,6 +42,7 @@
     return self;
 }
 
+//This function can't access to the first char and last char. So previous add extra space to self.dataString.
 - (unichar)nextCharacter{
     unichar nextChar = 0;
     //If the reveived script is empty set nextChar to 0x00B6.
