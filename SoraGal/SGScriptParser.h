@@ -14,5 +14,6 @@
 @interface SGScriptParser : SGScriptExecutor
 
 - (id)initWithScannerInstance:(SGScriptScanner *)receivedScannerInstance;
+- (SGScriptExpressionBlockNode *)parse;
 
 @end

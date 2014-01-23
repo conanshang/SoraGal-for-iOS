@@ -9,6 +9,7 @@
 #import "SGTestFunctionsViewController.h"
 #import "SGScriptReader.h"
 #import "SGScriptScanner.h"
+#import "SGScriptParser.h"
 #import "SGScriptHelper.h"
 #import "SGScriptToken.h"
 
@@ -21,6 +22,7 @@
 
 @property (strong, nonatomic) SGScriptReader *testSGScriptReader;
 @property (strong, nonatomic) SGScriptScanner *testScriptScanner;
+@property (strong, nonatomic) SGScriptParser *testScriptParser;
 @property (strong, nonatomic) SGScriptHelper *testSGScriptHelper;
 
 @end
@@ -42,14 +44,15 @@
 	
     [self getStringDataFromFile];
     //[self testReader];
-    [self testScanner];
+    //[self testScanner];
+    [self testParser];
     
 }
 
 - (void)getStringDataFromFile{
     //The path of the script txt.
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"scriptExample" ofType:@"txt"];
-    //NSString *path = [[NSBundle mainBundle] pathForResource:@"TestScript" ofType:@"txt"];
+    //NSString *path = [[NSBundle mainBundle] pathForResource:@"scriptExample" ofType:@"txt"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"TestScript" ofType:@"txt"];
     //Put the script to a string.
     self.testDialogString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }
@@ -121,10 +124,18 @@
 
 }
 
-
-
-
-
+- (void)testParser{
+    self.testSGScriptReader = [[SGScriptReader alloc] initWithString:self.testDialogString];
+    self.testScriptScanner = [[SGScriptScanner alloc] initWithReaderInstance:self.testSGScriptReader];
+    self.testScriptParser = [[SGScriptParser alloc] initWithScannerInstance:self.testScriptScanner];
+    
+    SGScriptExpressionBlockNode *node = [self.testScriptParser parse];
+    NSArray *resultArray = [node expressions];
+    
+    NSString *resultString = [resultArray description];
+    
+    self.testDialogView.text = resultString;
+}
 
 
 

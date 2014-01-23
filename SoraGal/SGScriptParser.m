@@ -49,6 +49,13 @@
     return self;
 }
 
+- (SGScriptExpressionBlockNode *)parse{
+    SGScriptExpressionBlockNode *rootNode = [[SGScriptExpressionBlockNode alloc] init];
+    [self parseExpressions:rootNode];
+    
+    return rootNode;
+}
+
 - (NSUInteger)nextToken{
     NSUInteger token = 0;
     NSDictionary *tokens = self.scriptHelper.scriptTokens;
@@ -123,13 +130,6 @@
     self.scriptScanner.ifSkipNewLine = YES;
 }
 
-- (SGScriptExpressionBlockNode *)parse{
-    SGScriptExpressionBlockNode *rootNode = [[SGScriptExpressionBlockNode alloc] init];
-    [self parseExpressions:rootNode];
-    
-    return rootNode;
-}
-
 - (void)parseExpressions:(SGScriptExpressionBlockNode *)expressionBlockNode{
     NSDictionary *tokens = self.scriptHelper.scriptTokens;
     
@@ -142,7 +142,7 @@
 }
 
 - (SGScriptNode *)parseExpression{
-    switch ([self nextToken]) {
+    switch ([self lookAhead]) {
         case GAMESCRIPTSTRING_TOKEN:{
             [self nextToken];
             SGScriptGameScriptBlockNode *node = [[SGScriptGameScriptBlockNode alloc] initWithBlockContent:self.currentScriptToken.tokenText];

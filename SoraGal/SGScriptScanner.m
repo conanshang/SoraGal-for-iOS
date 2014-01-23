@@ -211,6 +211,8 @@
             [lines addObject:self._bufferString];
             
             NSUInteger newTokenType = [[tokens objectForKey:@"GAMESCRIPTSTRING_TOKEN"] unsignedIntegerValue];
+            
+            //That's why every line ends with \r\n.
             NSString *tokenString = [lines componentsJoinedByString:@"\r\n"];
             return [self makeTokenWithType:newTokenType andText:tokenString];
         }

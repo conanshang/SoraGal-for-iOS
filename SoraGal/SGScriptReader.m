@@ -33,9 +33,9 @@
             scriptString = [[NSString alloc] init];
         }
         //Set the dateString from the received string, add extra space to the begining and ending.
-        self.dataString = [[@" " stringByAppendingString:scriptString] stringByAppendingString:@" "];
+        self.dataString = [[@" " stringByAppendingString:scriptString] stringByAppendingString:@"\n"];
         //Get the length of the string.
-        self.scriptStringLength = [scriptString length];
+        self.scriptStringLength = [self.dataString length]; //Previously, use [scriptString length] is a big miss.
         //Set the current position to the start point.
         self.currentPosition = 0;
     }
