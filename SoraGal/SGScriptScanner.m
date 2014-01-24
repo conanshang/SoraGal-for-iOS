@@ -7,6 +7,7 @@
 //
 
 #import "SGScriptScanner.h"
+#import "SGScriptHelper.h"
 
 #define START_STATE 1
 #define IDENTIFIER_STATE 2
@@ -20,6 +21,7 @@
 @interface SGScriptScanner()
 
 @property (nonatomic, strong) SGScriptReader *scriptReader;
+@property (nonatomic, strong) SGScriptHelper *scriptHelper;
 
 @property NSUInteger currentStatus;
 @property BOOL ifInTheProcessOf_GAMEDEFINEDFUNCTION_STATE;
@@ -43,6 +45,8 @@
     if(self){
         self.scriptReader = receivedReaderInstacnce;
         self.currentScriptToken = [[SGScriptToken alloc] init];
+        self.scriptHelper = [[SGScriptHelper alloc] init];
+        [self.scriptHelper createScriptTokens];
         
         self.currentLine = 0;
         self.ifSkipNewLine = YES;
@@ -230,7 +234,7 @@
             NSString *string = [NSString stringWithCharacters:&theChar length:1];
             self._bufferString = [self._bufferString stringByAppendingString:string];
             
-            if((ifFirstLine == YES) && ([[self.scriptHelper trimTheWhiteSpaceOfAString:self._bufferString] isEqualToString:@""])){
+            if((ifFirstLine == YES) && (![[self.scriptHelper trimTheWhiteSpaceOfAString:self._bufferString] isEqualToString:@""])){
                 ifFirstLine = NO;
             }
         }

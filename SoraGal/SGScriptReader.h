@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SGScriptExecutor.h"
 
-@interface SGScriptReader : SGScriptExecutor
+@interface SGScriptReader : NSObject
 
 //Create a new Reader by send a string.
 - (id)initWithString:(NSString *)scriptString;

@@ -29,6 +29,7 @@
 @interface SGScriptParser()
 
 @property (nonatomic, strong) SGScriptScanner *scriptScanner;
+@property (nonatomic, strong) SGScriptHelper *scriptHelper;
 @property (nonatomic, strong) SGScriptToken *currentScriptToken;
 @property (nonatomic, strong) SGScriptToken *lookAheadToken;
 
@@ -44,6 +45,8 @@
         self.scriptScanner = receivedScannerInstance;
         self.currentScriptToken = [[SGScriptToken alloc] init];
         self.lookAheadToken = [[SGScriptToken alloc] init];
+        self.scriptHelper = [[SGScriptHelper alloc] init];
+        [self.scriptHelper createScriptTokens];
         self.ifLookAheadTokenHasBeenUsed = YES;
     }
     return self;
@@ -286,33 +289,6 @@
     SGScriptGameScriptCallFunctionNode *node = [[SGScriptGameScriptCallFunctionNode alloc] initWithFunctionName:functionName andParameters:parameters];
     return node;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

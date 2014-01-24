@@ -11,7 +11,7 @@
 #import "SGScriptReader.h"
 #import "SGScriptToken.h"
 
-@interface SGScriptScanner : SGScriptExecutor
+@interface SGScriptScanner : NSObject
 
 @property (nonatomic, strong) SGScriptToken *currentScriptToken;
 

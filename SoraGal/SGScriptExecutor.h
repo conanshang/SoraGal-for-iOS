@@ -11,6 +11,6 @@
 
 @interface SGScriptExecutor : NSObject
 
-@property (nonatomic, strong) SGScriptHelper *scriptHelper;
+
 
 @end

@@ -51,8 +51,8 @@
 
 - (void)getStringDataFromFile{
     //The path of the script txt.
-    //NSString *path = [[NSBundle mainBundle] pathForResource:@"scriptExample" ofType:@"txt"];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"TestScript" ofType:@"txt"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"scriptExample" ofType:@"txt"];
+    //NSString *path = [[NSBundle mainBundle] pathForResource:@"TestScript" ofType:@"txt"];
     //Put the script to a string.
     self.testDialogString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }
@@ -130,7 +130,7 @@
     self.testScriptParser = [[SGScriptParser alloc] initWithScannerInstance:self.testScriptScanner];
     
     SGScriptExpressionBlockNode *node = [self.testScriptParser parse];
-    NSArray *resultArray = [node expressions];
+    NSArray *resultArray = node.expressions;
     
     NSString *resultString = [resultArray description];
     

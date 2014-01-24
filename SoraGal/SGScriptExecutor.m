@@ -17,8 +17,7 @@
 - (id)init{
     self = [super init];
     if(self){
-        self.scriptHelper = [[SGScriptHelper alloc] init];
-        [self.scriptHelper createScriptTokens];
+        
     }
     return self;
 }

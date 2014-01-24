@@ -11,7 +11,7 @@
 #import "SGScriptScanner.h"
 #import "SGScriptExpression.h"
 
-@interface SGScriptParser : SGScriptExecutor
+@interface SGScriptParser : NSObject
 
 - (id)initWithScannerInstance:(SGScriptScanner *)receivedScannerInstance;
 - (SGScriptExpressionBlockNode *)parse;
