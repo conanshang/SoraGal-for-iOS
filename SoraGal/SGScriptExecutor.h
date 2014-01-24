@@ -7,10 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SGScriptHelper.h"
 
 @interface SGScriptExecutor : NSObject
 
-
+- (id)initWithGameScriptString:(NSString *)receivedGameScriptString;
 
 @end

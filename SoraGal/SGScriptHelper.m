@@ -26,6 +26,7 @@
     return self;
 }
 
+//Create script tokens
 - (void)createScriptTokens{
     self.tempScriptTokens = [[NSMutableDictionary alloc] init];
     self.tempBackwardScriptTokensMap = [[NSMutableArray alloc] init];
@@ -49,11 +50,37 @@
     self.tempBackwardScriptTokensMap = nil;
 }
 
+//Remove the blanks in a string.
 - (NSString *)trimTheWhiteSpaceOfAString:(NSString *)string{
     NSArray *newString = [string componentsSeparatedByCharactersInSet :[NSCharacterSet whitespaceCharacterSet]];
     NSString *noSpaceString = [newString componentsJoinedByString:@""];
+    
     return noSpaceString;
 }
+
+//Handle the errors.
+- (void)setErrorsWithType:(NSString *)errorType andMessage:(NSString *)errorMessage andLineNumber:(NSUInteger)lineNumber{
+    NSDictionary *error = [NSDictionary dictionaryWithObjectsAndKeys:@"errorType", errorType, @"errorMessage", errorMessage, @"errorLineNumber", [NSNumber numberWithInt:lineNumber], nil];
+    
+    [self.scriptErrors addObject:error];
+    error = nil;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

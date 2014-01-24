@@ -7,6 +7,7 @@
 //
 
 #import "SGScriptParser.h"
+#import "SGScriptHelper.h"
 
 #define EOS_TOKEN 0
 #define JS_TOKEN 1
