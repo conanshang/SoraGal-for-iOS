@@ -7,6 +7,7 @@
 //
 
 #import "SGTestFunctionsViewController.h"
+#import "SGScriptExecutor.h"
 #import "SGScriptReader.h"
 #import "SGScriptScanner.h"
 #import "SGScriptParser.h"
