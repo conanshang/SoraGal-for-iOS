@@ -22,7 +22,11 @@
 
 @property (nonatomic, strong) NSString *gameScriptString;
 @property (nonatomic, strong) NSArray *gameScriptCommandArray;
-@property (nonatomic, strong) NSDictionary *gameLabelDictionary;
+@property (nonatomic, strong) NSDictionary *gameLabelDictionary; //All the tittles.
+@property NSUInteger currentScriptCommandPosition;
+@property (nonatomic, strong) NSMutableDictionary *gameScenarios;
+@property (nonatomic, strong) NSMutableArray *optionalVariables;
+
 
 @end
 
@@ -55,15 +59,74 @@
         
         self.gameLabelDictionary = tempGameLabelDictionary;
         tempGameLabelDictionary = nil;
+        
+        [self initialOtherVariables];
     }
     return self;
 }
 
+- (void)initialOtherVariables{
+    self.currentScriptCommandPosition = 0;
+    self.gameScenarios = [[NSMutableDictionary alloc] init];
+    self.optionalVariables = [[NSMutableArray alloc] init];
+}
 
+- (NSDictionary *)saveGame{
+    NSUInteger tempScriptCommandPosition = self.currentScriptCommandPosition - 1; //Mention!! The situation of -1.
+    
+    if(tempScriptCommandPosition > [self.gameScriptCommandArray count]){
+        tempScriptCommandPosition = [self.gameScriptCommandArray count] - 1;
+    }
+    
+    NSDictionary *tempGameScenarios = [NSDictionary dictionaryWithDictionary:self.gameScenarios];
+    
+    NSDictionary *tempSaveDataDictionary = [NSDictionary dictionaryWithObjectsAndKeys:self.optionalVariables, @"global", tempGameScenarios, @"scenarios", tempScriptCommandPosition, @"commandPosition", nil];
+    
+    
+    return tempSaveDataDictionary;
+}
 
+- (void)loadGameFromSaveData:(NSDictionary *)saveData{
+    // this.scriptManager.messageCenter.broadcast("LOADEVENT",null);
+    
+    self.optionalVariables = [saveData objectForKey:@"global"];
+    
+    //    for(var key in data.environ){
+    //        if(data.environ.hasOwnProperty(key)){
+    //            var cmd = data.environ[key];
+    //            this[cmd.functionName].apply(this,cmd.params);
+    //        }
+    //    }
+    
+    self.currentScriptCommandPosition = [[saveData objectForKey:@"commandPosition"] unsignedIntegerValue];
+}
 
+- (BOOL)next{
+    if(self.currentScriptCommandPosition > [self.gameScriptCommandArray count]){
+        return NO;
+    }
+    
+    SGScriptNode *expression = [self.gameScriptCommandArray objectAtIndex:self.currentScriptCommandPosition];
+    [self executeExpression:expression];
+    self.currentScriptCommandPosition++;
+    
+    return YES;
+}
+
+- (void)executeExpression:(SGScriptNode *)expression{
+    
+}
 
 @end
+
+
+
+
+
+
+
+
+
 
 
 

@@ -60,7 +60,7 @@
 
 //Handle the errors.
 - (void)setErrorsWithType:(NSString *)errorType andMessage:(NSString *)errorMessage andLineNumber:(NSUInteger)lineNumber{
-    NSDictionary *error = [NSDictionary dictionaryWithObjectsAndKeys:@"errorType", errorType, @"errorMessage", errorMessage, @"errorLineNumber", [NSNumber numberWithInt:lineNumber], nil];
+    NSDictionary *error = [NSDictionary dictionaryWithObjectsAndKeys:@"errorType", errorType, @"errorMessage", errorMessage, @"errorLineNumber", [NSNumber numberWithUnsignedInteger:lineNumber], nil];
     
     [self.scriptErrors addObject:error];
     error = nil;

@@ -11,7 +11,7 @@
 @interface SGScriptExecutor : NSObject
 
 - (id)initWithGameScriptString:(NSString *)receivedGameScriptString;
-- (void)saveGame;
-- (void)loadGame;
+- (NSDictionary *)saveGame;
+- (void)loadGameFromSaveData:(NSDictionary *)saveData;
 
 @end

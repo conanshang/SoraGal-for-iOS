@@ -133,7 +133,7 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
-		0F7DEFBA1890D9570096FFE4 /* ScriptExecutor */ = {
+		0F7DEFBA1890D9570096FFE4 /* ScriptProcessor */ = {
 			isa = PBXGroup;
 			children = (
 				0F15E3831887E3BB00B83AEF /* SGScriptExecutor.h */,
@@ -151,7 +151,7 @@
 				0F15E3901889324F00B83AEF /* SGScriptHelper.h */,
 				0F15E3911889324F00B83AEF /* SGScriptHelper.m */,
 			);
-			name = ScriptExecutor;
+			name = ScriptProcessor;
 			sourceTree = "<group>";
 		};
 		0FB494501886A650000C743C /* Views */ = {
@@ -210,7 +210,7 @@
 		0FBFF4C51884410000F1E1DC /* SoraGal */ = {
 			isa = PBXGroup;
 			children = (
-				0F7DEFBA1890D9570096FFE4 /* ScriptExecutor */,
+				0F7DEFBA1890D9570096FFE4 /* ScriptProcessor */,
 				0F15E3861887E3CB00B83AEF /* ViewControllers */,
 				0FB494501886A650000C743C /* Views */,
 				0FBFF4D11884410000F1E1DC /* Main.storyboard */,
