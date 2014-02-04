@@ -24,6 +24,7 @@
 @property (strong, nonatomic) SGScriptReader *testSGScriptReader;
 @property (strong, nonatomic) SGScriptScanner *testScriptScanner;
 @property (strong, nonatomic) SGScriptParser *testScriptParser;
+@property (strong, nonatomic) SGScriptExecutor *testScriptExecutor;
 @property (strong, nonatomic) SGScriptHelper *testSGScriptHelper;
 
 @end
@@ -46,14 +47,15 @@
     [self getStringDataFromFile];
     //[self testReader];
     //[self testScanner];
-    [self testParser];
+    //[self testParser];
+    [self testExecutor];
     
 }
 
 - (void)getStringDataFromFile{
     //The path of the script txt.
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"scriptExample" ofType:@"txt"];
-    //NSString *path = [[NSBundle mainBundle] pathForResource:@"TestScript" ofType:@"txt"];
+    //NSString *path = [[NSBundle mainBundle] pathForResource:@"scriptExample" ofType:@"txt"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"TestScript" ofType:@"txt"];
     //Put the script to a string.
     self.testDialogString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }
@@ -138,7 +140,14 @@
     self.testDialogView.text = resultString;
 }
 
-
+- (void)testExecutor{
+    self.testScriptExecutor = [[SGScriptExecutor alloc] initWithGameScriptString:self.testDialogString];
+    
+    [self.testScriptExecutor next];
+    NSArray *commandArray = self.testScriptExecutor.gameCommandWaitingArray;
+    
+    self.testDialogView.text = [commandArray description];
+}
 
 
 

@@ -218,7 +218,7 @@
 - (NSDictionary *)processCharacterTextImageAndVoiceInDialogString:(NSString *)sourceString{
     NSString *characterProperty = @"";
     NSString *dialogText = @"";
-    NSDictionary *result;
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
     
     //Find '：'
     unichar fullWidthForm = 0xFF1A;
@@ -234,6 +234,7 @@
     else{
         dialogText = sourceString;
     }
+    [result setObject:dialogText forKey:@"dialogText"];
     
     //Use regular expression to seperate name, image and voice.
     NSString *characterName;
@@ -262,19 +263,21 @@
                 //Process character information.
                 if([firstString isEqualToString:@"voice"]){
                     characterVoice = secondString;
+                    [result setObject:characterVoice forKey:@"voice"];
                 }
                 else{
                     characterName = firstString;
+                    [result setObject:characterName forKey:@"name"];
+                    
                     characterImage = secondString;
+                    [result setObject:characterImage forKey:@"image"];
                 }
             }
             else if([matches count] == 0){
                 characterName = string;
+                [result setObject:characterName forKey:@"name"];
             }
         }
-        
-        //Put information to the result.
-        result = [NSDictionary dictionaryWithObjectsAndKeys:characterName, @"name", characterImage, @"image", characterVoice, @"voice", dialogText, @"dialogText", nil];
     }
     
     return result;
