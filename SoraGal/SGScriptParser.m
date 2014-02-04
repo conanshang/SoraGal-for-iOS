@@ -145,7 +145,7 @@
     }
 }
 
-- (SGScriptNode *)parseExpression{
+- (id)parseExpression{
     switch ([self lookAhead]) {
         case GAMESCRIPTSTRING_TOKEN:{
             [self nextToken];

@@ -10,8 +10,9 @@
 
 @interface SGScriptExecutor : NSObject
 
+@property (nonatomic, strong) NSArray *gameCommandWaitingArray;
+
 - (id)initWithGameScriptString:(NSString *)receivedGameScriptString;
-- (NSDictionary *)saveGame;
-- (void)loadGameFromSaveData:(NSDictionary *)saveData;
+- (BOOL)next;
 
 @end
