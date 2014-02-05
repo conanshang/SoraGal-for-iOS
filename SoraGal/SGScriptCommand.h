@@ -12,6 +12,8 @@
 
 @property (nonatomic, strong) NSString *commandName;
 @property (nonatomic, strong) NSArray *commandParameters;
+//Comamnd type has @"dialogComamnd" and @"scriptFunctionComamnd".
+@property (nonatomic, strong) NSString *currentCommandType;
 
 + (id)createCommandWithCommandName:(NSString *)name andCommandParameters:(NSArray *)parameters;
 

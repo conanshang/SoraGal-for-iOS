@@ -7,6 +7,7 @@
 //
 
 #import "SGTestFunctionsViewController.h"
+#import "SGProcessCenter.h"
 #import "SGScriptExecutor.h"
 #import "SGScriptReader.h"
 #import "SGScriptScanner.h"
@@ -25,6 +26,7 @@
 @property (strong, nonatomic) SGScriptScanner *testScriptScanner;
 @property (strong, nonatomic) SGScriptParser *testScriptParser;
 @property (strong, nonatomic) SGScriptExecutor *testScriptExecutor;
+@property (nonatomic, strong) SGProcessCenter *testScriptProcessCenter;
 @property (strong, nonatomic) SGScriptHelper *testSGScriptHelper;
 
 @end
@@ -48,14 +50,16 @@
     //[self testReader];
     //[self testScanner];
     //[self testParser];
-    [self testExecutor];
+    //[self testExecutor];
+    [self testProcessCenter];
     
 }
 
 - (void)getStringDataFromFile{
     //The path of the script txt.
     //NSString *path = [[NSBundle mainBundle] pathForResource:@"scriptExample" ofType:@"txt"];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"TestScript" ofType:@"txt"];
+    //NSString *path = [[NSBundle mainBundle] pathForResource:@"TestScript" ofType:@"txt"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"gameConfiguration" ofType:@"txt"];
     //Put the script to a string.
     self.testDialogString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }
@@ -144,10 +148,60 @@
     self.testScriptExecutor = [[SGScriptExecutor alloc] initWithGameScriptString:self.testDialogString];
     
     [self.testScriptExecutor next];
-    NSArray *commandArray = self.testScriptExecutor.gameCommandWaitingArray;
+    NSArray *commandArray = self.testScriptExecutor.waitingCommandArray;
     
     self.testDialogView.text = [commandArray description];
 }
+
+- (void)testProcessCenter{
+    self.testScriptProcessCenter = [[SGProcessCenter alloc] init];
+    
+    NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+    
+    while([self.testScriptProcessCenter nextLine]){
+        [resultArray addObject:self.testScriptProcessCenter.testCommandArray];
+    }
+    
+//    BOOL ifContinue = YES;
+//    while(ifContinue){
+//        ifContinue = [self.testScriptProcessCenter nextLine];
+//        
+//        if(ifContinue){
+//            [resultArray addObject:self.testScriptProcessCenter.testCommandArray];
+//        }
+//        
+//    }
+    
+//    [self.testScriptProcessCenter nextLine];
+//    [resultArray addObject:self.testScriptProcessCenter.testCommandArray];
+    
+//    int i = 5;
+//    while (i > 0) {
+//        [self.testScriptProcessCenter nextLine];
+//        [resultArray addObject:self.testScriptProcessCenter.testCommandArray];
+//        
+//        i--;
+//    }
+    
+    self.testDialogView.text = [NSString stringWithFormat:@"%lu", (unsigned long)[resultArray count]];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -268,5 +268,3 @@
 @video "opening.m4v"
 
 序章结束。
-
-@goto "title"

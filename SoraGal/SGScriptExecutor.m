@@ -25,7 +25,8 @@
 @property (nonatomic, strong) NSArray *gameScriptCommandArray;
 @property (nonatomic, strong) NSDictionary *gameLabelDictionary; //All the tittles.
 @property NSUInteger currentScriptCommandPosition;
-@property (nonatomic, strong) NSMutableArray *tempGameCommandWaitingArray;
+@property (nonatomic, strong) NSMutableArray *tempWaitingCommandArray;
+@property BOOL ifFinishedCreatingCommandArray;
 
 
 @end
@@ -75,41 +76,12 @@
 }
 
 - (void)initialOtherVariables{
-    self.tempGameCommandWaitingArray = [[NSMutableArray alloc] init];
+    self.tempWaitingCommandArray = [[NSMutableArray alloc] init];
+    self.ifFinishedCreatingCommandArray = YES;
 }
 
-//- (NSDictionary *)saveGame{
-//    NSUInteger tempScriptCommandPosition = self.currentScriptCommandPosition - 1; //Mention!! The situation of -1.
-//    
-//    if(tempScriptCommandPosition > [self.gameScriptCommandArray count]){
-//        tempScriptCommandPosition = [self.gameScriptCommandArray count] - 1;
-//    }
-//    
-//    NSDictionary *tempGameScenarios = [NSDictionary dictionaryWithDictionary:self.gameScenarios];
-//    
-//    NSDictionary *tempSaveDataDictionary = [NSDictionary dictionaryWithObjectsAndKeys:self.optionalVariables, @"global", tempGameScenarios, @"scenarios", tempScriptCommandPosition, @"commandPosition", nil];
-//    
-//    
-//    return tempSaveDataDictionary;
-//}
-//
-//- (void)loadGameFromSaveData:(NSDictionary *)saveData{
-//    // this.scriptManager.messageCenter.broadcast("LOADEVENT",null);
-//    
-//    self.optionalVariables = [saveData objectForKey:@"global"];
-//    
-//    //    for(var key in data.environ){
-//    //        if(data.environ.hasOwnProperty(key)){
-//    //            var cmd = data.environ[key];
-//    //            this[cmd.functionName].apply(this,cmd.params);
-//    //        }
-//    //    }
-//    
-//    self.currentScriptCommandPosition = [[saveData objectForKey:@"commandPosition"] unsignedIntegerValue];
-//}
-
 - (BOOL)next{
-    if(self.currentScriptCommandPosition > [self.gameScriptCommandArray count]){
+    if(self.currentScriptCommandPosition >= [self.gameScriptCommandArray count]){
         return NO;
     }
     
@@ -117,10 +89,33 @@
     [self executeExpression:expression];
     self.currentScriptCommandPosition++;
     
-    self.gameCommandWaitingArray = self.tempGameCommandWaitingArray;
-    self.tempGameCommandWaitingArray = nil;
+    if(self.ifFinishedCreatingCommandArray){
+        self.waitingCommandArray = [NSArray arrayWithArray:self.tempWaitingCommandArray];
+        self.tempWaitingCommandArray = [[NSMutableArray alloc] init];
+    }
+    else{
+        [self next];
+    }
     
     return YES;
+}
+
+- (void)lookTheNextLineCommandType{
+    NSUInteger nextLine = self.currentScriptCommandPosition + 1;
+    
+    if(nextLine >= [self.gameScriptCommandArray count]){
+        self.ifFinishedCreatingCommandArray = YES;
+    }
+    else{
+        SGScriptNode *expression = [self.gameScriptCommandArray objectAtIndex:nextLine];
+        
+        if([expression isKindOfClass:[SGScriptGameScriptCallFunctionNode class]]){
+            self.ifFinishedCreatingCommandArray = NO;
+        }
+        else{
+            self.ifFinishedCreatingCommandArray = YES;
+        }
+    }
 }
 
 - (void)executeExpression:(id)expression{
@@ -177,11 +172,17 @@
         }
     }
     
-    return result;
+    return [NSArray arrayWithArray:result];
 }
 
 - (void)callScriptFunction:(SGScriptGameScriptCallFunctionNode *)functionNode{
+    NSString *commandName = functionNode.functionName;
+    NSArray *commandParameters  = [self processExpressionParameters:functionNode.parameters];
     
+    SGScriptCommand *comamnd = [SGScriptCommand createCommandWithCommandName:commandName andCommandParameters:commandParameters];
+    [self.tempWaitingCommandArray addObject:comamnd];
+    
+    [self lookTheNextLineCommandType];
 }
 
 - (void)outputDialogString:(NSString *)string{
@@ -189,22 +190,24 @@
     
     if([processResult objectForKey:@"name"]){
         SGScriptCommand *command = [SGScriptCommand createCommandWithCommandName:@"setCharacterName" andCommandParameters:[NSArray arrayWithObject:[processResult objectForKey:@"name"]]];
-        [self.tempGameCommandWaitingArray addObject:command];
+        [self.tempWaitingCommandArray addObject:command];
     }
     
     if([processResult objectForKey:@"image"]){
         SGScriptCommand *command = [SGScriptCommand createCommandWithCommandName:@"setCharacterImage" andCommandParameters:[NSArray arrayWithObject:[processResult objectForKey:@"image"]]];
-        [self.tempGameCommandWaitingArray addObject:command];
+        [self.tempWaitingCommandArray addObject:command];
     }
     
     if([processResult objectForKey:@"voice"]){
         SGScriptCommand *command = [SGScriptCommand createCommandWithCommandName:@"playCharacterVoice" andCommandParameters:[NSArray arrayWithObject:[processResult objectForKey:@"voice"]]];
-        [self.tempGameCommandWaitingArray addObject:command];
+        [self.tempWaitingCommandArray addObject:command];
     }
     
     NSString *dialogText = [processResult objectForKey:@"dialogText"];
     SGScriptCommand *newCommand = [SGScriptCommand createCommandWithCommandName:@"showDialogText" andCommandParameters:[NSArray arrayWithObject:dialogText]];
-    [self.tempGameCommandWaitingArray addObject:newCommand];    
+    [self.tempWaitingCommandArray addObject:newCommand];
+    
+    self.ifFinishedCreatingCommandArray = YES;
 }
 
 - (void)gotoLabel:(NSString *)labelName{
@@ -213,6 +216,11 @@
     }
     
     self.currentScriptCommandPosition = [[self.gameLabelDictionary objectForKey:labelName] unsignedIntegerValue];
+    
+    SGScriptCommand *newCommand = [SGScriptCommand createCommandWithCommandName:@"gotoLabel" andCommandParameters:[NSArray arrayWithObject:labelName]];
+    [self.tempWaitingCommandArray addObject:newCommand];
+    
+    self.ifFinishedCreatingCommandArray = YES;
 }
 
 - (NSDictionary *)processCharacterTextImageAndVoiceInDialogString:(NSString *)sourceString{
@@ -280,7 +288,7 @@
         }
     }
     
-    return result;
+    return [NSDictionary dictionaryWithDictionary:result];
 }
 
 

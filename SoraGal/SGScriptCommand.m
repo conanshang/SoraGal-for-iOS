@@ -19,6 +19,8 @@
     if(self){
         self.commandName = name;
         self.commandParameters = parameters;
+        
+        self.currentCommandType = [[NSString alloc] init];
     }
     return self;
 }

@@ -1,8 +1,28 @@
-悠：......喂,你不吃点东西吗?
 
-穹：.......
+@label "title"
+@setBGM "BGM07"
 
-话虽如此,可是穹从刚才就一直望着窗外的风景,一动也不
-动,而且也不理我.
+@set "sb_BackgroundImage","image","img/scrpitboxbk.jpg",0.7
+
+@dailog "titleDailog"
+@setBG "sora"
+@setBGM "huoche1"
+蔚蓝的天空让人觉得异常清澈.不同城市的天空,纯粹的蓝
 
 悠：........
+
+不过,幸好我身边还有一个旅伴.....
+
+@setBG "EA01e",500
+
+睁眼一看,是刚才被穹拿走的点心盒.
+
+@setBG "EA01g"
+
+我是靠自己的意志决定来这里生活的.现在也无法回头,而且
+我也不打算回头.
+
+@setBGColor "#000"
+@video "opening.m4v"
+
+序章结束。

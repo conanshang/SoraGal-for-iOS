@@ -10,4 +10,8 @@
 
 @interface SGProcessCenter : NSObject
 
+@property (nonatomic, strong) NSArray *testCommandArray;
+
+- (BOOL)nextLine;
+
 @end
