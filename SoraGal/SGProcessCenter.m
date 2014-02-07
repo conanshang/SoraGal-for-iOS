@@ -15,6 +15,8 @@
 @property (nonatomic, strong) SGScriptExecutor *gameExecutor;
 
 @property (nonatomic, strong) NSDictionary *gameConfigMap;
+@property (nonatomic, strong) NSArray *currentCommandArray;
+@property (nonatomic, strong) NSMutableDictionary *gameStatus;
 
 @end
 
@@ -34,6 +36,9 @@
     
     //Create the SGScriptExecutor instance.
     [self createScriptExecutorInstance];
+    
+    //Alloc the variable for saving game status.
+    self.gameStatus = [[NSMutableDictionary alloc] init];
 }
 
 - (void)loadGameConfiguration{
@@ -90,22 +95,37 @@
     self.gameExecutor = [[SGScriptExecutor alloc] initWithGameScriptString:scriptString];
 }
 
-- (BOOL)nextLine{
+- (NSArray *)nextLine{
     if([self.gameExecutor next]){
-        self.testCommandArray = self.gameExecutor.waitingCommandArray;
-        return YES;
+        self.currentCommandArray = self.gameExecutor.waitingCommandArray;
+        
+        [self recordCurrentGameStatus]; //Need put in other block.
+        
+        return self.currentCommandArray;
     }
     else{
-        return NO;
+        return nil;
     }
 }
 
-- (void)saveGame{
+- (void)recordCurrentGameStatus{
+    for(int i=0; i<[self.currentCommandArray count]; i++){
+        SGScriptCommand *currentCommand = [self.currentCommandArray objectAtIndex:i];
+        NSString *commandName = currentCommand.commandName;
+        NSArray *commandParameters = currentCommand.commandParameters;
+        
+        [self.gameStatus setObject:commandParameters forKey:commandName];
+    }
     
+    [self.gameStatus setObject:[NSNumber numberWithInteger:[self.gameExecutor askCurrentLine]] forKey:@"currentLine"];
 }
 
-- (void)loadGame{
-    
+- (NSDictionary *)saveGameInScriptProcessorLevel{
+    return [NSDictionary dictionaryWithDictionary:self.gameStatus];
+}
+
+- (void)loadGameInScriptProcessorLevel:(NSUInteger)currentLine{
+    [self.gameExecutor reloadCurrentLine:currentLine];
 }
 
 
@@ -118,58 +138,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//- (NSDictionary *)saveGame{
-//    NSUInteger tempScriptCommandPosition = self.currentScriptCommandPosition - 1; //Mention!! The situation of -1.
-//
-//    if(tempScriptCommandPosition > [self.gameScriptCommandArray count]){
-//        tempScriptCommandPosition = [self.gameScriptCommandArray count] - 1;
-//    }
-//
-//    NSDictionary *tempGameScenarios = [NSDictionary dictionaryWithDictionary:self.gameScenarios];
-//
-//    NSDictionary *tempSaveDataDictionary = [NSDictionary dictionaryWithObjectsAndKeys:self.optionalVariables, @"global", tempGameScenarios, @"scenarios", tempScriptCommandPosition, @"commandPosition", nil];
-//
-//
-//    return tempSaveDataDictionary;
-//}
-//
-//- (void)loadGameFromSaveData:(NSDictionary *)saveData{
-//    // this.scriptManager.messageCenter.broadcast("LOADEVENT",null);
-//
-//    self.optionalVariables = [saveData objectForKey:@"global"];
-//
-//    //    for(var key in data.environ){
-//    //        if(data.environ.hasOwnProperty(key)){
-//    //            var cmd = data.environ[key];
-//    //            this[cmd.functionName].apply(this,cmd.params);
-//    //        }
-//    //    }
-//
-//    self.currentScriptCommandPosition = [[saveData objectForKey:@"commandPosition"] unsignedIntegerValue];
-//}'
 
 
 

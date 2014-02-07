@@ -14,5 +14,7 @@
 
 - (id)initWithGameScriptString:(NSString *)receivedGameScriptString;
 - (BOOL)next;
+- (NSUInteger)askCurrentLine;
+- (void)reloadCurrentLine:(NSUInteger)currentLine;
 
 @end

@@ -10,8 +10,8 @@
 
 @interface SGProcessCenter : NSObject
 
-@property (nonatomic, strong) NSArray *testCommandArray;
-
-- (BOOL)nextLine;
+- (NSArray *)nextLine;
+- (NSDictionary *)saveGameInScriptProcessorLevel;
+- (void)loadGameInScriptProcessorLevel:(NSUInteger)currentLine;
 
 @end

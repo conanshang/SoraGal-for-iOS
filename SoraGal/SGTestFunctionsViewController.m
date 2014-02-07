@@ -158,11 +158,20 @@
     
     NSMutableArray *resultArray = [[NSMutableArray alloc] init];
     
-    while([self.testScriptProcessCenter nextLine]){
-        [resultArray addObject:self.testScriptProcessCenter.testCommandArray];
+    BOOL ifContinue = YES;
+    while(ifContinue){
+        NSArray *result = [self.testScriptProcessCenter nextLine];
+        if(result){
+            [resultArray addObject:result];
+        }
+        else{
+            ifContinue = NO;
+        }  
     }
     
-    self.testDialogView.text = [NSString stringWithFormat:@"%lu", (unsigned long)[resultArray count]];
+    NSMutableDictionary *gameStatusDictionary = self.testScriptProcessCenter.gameStatus;
+    
+    self.testDialogView.text = [NSString stringWithFormat:@"%lu", (unsigned long)[gameStatusDictionary count]];
 }
 
 

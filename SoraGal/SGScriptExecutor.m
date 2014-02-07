@@ -291,13 +291,13 @@
     return [NSDictionary dictionaryWithDictionary:result];
 }
 
+- (NSUInteger)askCurrentLine{
+    return self.currentScriptCommandPosition;
+}
 
-
-
-
-
-
-
+- (void)reloadCurrentLine:(NSUInteger)currentLine{
+    self.currentScriptCommandPosition = currentLine;
+}
 
 
 
