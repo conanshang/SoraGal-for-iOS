@@ -162,27 +162,6 @@
         [resultArray addObject:self.testScriptProcessCenter.testCommandArray];
     }
     
-//    BOOL ifContinue = YES;
-//    while(ifContinue){
-//        ifContinue = [self.testScriptProcessCenter nextLine];
-//        
-//        if(ifContinue){
-//            [resultArray addObject:self.testScriptProcessCenter.testCommandArray];
-//        }
-//        
-//    }
-    
-//    [self.testScriptProcessCenter nextLine];
-//    [resultArray addObject:self.testScriptProcessCenter.testCommandArray];
-    
-//    int i = 5;
-//    while (i > 0) {
-//        [self.testScriptProcessCenter nextLine];
-//        [resultArray addObject:self.testScriptProcessCenter.testCommandArray];
-//        
-//        i--;
-//    }
-    
     self.testDialogView.text = [NSString stringWithFormat:@"%lu", (unsigned long)[resultArray count]];
 }
 
