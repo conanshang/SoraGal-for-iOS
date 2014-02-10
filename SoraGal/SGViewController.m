@@ -86,6 +86,27 @@
     return NO;
 }
 
+- (void)showDialog:(NSString *)characterName andText:(NSString *)dialogText{
+    if(characterName != nil){
+        if([characterName length] > 25){
+            characterName = [characterName substringToIndex:99];
+            
+            NSLog(@"Charater name text exceed max length.");
+        }
+        self.dialogView.dialogName = [characterName stringByAppendingString:@"："];
+    }
+    else{
+        self.dialogView.dialogName = @"";
+    }
+
+    if([dialogText length] > 140){
+        dialogText = [dialogText substringToIndex:139];
+        
+        NSLog(@"Dialog text exceed max length in a single page.");
+    }
+    self.dialogView.dialogText = dialogText; 
+}
+
 
 
 /** Ends views controlling methods. */
@@ -113,10 +134,10 @@
 
 
 
-
 - (void)testTheFunctions{
     [self changeCGBackground:@"eden_1" withType:@"jpg" andTransitionTime:1.0];
     //[self changePureColorBackground:@"#255255255"];
+    [self showDialog:@"悠" andText:@"我本以为自由我才会有这种稀奇古怪的想法吧可没想到的是前几天看的推理小说中里面的犯人也和我同样的幻想着蔚蓝的天空让人觉得异常清澈不同城市的天空纯粹的蓝和天空一样连白云都显示出了和城市中所不一天的异彩不禁让人有果然是空气清新啊这种想法我心中那份微弱的旅行的热情也冷却下来。"];
 
 }
 

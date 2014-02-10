@@ -7,6 +7,11 @@
 //
 
 #import "SGDialogView.h"
+@interface SGDialogView()
+
+@property BOOL ifShowDialogNameBox;
+
+@end
 
 @implementation SGDialogView
 
@@ -15,6 +20,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.ifShowDialogNameBox = NO;
     }
     return self;
 }
@@ -27,9 +33,16 @@
 }
 
 - (void)setDialogName:(NSString *)dialogName{
-    if(dialogName != _dialogName){
-        _dialogName = dialogName;
-        //[self setNeedsDisplay];
+    if([dialogName isEqualToString:@""]){
+        self.ifShowDialogNameBox = NO;
+    }
+    else{
+        if(dialogName != _dialogName){
+            _dialogName = dialogName;
+            
+            self.ifShowDialogNameBox = YES;
+            //[self setNeedsDisplay];
+        }
     }
 }
 
@@ -38,6 +51,12 @@
         _dialogText = dialogText;
         [self setNeedsDisplay];
     }
+}
+
+- (CGFloat)calculateDialogNameBoxLengthUseFontsInfomation:(NSDictionary *)fonts{
+    CGSize nameSize = [self.dialogName sizeWithAttributes:fonts];
+   
+    return nameSize.width;
 }
 
 - (void)drawDialogBox:(CGContextRef)context{
@@ -57,37 +76,52 @@
     CGFloat gradientLocations[] = {0, 0.51, 1};
     CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradientColors, gradientLocations);
     
-    //// Rounded Rectangle Drawing
-    UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(23.5, 5.5, 521, 94) cornerRadius: 5];
+    //// Dialog Box Drawing
+    UIBezierPath* dialogBoxPath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(9, 33, 550, 93) cornerRadius: 5];
     CGContextSaveGState(context);
-    [roundedRectanglePath addClip];
-    CGContextDrawLinearGradient(context, gradient, CGPointMake(284, 5.5), CGPointMake(284, 99.5), 0);
+    [dialogBoxPath addClip];
+    CGContextDrawLinearGradient(context, gradient, CGPointMake(284, 33), CGPointMake(284, 126), 0);
     CGContextRestoreGState(context);
     [color4 setStroke];
-    roundedRectanglePath.lineWidth = 1;
-    [roundedRectanglePath stroke];
+    dialogBoxPath.lineWidth = 1;
+    [dialogBoxPath stroke];
+    
+    //// Dialog Text Drawing
+    CGRect dialogTextRect = CGRectMake(19, 43, 530, 83);
+    NSMutableParagraphStyle* dialogTextStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+    [dialogTextStyle setAlignment: NSTextAlignmentLeft];
+    
+    NSDictionary* dialogTextFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Helvetica" size: 15], NSForegroundColorAttributeName: [UIColor blackColor], NSParagraphStyleAttributeName: dialogTextStyle};
+    
+    [self.dialogText drawInRect: dialogTextRect withAttributes: dialogTextFontAttributes];
+    
+    //// Name Box Drawing & Name Text Drawing
+    if(self.ifShowDialogNameBox){
+        //Set Name Text fonts.
+        NSMutableParagraphStyle* nameTextStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+        NSDictionary* nameTextFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Helvetica" size: 18], NSForegroundColorAttributeName: [UIColor blackColor], NSParagraphStyleAttributeName: nameTextStyle};
+        
+        //Get the display length of name text for the fonts settings.
+        CGFloat nameTextLengthInPoint = [self calculateDialogNameBoxLengthUseFontsInfomation:nameTextFontAttributes];
+        
+        //Name Box Drawing.
+            //Set the box length dynamiclly from character name's length.
+        UIBezierPath* nameBoxPath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(9, 3, nameTextLengthInPoint + 10, 27) cornerRadius: 5]; //+10 means box is larger.
+        CGContextSaveGState(context);
+        [nameBoxPath addClip];
+        CGContextDrawLinearGradient(context, gradient, CGPointMake(84, 3), CGPointMake(84, 30), 0);
+        CGContextRestoreGState(context);
+        [color4 setStroke];
+        nameBoxPath.lineWidth = 1;
+        [nameBoxPath stroke];
+        
+        //Draw the name text. If draw the before the name box, name box wii overdraw the text.
+            //Set the box length dynamiclly from character name's length.
+        CGRect nameTextRect = CGRectMake(9 + 5, 5, nameTextLengthInPoint, 23); //+5 means add half of the larger amount of the box, which is +10 above.
+        [nameTextStyle setAlignment: NSTextAlignmentRight];
+        [self.dialogName drawInRect: CGRectInset(nameTextRect, 0, 1.5) withAttributes: nameTextFontAttributes];
+    }
 
-    //// Text 2 Drawing
-    CGRect text2Rect = CGRectMake(30, 4, 505, 25);
-    NSMutableParagraphStyle* text2Style = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
-    [text2Style setAlignment: NSTextAlignmentLeft];
-    
-    NSDictionary* text2FontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Helvetica-Bold" size: 18], NSForegroundColorAttributeName: [UIColor blackColor], NSParagraphStyleAttributeName: text2Style};
-    
-    [@"悠：" drawInRect: CGRectInset(text2Rect, 0, 3) withAttributes: text2FontAttributes];
-    
-    //// Abstracted Attributes
-    NSString* textContent = @"我本以为,自由我才会有这种稀奇古怪的想法吧,可没想到的是前几天看的推理小说中,里面的犯人也和我同样的幻想着蔚蓝的天空让人觉得异常清澈.不同城市的天空,纯粹的蓝等间隔的电线杆从眼前一个一个的飞过让我想起了小时候";
-    //// Text Drawing
-    CGRect textRect = CGRectMake(30, 29, 511, 60);
-    NSMutableParagraphStyle* textStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
-    [textStyle setAlignment: NSTextAlignmentLeft];
-    
-    NSDictionary* textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Helvetica" size: 15], NSForegroundColorAttributeName: [UIColor blackColor], NSParagraphStyleAttributeName: textStyle};
-    
-    [textContent drawInRect:CGRectInset(textRect, 0, 3) withAttributes: textFontAttributes];
-    
-    
     //// Cleanup
     CGGradientRelease(gradient);
     CGColorSpaceRelease(colorSpace);
