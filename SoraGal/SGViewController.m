@@ -11,9 +11,9 @@
 
 @interface SGViewController ()
 
-@property (weak, nonatomic) IBOutlet SGDialogView *dialogView;
-
+//The view conponents.
 @property (weak, nonatomic) IBOutlet UIImageView *CGView;
+@property (weak, nonatomic) IBOutlet SGDialogView *dialogView;
 
 
 @end
@@ -24,26 +24,85 @@
 {
     [super viewDidLoad];
 	
+    //Initial all the settings.
     [self initialAllSettings];
-    [self putCGImage:@"eden_1" andType:@"jpg"];
+    
+    //Run the test functions.
+    [self testTheFunctions];
 }
 
-//Use to set everything when loading.
+//Initialize the viewController settings.
 - (void)initialAllSettings{
-    self.dialogView.dialogAlpha = 0.5; //Set the initial alpha to 0.5.
+    self.dialogView.dialogAlpha = 1.0; //Set the initial alpha to 0.5.
 }
+
+
+/*** Views controlling methods.  */
 
 //Change the CG image.
-- (void)putCGImage:(NSString *)imageName andType:(NSString *)imageType{
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageName ofType:imageType];
+- (BOOL)changeCGBackground:(NSString *)cgName withType:(NSString *)imageType andTransitionTime:(float)transitionTime{
+    NSString *imagePath = [[NSBundle mainBundle] pathForResource:cgName ofType:imageType];
     UIImage *imageCG = [[UIImage alloc] initWithContentsOfFile:imagePath];
     
     if(imageCG != nil){
         self.CGView.image = imageCG;
+        
+        return YES;
     }
     
+    return NO;
 }
 
+//Change the CG image with pure color.
+- (BOOL)changePureColorBackground:(NSString *)rgbColor{
+    UIColor *pureColor;
+    
+    char colorIndicator = [rgbColor characterAtIndex:0];
+    if(colorIndicator == '#'){
+        NSString *rgbValue = [rgbColor substringFromIndex:1];
+        NSUInteger rgbValueAverageLength = [rgbValue length] / 3;
+        
+        NSRange range;
+        range.location = 0;
+        range.length = rgbValueAverageLength;
+        
+        float r = [[rgbValue substringWithRange:range] integerValue] / 255.0;
+        
+        range.location = range.location + rgbValueAverageLength;
+        float g = [[rgbValue substringWithRange:range] integerValue] / 255.0;
+        
+        range.location = range.location + rgbValueAverageLength;
+        float b = [[rgbValue substringWithRange:range] integerValue] / 255.0;
+        
+        pureColor = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
+    }
+    
+    if(pureColor){
+        self.CGView.backgroundColor = pureColor;
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
+
+
+/** Ends views controlling methods. */
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Setting parts.
 //Change the alpha of dialog box.
 - (IBAction)dialogAlphaChangingSlider:(id)sender {
     UISlider *slider = sender;
@@ -55,18 +114,17 @@
 
 
 
+- (void)testTheFunctions{
+    [self changeCGBackground:@"eden_1" withType:@"jpg" andTransitionTime:1.0];
+    //[self changePureColorBackground:@"#255255255"];
 
-
-
-
-
-
+}
 
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    // Dispose of any resources that can b recreated.
 }
 
 @end

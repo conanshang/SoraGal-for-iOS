@@ -10,6 +10,11 @@
 
 @interface SGDialogView : UIView
 
+//For displaying use.
+@property (nonatomic, strong) NSString *dialogName;
+@property (nonatomic, strong) NSString *dialogText;
+
+//For settings use.
 @property (nonatomic, readwrite) CGFloat dialogAlpha;
 
 @end

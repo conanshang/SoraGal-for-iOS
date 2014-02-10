@@ -169,9 +169,9 @@
         }  
     }
     
-    NSMutableDictionary *gameStatusDictionary = self.testScriptProcessCenter.gameStatus;
+    //NSMutableDictionary *gameStatusDictionary = self.testScriptProcessCenter.gameStatus;
     
-    self.testDialogView.text = [NSString stringWithFormat:@"%lu", (unsigned long)[gameStatusDictionary count]];
+    //self.testDialogView.text = [NSString stringWithFormat:@"%lu", (unsigned long)[gameStatusDictionary count]];
 }
 
 
