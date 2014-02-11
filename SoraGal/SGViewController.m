@@ -6,6 +6,9 @@
 //  Copyright (c) 2014 Zihang Wang. All rights reserved.
 //
 
+#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
+
 #import "SGViewController.h"
 #import "SGDialogView.h"
 
@@ -15,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *CGView;
 @property (weak, nonatomic) IBOutlet SGDialogView *dialogView;
 
+//Class properties.
+@property (strong, nonatomic) AVAudioPlayer *backgroundPlayer;
 
 @end
 
@@ -108,16 +113,33 @@
 }
 
 
-
 /** Ends views controlling methods. */
 
 
+/*** Audio and video methods.  */
+
+- (BOOL)playBackgroundMusic:(NSString *)bgmName andType:(NSString *)bgmType{
+    NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:bgmName ofType:bgmType];
+    
+    if(soundFilePath){
+        NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+        self.backgroundPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+    }
+    
+    if(self.backgroundPlayer){
+        self.backgroundPlayer.numberOfLoops = -1;
+        [self.backgroundPlayer play];
+        
+        return YES;
+    }
+    
+    return NO;
+}
 
 
 
 
-
-
+/** Ends audio and video methods.. */
 
 
 
@@ -137,7 +159,8 @@
 - (void)testTheFunctions{
     [self changeCGBackground:@"eden_1" withType:@"jpg" andTransitionTime:1.0];
     //[self changePureColorBackground:@"#255255255"];
-    [self showDialog:@"悠" andText:@"我本以为自由我才会有这种稀奇古怪的想法吧可没想到的是前几天看的推理小说中里面的犯人也和我同样的幻想着蔚蓝的天空让人觉得异常清澈不同城市的天空纯粹的蓝和天空一样连白云都显示出了和城市中所不一天的异彩不禁让人有果然是空气清新啊这种想法我心中那份微弱的旅行的热情也冷却下来。"];
+    [self showDialog:@"悠" andText:@"我本以为,自由我才会有这种稀奇古怪的想法吧,可没想到的是前几天看的推理小说中,里面的犯人也和我同样的幻想着."];
+    [self playBackgroundMusic:@"02" andType:@"mp3"];
 
 }
 

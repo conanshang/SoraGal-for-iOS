@@ -18,8 +18,11 @@
 		0F3344E61886D77D00E7C463 /* eden_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F3344E41886D77D00E7C463 /* eden_1.jpg */; };
 		0F3344E71886D77D00E7C463 /* eden_1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F3344E51886D77D00E7C463 /* eden_1@2x.jpg */; };
 		0F4B2ACF18A0470F0068B77E /* SGProcessCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F4B2ACE18A0470F0068B77E /* SGProcessCenter.m */; };
+		0F591EF218A9F4F100C99A99 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD8A1E918A9F30B00869B51 /* AVFoundation.framework */; };
+		0F591EF418A9F6F300C99A99 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F591EF318A9F6F300C99A99 /* AudioToolbox.framework */; };
 		0F7DEFB4188FE6200096FFE4 /* SGScriptParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7DEFB3188FE6200096FFE4 /* SGScriptParser.m */; };
 		0F7DEFC01890DCD90096FFE4 /* SGScriptExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7DEFBF1890DCD90096FFE4 /* SGScriptExpression.m */; };
+		0F800FAA18A9FA8400965BED /* 02.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0F800FA918A9FA8400965BED /* 02.mp3 */; };
 		0F8BA74518A09F6B0013ECF9 /* SGScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8BA74418A09F6B0013ECF9 /* SGScriptCommand.m */; };
 		0F8BA74D18A1E1460013ECF9 /* gameConfiguration.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0F8BA74C18A1E1460013ECF9 /* gameConfiguration.txt */; };
 		0FB494531886C8D1000C743C /* SGBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB494521886C8D1000C743C /* SGBackgroundView.m */; };
@@ -71,10 +74,13 @@
 		0F3344E51886D77D00E7C463 /* eden_1@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "eden_1@2x.jpg"; sourceTree = "<group>"; };
 		0F4B2ACD18A0470F0068B77E /* SGProcessCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGProcessCenter.h; sourceTree = "<group>"; };
 		0F4B2ACE18A0470F0068B77E /* SGProcessCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGProcessCenter.m; sourceTree = "<group>"; };
+		0F591EF318A9F6F300C99A99 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0F7DEFB2188FE6200096FFE4 /* SGScriptParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScriptParser.h; sourceTree = "<group>"; };
 		0F7DEFB3188FE6200096FFE4 /* SGScriptParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptParser.m; sourceTree = "<group>"; };
 		0F7DEFBE1890DCD90096FFE4 /* SGScriptExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScriptExpression.h; sourceTree = "<group>"; };
 		0F7DEFBF1890DCD90096FFE4 /* SGScriptExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptExpression.m; sourceTree = "<group>"; };
+		0F800FA918A9FA8400965BED /* 02.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 02.mp3; sourceTree = "<group>"; };
+		0F800FAB18A9FA9D00965BED /* 01.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = 01.m4a; sourceTree = "<group>"; };
 		0F8BA74318A09F6B0013ECF9 /* SGScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScriptCommand.h; sourceTree = "<group>"; };
 		0F8BA74418A09F6B0013ECF9 /* SGScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptCommand.m; sourceTree = "<group>"; };
 		0F8BA74C18A1E1460013ECF9 /* gameConfiguration.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gameConfiguration.txt; sourceTree = "<group>"; };
@@ -101,6 +107,7 @@
 		0FBFF4E61884410000F1E1DC /* SoraGalTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SoraGalTests-Info.plist"; sourceTree = "<group>"; };
 		0FBFF4E81884410000F1E1DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0FBFF4EA1884410000F1E1DC /* SoraGalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SoraGalTests.m; sourceTree = "<group>"; };
+		0FD8A1E918A9F30B00869B51 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		0FEF02BD18928BD0000A4EF6 /* TestScript.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestScript.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,6 +116,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F591EF418A9F6F300C99A99 /* AudioToolbox.framework in Frameworks */,
+				0F591EF218A9F4F100C99A99 /* AVFoundation.framework in Frameworks */,
 				0FBFF4C21884410000F1E1DC /* CoreGraphics.framework in Frameworks */,
 				0FBFF4C41884410000F1E1DC /* UIKit.framework in Frameworks */,
 				0FBFF4C01884410000F1E1DC /* Foundation.framework in Frameworks */,
@@ -183,6 +192,8 @@
 				0FEF02BD18928BD0000A4EF6 /* TestScript.txt */,
 				0F3344E41886D77D00E7C463 /* eden_1.jpg */,
 				0F3344E51886D77D00E7C463 /* eden_1@2x.jpg */,
+				0F800FAB18A9FA9D00965BED /* 01.m4a */,
+				0F800FA918A9FA8400965BED /* 02.mp3 */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -209,6 +220,8 @@
 		0FBFF4BE1884410000F1E1DC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0F591EF318A9F6F300C99A99 /* AudioToolbox.framework */,
+				0FD8A1E918A9F30B00869B51 /* AVFoundation.framework */,
 				0FBFF4BF1884410000F1E1DC /* Foundation.framework */,
 				0FBFF4C11884410000F1E1DC /* CoreGraphics.framework */,
 				0FBFF4C31884410000F1E1DC /* UIKit.framework */,
@@ -349,6 +362,7 @@
 				0FBFF4CA1884410000F1E1DC /* InfoPlist.strings in Resources */,
 				0FBFF4D31884410000F1E1DC /* Main.storyboard in Resources */,
 				0F8BA74D18A1E1460013ECF9 /* gameConfiguration.txt in Resources */,
+				0F800FAA18A9FA8400965BED /* 02.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
