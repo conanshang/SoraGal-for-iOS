@@ -14,6 +14,7 @@
 #import "SGScriptParser.h"
 #import "SGScriptHelper.h"
 #import "SGScriptToken.h"
+#import "SGAudioModule.h"
 
 
 @interface SGTestFunctionsViewController ()
@@ -28,6 +29,7 @@
 @property (strong, nonatomic) SGScriptExecutor *testScriptExecutor;
 @property (nonatomic, strong) SGProcessCenter *testScriptProcessCenter;
 @property (strong, nonatomic) SGScriptHelper *testSGScriptHelper;
+@property (nonatomic, strong) SGAudioModule *soraGalAudioModule;
 
 @end
 
@@ -46,12 +48,15 @@
 {
     [super viewDidLoad];
 	
-    [self getStringDataFromFile];
+    //[self getStringDataFromFile];
     //[self testReader];
     //[self testScanner];
     //[self testParser];
     //[self testExecutor];
-    [self testProcessCenter];
+    //[self testProcessCenter];
+    
+    self.soraGalAudioModule = [[SGAudioModule alloc] init];
+    //[self startMusic];
     
 }
 
@@ -174,12 +179,20 @@
     //self.testDialogView.text = [NSString stringWithFormat:@"%lu", (unsigned long)[gameStatusDictionary count]];
 }
 
+////Test auudio start and stop.
+- (void)startMusic{
+    [self.soraGalAudioModule playBackgroundMusic:@"02" andType:@"mp3"];
+}
 
+- (IBAction)startVoice:(id)sender {
+    [self.soraGalAudioModule playBackgroundMusic:@"02" andType:@"mp3"];
 
+}
 
+- (IBAction)stopVoice:(id)sender {
+    [self.soraGalAudioModule stopBackgroundMusic];
 
-
-
+}
 
 
 

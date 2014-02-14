@@ -17,6 +17,9 @@
 		0F15E3921889324F00B83AEF /* SGScriptHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F15E3911889324F00B83AEF /* SGScriptHelper.m */; };
 		0F3344E61886D77D00E7C463 /* eden_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F3344E41886D77D00E7C463 /* eden_1.jpg */; };
 		0F3344E71886D77D00E7C463 /* eden_1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F3344E51886D77D00E7C463 /* eden_1@2x.jpg */; };
+		0F40B51D18AC84F4005B9E09 /* 03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0F40B51C18AC84F4005B9E09 /* 03.wav */; };
+		0F40B51F18AC8A48005B9E09 /* e1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0F40B51E18AC8A48005B9E09 /* e1.wav */; };
+		0F40B52218ADA6E8005B9E09 /* SGAudioModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F40B52118ADA6E8005B9E09 /* SGAudioModule.m */; };
 		0F4B2ACF18A0470F0068B77E /* SGProcessCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F4B2ACE18A0470F0068B77E /* SGProcessCenter.m */; };
 		0F591EF218A9F4F100C99A99 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD8A1E918A9F30B00869B51 /* AVFoundation.framework */; };
 		0F591EF418A9F6F300C99A99 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F591EF318A9F6F300C99A99 /* AudioToolbox.framework */; };
@@ -72,6 +75,10 @@
 		0F15E3911889324F00B83AEF /* SGScriptHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptHelper.m; sourceTree = "<group>"; };
 		0F3344E41886D77D00E7C463 /* eden_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = eden_1.jpg; sourceTree = "<group>"; };
 		0F3344E51886D77D00E7C463 /* eden_1@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "eden_1@2x.jpg"; sourceTree = "<group>"; };
+		0F40B51C18AC84F4005B9E09 /* 03.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 03.wav; sourceTree = "<group>"; };
+		0F40B51E18AC8A48005B9E09 /* e1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = e1.wav; sourceTree = "<group>"; };
+		0F40B52018ADA6E8005B9E09 /* SGAudioModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGAudioModule.h; sourceTree = "<group>"; };
+		0F40B52118ADA6E8005B9E09 /* SGAudioModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAudioModule.m; sourceTree = "<group>"; };
 		0F4B2ACD18A0470F0068B77E /* SGProcessCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGProcessCenter.h; sourceTree = "<group>"; };
 		0F4B2ACE18A0470F0068B77E /* SGProcessCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGProcessCenter.m; sourceTree = "<group>"; };
 		0F591EF318A9F6F300C99A99 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -144,6 +151,8 @@
 				0FBFF4D51884410000F1E1DC /* SGViewController.m */,
 				0F15E37B18878A6E00B83AEF /* SGSettingsViewController.h */,
 				0F15E37C18878A6E00B83AEF /* SGSettingsViewController.m */,
+				0F40B52018ADA6E8005B9E09 /* SGAudioModule.h */,
+				0F40B52118ADA6E8005B9E09 /* SGAudioModule.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -194,6 +203,8 @@
 				0F3344E51886D77D00E7C463 /* eden_1@2x.jpg */,
 				0F800FAB18A9FA9D00965BED /* 01.m4a */,
 				0F800FA918A9FA8400965BED /* 02.mp3 */,
+				0F40B51C18AC84F4005B9E09 /* 03.wav */,
+				0F40B51E18AC8A48005B9E09 /* e1.wav */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -359,6 +370,8 @@
 				0F3344E71886D77D00E7C463 /* eden_1@2x.jpg in Resources */,
 				0FBFF4D81884410000F1E1DC /* Images.xcassets in Resources */,
 				0F3344E61886D77D00E7C463 /* eden_1.jpg in Resources */,
+				0F40B51F18AC8A48005B9E09 /* e1.wav in Resources */,
+				0F40B51D18AC84F4005B9E09 /* 03.wav in Resources */,
 				0FBFF4CA1884410000F1E1DC /* InfoPlist.strings in Resources */,
 				0FBFF4D31884410000F1E1DC /* Main.storyboard in Resources */,
 				0F8BA74D18A1E1460013ECF9 /* gameConfiguration.txt in Resources */,
@@ -386,6 +399,7 @@
 				0FBFF4D01884410000F1E1DC /* SGAppDelegate.m in Sources */,
 				0F15E3801887DE4A00B83AEF /* SGTestFunctionsViewController.m in Sources */,
 				0F7DEFB4188FE6200096FFE4 /* SGScriptParser.m in Sources */,
+				0F40B52218ADA6E8005B9E09 /* SGAudioModule.m in Sources */,
 				0F15E3851887E3BB00B83AEF /* SGScriptExecutor.m in Sources */,
 				0F4B2ACF18A0470F0068B77E /* SGProcessCenter.m in Sources */,
 				0F7DEFC01890DCD90096FFE4 /* SGScriptExpression.m in Sources */,
