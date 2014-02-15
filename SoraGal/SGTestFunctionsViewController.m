@@ -15,6 +15,7 @@
 #import "SGScriptHelper.h"
 #import "SGScriptToken.h"
 #import "SGAudioModule.h"
+#import "SGTestSegueViewController.h"
 
 
 @interface SGTestFunctionsViewController ()
@@ -57,6 +58,7 @@
     
     self.soraGalAudioModule = [[SGAudioModule alloc] init];
     //[self startMusic];
+    [self testTheFolders];
     
 }
 
@@ -185,7 +187,7 @@
 }
 
 - (IBAction)startVoice:(id)sender {
-    [self.soraGalAudioModule playBackgroundMusic:@"02" andType:@"mp3"];
+    [self.soraGalAudioModule playBackgroundMusic:@"01" andType:@"m4a"];
 
 }
 
@@ -194,10 +196,21 @@
 
 }
 
+//Test folders.
+- (void)testTheFolders{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"eden_1" ofType:@"jpg" inDirectory:@"GameData/CGs"];
+    //NSString *path2 = [[NSBundle mainBundle] pathForResource:@"c1" ofType:@"jpg"];
+    self.testDialogView.text = path;
+}
 
-
-
-
+//Test unwind modal segue.
+- (IBAction)unwindFromViewController:(UIStoryboardSegue *)sender {
+    SGTestSegueViewController *testController = sender.sourceViewController;
+    float value = testController.testSlider.value;
+    NSString *string = [NSString stringWithFormat:@"%f", value];
+    
+    self.testDialogView.text = string;
+}
 
 
 

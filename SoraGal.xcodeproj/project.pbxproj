@@ -15,17 +15,14 @@
 		0F15E38C18883B3300B83AEF /* SGScriptScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F15E38B18883B3300B83AEF /* SGScriptScanner.m */; };
 		0F15E38F1889288300B83AEF /* SGScriptToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F15E38E1889288300B83AEF /* SGScriptToken.m */; };
 		0F15E3921889324F00B83AEF /* SGScriptHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F15E3911889324F00B83AEF /* SGScriptHelper.m */; };
-		0F3344E61886D77D00E7C463 /* eden_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F3344E41886D77D00E7C463 /* eden_1.jpg */; };
-		0F3344E71886D77D00E7C463 /* eden_1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F3344E51886D77D00E7C463 /* eden_1@2x.jpg */; };
-		0F40B51D18AC84F4005B9E09 /* 03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0F40B51C18AC84F4005B9E09 /* 03.wav */; };
-		0F40B51F18AC8A48005B9E09 /* e1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0F40B51E18AC8A48005B9E09 /* e1.wav */; };
+		0F2B86D318AE9A9B00275FFB /* SGTestSegueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2B86D218AE9A9B00275FFB /* SGTestSegueViewController.m */; };
 		0F40B52218ADA6E8005B9E09 /* SGAudioModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F40B52118ADA6E8005B9E09 /* SGAudioModule.m */; };
+		0F47825C18ADDDBB009F23ED /* GameData in Resources */ = {isa = PBXBuildFile; fileRef = 0F47825B18ADDDBB009F23ED /* GameData */; };
 		0F4B2ACF18A0470F0068B77E /* SGProcessCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F4B2ACE18A0470F0068B77E /* SGProcessCenter.m */; };
 		0F591EF218A9F4F100C99A99 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD8A1E918A9F30B00869B51 /* AVFoundation.framework */; };
 		0F591EF418A9F6F300C99A99 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F591EF318A9F6F300C99A99 /* AudioToolbox.framework */; };
 		0F7DEFB4188FE6200096FFE4 /* SGScriptParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7DEFB3188FE6200096FFE4 /* SGScriptParser.m */; };
 		0F7DEFC01890DCD90096FFE4 /* SGScriptExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7DEFBF1890DCD90096FFE4 /* SGScriptExpression.m */; };
-		0F800FAA18A9FA8400965BED /* 02.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0F800FA918A9FA8400965BED /* 02.mp3 */; };
 		0F8BA74518A09F6B0013ECF9 /* SGScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8BA74418A09F6B0013ECF9 /* SGScriptCommand.m */; };
 		0F8BA74D18A1E1460013ECF9 /* gameConfiguration.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0F8BA74C18A1E1460013ECF9 /* gameConfiguration.txt */; };
 		0FB494531886C8D1000C743C /* SGBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB494521886C8D1000C743C /* SGBackgroundView.m */; };
@@ -73,12 +70,11 @@
 		0F15E38E1889288300B83AEF /* SGScriptToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptToken.m; sourceTree = "<group>"; };
 		0F15E3901889324F00B83AEF /* SGScriptHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScriptHelper.h; sourceTree = "<group>"; };
 		0F15E3911889324F00B83AEF /* SGScriptHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptHelper.m; sourceTree = "<group>"; };
-		0F3344E41886D77D00E7C463 /* eden_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = eden_1.jpg; sourceTree = "<group>"; };
-		0F3344E51886D77D00E7C463 /* eden_1@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "eden_1@2x.jpg"; sourceTree = "<group>"; };
-		0F40B51C18AC84F4005B9E09 /* 03.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 03.wav; sourceTree = "<group>"; };
-		0F40B51E18AC8A48005B9E09 /* e1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = e1.wav; sourceTree = "<group>"; };
+		0F2B86D118AE9A9B00275FFB /* SGTestSegueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGTestSegueViewController.h; sourceTree = "<group>"; };
+		0F2B86D218AE9A9B00275FFB /* SGTestSegueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGTestSegueViewController.m; sourceTree = "<group>"; };
 		0F40B52018ADA6E8005B9E09 /* SGAudioModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGAudioModule.h; sourceTree = "<group>"; };
 		0F40B52118ADA6E8005B9E09 /* SGAudioModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAudioModule.m; sourceTree = "<group>"; };
+		0F47825B18ADDDBB009F23ED /* GameData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GameData; sourceTree = "<group>"; };
 		0F4B2ACD18A0470F0068B77E /* SGProcessCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGProcessCenter.h; sourceTree = "<group>"; };
 		0F4B2ACE18A0470F0068B77E /* SGProcessCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGProcessCenter.m; sourceTree = "<group>"; };
 		0F591EF318A9F6F300C99A99 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -86,8 +82,6 @@
 		0F7DEFB3188FE6200096FFE4 /* SGScriptParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptParser.m; sourceTree = "<group>"; };
 		0F7DEFBE1890DCD90096FFE4 /* SGScriptExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScriptExpression.h; sourceTree = "<group>"; };
 		0F7DEFBF1890DCD90096FFE4 /* SGScriptExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptExpression.m; sourceTree = "<group>"; };
-		0F800FA918A9FA8400965BED /* 02.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 02.mp3; sourceTree = "<group>"; };
-		0F800FAB18A9FA9D00965BED /* 01.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = 01.m4a; sourceTree = "<group>"; };
 		0F8BA74318A09F6B0013ECF9 /* SGScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScriptCommand.h; sourceTree = "<group>"; };
 		0F8BA74418A09F6B0013ECF9 /* SGScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptCommand.m; sourceTree = "<group>"; };
 		0F8BA74C18A1E1460013ECF9 /* gameConfiguration.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gameConfiguration.txt; sourceTree = "<group>"; };
@@ -144,7 +138,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0F15E3861887E3CB00B83AEF /* ViewControllers */ = {
+		0F15E3861887E3CB00B83AEF /* ViewControllers & Modules */ = {
 			isa = PBXGroup;
 			children = (
 				0FBFF4D41884410000F1E1DC /* SGViewController.h */,
@@ -154,7 +148,7 @@
 				0F40B52018ADA6E8005B9E09 /* SGAudioModule.h */,
 				0F40B52118ADA6E8005B9E09 /* SGAudioModule.m */,
 			);
-			name = ViewControllers;
+			name = "ViewControllers & Modules";
 			sourceTree = "<group>";
 		};
 		0F7DEFBA1890D9570096FFE4 /* ScriptProcessor */ = {
@@ -199,12 +193,6 @@
 				0F8BA74C18A1E1460013ECF9 /* gameConfiguration.txt */,
 				0F15E3811887E31300B83AEF /* scriptExample.txt */,
 				0FEF02BD18928BD0000A4EF6 /* TestScript.txt */,
-				0F3344E41886D77D00E7C463 /* eden_1.jpg */,
-				0F3344E51886D77D00E7C463 /* eden_1@2x.jpg */,
-				0F800FAB18A9FA9D00965BED /* 01.m4a */,
-				0F800FA918A9FA8400965BED /* 02.mp3 */,
-				0F40B51C18AC84F4005B9E09 /* 03.wav */,
-				0F40B51E18AC8A48005B9E09 /* e1.wav */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -245,14 +233,17 @@
 			isa = PBXGroup;
 			children = (
 				0F7DEFBA1890D9570096FFE4 /* ScriptProcessor */,
-				0F15E3861887E3CB00B83AEF /* ViewControllers */,
+				0F15E3861887E3CB00B83AEF /* ViewControllers & Modules */,
 				0FB494501886A650000C743C /* Views */,
 				0FBFF4D11884410000F1E1DC /* Main.storyboard */,
 				0FB494571886CF5B000C743C /* Assets */,
+				0F47825B18ADDDBB009F23ED /* GameData */,
 				0FBFF4D71884410000F1E1DC /* Images.xcassets */,
 				0FBFF4C61884410000F1E1DC /* Supporting Files */,
 				0F15E37E1887DE4A00B83AEF /* SGTestFunctionsViewController.h */,
 				0F15E37F1887DE4A00B83AEF /* SGTestFunctionsViewController.m */,
+				0F2B86D118AE9A9B00275FFB /* SGTestSegueViewController.h */,
+				0F2B86D218AE9A9B00275FFB /* SGTestSegueViewController.m */,
 			);
 			path = SoraGal;
 			sourceTree = "<group>";
@@ -365,17 +356,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F47825C18ADDDBB009F23ED /* GameData in Resources */,
 				0FEF02BE18928BD0000A4EF6 /* TestScript.txt in Resources */,
 				0F15E3821887E31300B83AEF /* scriptExample.txt in Resources */,
-				0F3344E71886D77D00E7C463 /* eden_1@2x.jpg in Resources */,
 				0FBFF4D81884410000F1E1DC /* Images.xcassets in Resources */,
-				0F3344E61886D77D00E7C463 /* eden_1.jpg in Resources */,
-				0F40B51F18AC8A48005B9E09 /* e1.wav in Resources */,
-				0F40B51D18AC84F4005B9E09 /* 03.wav in Resources */,
 				0FBFF4CA1884410000F1E1DC /* InfoPlist.strings in Resources */,
 				0FBFF4D31884410000F1E1DC /* Main.storyboard in Resources */,
 				0F8BA74D18A1E1460013ECF9 /* gameConfiguration.txt in Resources */,
-				0F800FAA18A9FA8400965BED /* 02.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +393,7 @@
 				0F15E38918882A5600B83AEF /* SGScriptReader.m in Sources */,
 				0F15E3921889324F00B83AEF /* SGScriptHelper.m in Sources */,
 				0F8BA74518A09F6B0013ECF9 /* SGScriptCommand.m in Sources */,
+				0F2B86D318AE9A9B00275FFB /* SGTestSegueViewController.m in Sources */,
 				0FBFF4D61884410000F1E1DC /* SGViewController.m in Sources */,
 				0FB494531886C8D1000C743C /* SGBackgroundView.m in Sources */,
 				0F15E38F1889288300B83AEF /* SGScriptToken.m in Sources */,
