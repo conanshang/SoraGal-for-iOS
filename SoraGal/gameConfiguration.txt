@@ -1,4 +1,4 @@
-Script Name : (scriptExample);
+Script Name : (TestScript);
 
 Script Type : (txt);
 

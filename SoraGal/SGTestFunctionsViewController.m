@@ -15,7 +15,6 @@
 #import "SGScriptHelper.h"
 #import "SGScriptToken.h"
 #import "SGAudioModule.h"
-#import "SGTestSegueViewController.h"
 
 
 @interface SGTestFunctionsViewController ()
@@ -49,16 +48,16 @@
 {
     [super viewDidLoad];
 	
-    //[self getStringDataFromFile];
+    [self getStringDataFromFile];
     //[self testReader];
     //[self testScanner];
     //[self testParser];
     //[self testExecutor];
-    //[self testProcessCenter];
+    [self testProcessCenter];
     
-    self.soraGalAudioModule = [[SGAudioModule alloc] init];
+    //self.soraGalAudioModule = [[SGAudioModule alloc] init];
     //[self startMusic];
-    [self testTheFolders];
+    //[self testTheFolders];
     
 }
 
@@ -176,9 +175,7 @@
         }  
     }
     
-    //NSMutableDictionary *gameStatusDictionary = self.testScriptProcessCenter.gameStatus;
-    
-    //self.testDialogView.text = [NSString stringWithFormat:@"%lu", (unsigned long)[gameStatusDictionary count]];
+    self.testDialogView.text = [resultArray description];
 }
 
 ////Test auudio start and stop.
@@ -203,14 +200,6 @@
     self.testDialogView.text = path;
 }
 
-//Test unwind modal segue.
-- (IBAction)unwindFromViewController:(UIStoryboardSegue *)sender {
-    SGTestSegueViewController *testController = sender.sourceViewController;
-    float value = testController.testSlider.value;
-    NSString *string = [NSString stringWithFormat:@"%f", value];
-    
-    self.testDialogView.text = string;
-}
 
 
 

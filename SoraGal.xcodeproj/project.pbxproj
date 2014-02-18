@@ -15,7 +15,6 @@
 		0F15E38C18883B3300B83AEF /* SGScriptScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F15E38B18883B3300B83AEF /* SGScriptScanner.m */; };
 		0F15E38F1889288300B83AEF /* SGScriptToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F15E38E1889288300B83AEF /* SGScriptToken.m */; };
 		0F15E3921889324F00B83AEF /* SGScriptHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F15E3911889324F00B83AEF /* SGScriptHelper.m */; };
-		0F2B86D318AE9A9B00275FFB /* SGTestSegueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2B86D218AE9A9B00275FFB /* SGTestSegueViewController.m */; };
 		0F40B52218ADA6E8005B9E09 /* SGAudioModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F40B52118ADA6E8005B9E09 /* SGAudioModule.m */; };
 		0F47825C18ADDDBB009F23ED /* GameData in Resources */ = {isa = PBXBuildFile; fileRef = 0F47825B18ADDDBB009F23ED /* GameData */; };
 		0F4B2ACF18A0470F0068B77E /* SGProcessCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F4B2ACE18A0470F0068B77E /* SGProcessCenter.m */; };
@@ -27,6 +26,7 @@
 		0F8BA74D18A1E1460013ECF9 /* gameConfiguration.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0F8BA74C18A1E1460013ECF9 /* gameConfiguration.txt */; };
 		0FB494531886C8D1000C743C /* SGBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB494521886C8D1000C743C /* SGBackgroundView.m */; };
 		0FB494561886C8E1000C743C /* SGDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB494551886C8E1000C743C /* SGDialogView.m */; };
+		0FBF4BFF18B3240200994247 /* SGCommandFormater.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FBF4BFE18B3240200994247 /* SGCommandFormater.m */; };
 		0FBFF4C01884410000F1E1DC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FBFF4BF1884410000F1E1DC /* Foundation.framework */; };
 		0FBFF4C21884410000F1E1DC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FBFF4C11884410000F1E1DC /* CoreGraphics.framework */; };
 		0FBFF4C41884410000F1E1DC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FBFF4C31884410000F1E1DC /* UIKit.framework */; };
@@ -70,8 +70,6 @@
 		0F15E38E1889288300B83AEF /* SGScriptToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptToken.m; sourceTree = "<group>"; };
 		0F15E3901889324F00B83AEF /* SGScriptHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScriptHelper.h; sourceTree = "<group>"; };
 		0F15E3911889324F00B83AEF /* SGScriptHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptHelper.m; sourceTree = "<group>"; };
-		0F2B86D118AE9A9B00275FFB /* SGTestSegueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGTestSegueViewController.h; sourceTree = "<group>"; };
-		0F2B86D218AE9A9B00275FFB /* SGTestSegueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGTestSegueViewController.m; sourceTree = "<group>"; };
 		0F40B52018ADA6E8005B9E09 /* SGAudioModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGAudioModule.h; sourceTree = "<group>"; };
 		0F40B52118ADA6E8005B9E09 /* SGAudioModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAudioModule.m; sourceTree = "<group>"; };
 		0F47825B18ADDDBB009F23ED /* GameData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GameData; sourceTree = "<group>"; };
@@ -89,6 +87,8 @@
 		0FB494521886C8D1000C743C /* SGBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGBackgroundView.m; sourceTree = "<group>"; };
 		0FB494541886C8E1000C743C /* SGDialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGDialogView.h; sourceTree = "<group>"; };
 		0FB494551886C8E1000C743C /* SGDialogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGDialogView.m; sourceTree = "<group>"; };
+		0FBF4BFD18B3240200994247 /* SGCommandFormater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGCommandFormater.h; sourceTree = "<group>"; };
+		0FBF4BFE18B3240200994247 /* SGCommandFormater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGCommandFormater.m; sourceTree = "<group>"; };
 		0FBFF4BC1884410000F1E1DC /* SoraGal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoraGal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FBFF4BF1884410000F1E1DC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0FBFF4C11884410000F1E1DC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -147,6 +147,8 @@
 				0F15E37C18878A6E00B83AEF /* SGSettingsViewController.m */,
 				0F40B52018ADA6E8005B9E09 /* SGAudioModule.h */,
 				0F40B52118ADA6E8005B9E09 /* SGAudioModule.m */,
+				0FBF4BFD18B3240200994247 /* SGCommandFormater.h */,
+				0FBF4BFE18B3240200994247 /* SGCommandFormater.m */,
 			);
 			name = "ViewControllers & Modules";
 			sourceTree = "<group>";
@@ -242,8 +244,6 @@
 				0FBFF4C61884410000F1E1DC /* Supporting Files */,
 				0F15E37E1887DE4A00B83AEF /* SGTestFunctionsViewController.h */,
 				0F15E37F1887DE4A00B83AEF /* SGTestFunctionsViewController.m */,
-				0F2B86D118AE9A9B00275FFB /* SGTestSegueViewController.h */,
-				0F2B86D218AE9A9B00275FFB /* SGTestSegueViewController.m */,
 			);
 			path = SoraGal;
 			sourceTree = "<group>";
@@ -387,13 +387,13 @@
 				0F15E3801887DE4A00B83AEF /* SGTestFunctionsViewController.m in Sources */,
 				0F7DEFB4188FE6200096FFE4 /* SGScriptParser.m in Sources */,
 				0F40B52218ADA6E8005B9E09 /* SGAudioModule.m in Sources */,
+				0FBF4BFF18B3240200994247 /* SGCommandFormater.m in Sources */,
 				0F15E3851887E3BB00B83AEF /* SGScriptExecutor.m in Sources */,
 				0F4B2ACF18A0470F0068B77E /* SGProcessCenter.m in Sources */,
 				0F7DEFC01890DCD90096FFE4 /* SGScriptExpression.m in Sources */,
 				0F15E38918882A5600B83AEF /* SGScriptReader.m in Sources */,
 				0F15E3921889324F00B83AEF /* SGScriptHelper.m in Sources */,
 				0F8BA74518A09F6B0013ECF9 /* SGScriptCommand.m in Sources */,
-				0F2B86D318AE9A9B00275FFB /* SGTestSegueViewController.m in Sources */,
 				0FBFF4D61884410000F1E1DC /* SGViewController.m in Sources */,
 				0FB494531886C8D1000C743C /* SGBackgroundView.m in Sources */,
 				0F15E38F1889288300B83AEF /* SGScriptToken.m in Sources */,

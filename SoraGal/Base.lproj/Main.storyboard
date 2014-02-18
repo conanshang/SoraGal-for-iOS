@@ -28,12 +28,14 @@
                                 <rect key="frame" x="0.0" y="190" width="568" height="130"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
                             </view>
                         </subviews>
                         <gestureRecognizers/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="35r-06-DKB" appends="YES" id="kxT-99-Nk8"/>
+                            <outletCollection property="gestureRecognizers" destination="NXD-j9-fzF" appends="YES" id="QOr-OU-pKz"/>
                         </connections>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -44,11 +46,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="up" numberOfTouchesRequired="2" id="35r-06-DKB">
+                <swipeGestureRecognizer direction="up" id="35r-06-DKB">
                     <connections>
                         <segue destination="ccf-27-Yyx" kind="modal" identifier="SoraGalSettings" id="YIY-jX-W3E"/>
                     </connections>
                 </swipeGestureRecognizer>
+                <tapGestureRecognizer id="NXD-j9-fzF">
+                    <connections>
+                        <action selector="tappedForNextCommand:" destination="vXZ-lx-hvc" id="cHE-SF-BvP"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-82" y="603"/>
         </scene>
@@ -143,46 +150,6 @@
             </objects>
             <point key="canvasLocation" x="690" y="603"/>
         </scene>
-        <!--Test Segue View Controller-->
-        <scene sceneID="bJy-MF-P9v">
-            <objects>
-                <viewController id="9sQ-JD-mYw" customClass="SGTestSegueViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Cg3-be-Px5"/>
-                        <viewControllerLayoutGuide type="bottom" id="tat-Go-UER"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ylf-Yr-wf5">
-                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xG7-Nr-wyB">
-                                <rect key="frame" x="261" y="44" width="37" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="TyV-vU-XPs" kind="unwind" unwindAction="unwindFromViewController:" id="RsB-tY-xQl"/>
-                                </connections>
-                            </button>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Cfe-Ue-ZUS">
-                                <rect key="frame" x="129" y="109" width="311" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </slider>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    </view>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    <connections>
-                        <outlet property="testSlider" destination="Cfe-Ue-ZUS" id="AuK-V6-4as"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="S4W-bz-Qfv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="TyV-vU-XPs" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="690" y="1146"/>
-        </scene>
         <!--Test Functions View Controller-->
         <scene sceneID="TC5-of-fFL">
             <objects>
@@ -229,9 +196,6 @@
                                 <state key="normal" title="Settings">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="9sQ-JD-mYw" kind="modal" id="xkb-Ut-Kfb"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

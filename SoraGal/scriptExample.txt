@@ -1,6 +1,6 @@
 
 @label "title"
-@setBGM "BGM07"
+@setBGM "02"
 
 @set "sb_BackgroundImage","image","img/scrpitboxbk.jpg",0.7
 
