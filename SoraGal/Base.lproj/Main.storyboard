@@ -57,7 +57,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-82" y="603"/>
+            <point key="canvasLocation" x="-99" y="455"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="X7k-AW-XrI">
@@ -125,7 +125,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <connections>
@@ -148,7 +148,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="690" y="603"/>
+            <point key="canvasLocation" x="673" y="455"/>
         </scene>
         <!--Test Functions View Controller-->
         <scene sceneID="TC5-of-fFL">
@@ -208,7 +208,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QYe-mk-MyO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-82" y="1146"/>
+            <point key="canvasLocation" x="-99" y="998"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

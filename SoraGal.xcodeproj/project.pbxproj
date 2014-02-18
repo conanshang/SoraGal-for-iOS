@@ -24,9 +24,9 @@
 		0F7DEFC01890DCD90096FFE4 /* SGScriptExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7DEFBF1890DCD90096FFE4 /* SGScriptExpression.m */; };
 		0F8BA74518A09F6B0013ECF9 /* SGScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8BA74418A09F6B0013ECF9 /* SGScriptCommand.m */; };
 		0F8BA74D18A1E1460013ECF9 /* gameConfiguration.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0F8BA74C18A1E1460013ECF9 /* gameConfiguration.txt */; };
-		0FB494531886C8D1000C743C /* SGBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB494521886C8D1000C743C /* SGBackgroundView.m */; };
 		0FB494561886C8E1000C743C /* SGDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB494551886C8E1000C743C /* SGDialogView.m */; };
 		0FBF4BFF18B3240200994247 /* SGCommandFormater.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FBF4BFE18B3240200994247 /* SGCommandFormater.m */; };
+		0FBF4C0218B3614A00994247 /* SGAnimationToSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FBF4C0118B3614A00994247 /* SGAnimationToSettings.m */; };
 		0FBFF4C01884410000F1E1DC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FBFF4BF1884410000F1E1DC /* Foundation.framework */; };
 		0FBFF4C21884410000F1E1DC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FBFF4C11884410000F1E1DC /* CoreGraphics.framework */; };
 		0FBFF4C41884410000F1E1DC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FBFF4C31884410000F1E1DC /* UIKit.framework */; };
@@ -83,12 +83,12 @@
 		0F8BA74318A09F6B0013ECF9 /* SGScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScriptCommand.h; sourceTree = "<group>"; };
 		0F8BA74418A09F6B0013ECF9 /* SGScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptCommand.m; sourceTree = "<group>"; };
 		0F8BA74C18A1E1460013ECF9 /* gameConfiguration.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gameConfiguration.txt; sourceTree = "<group>"; };
-		0FB494511886C8D1000C743C /* SGBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGBackgroundView.h; sourceTree = "<group>"; };
-		0FB494521886C8D1000C743C /* SGBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGBackgroundView.m; sourceTree = "<group>"; };
 		0FB494541886C8E1000C743C /* SGDialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGDialogView.h; sourceTree = "<group>"; };
 		0FB494551886C8E1000C743C /* SGDialogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGDialogView.m; sourceTree = "<group>"; };
 		0FBF4BFD18B3240200994247 /* SGCommandFormater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGCommandFormater.h; sourceTree = "<group>"; };
 		0FBF4BFE18B3240200994247 /* SGCommandFormater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGCommandFormater.m; sourceTree = "<group>"; };
+		0FBF4C0018B3614A00994247 /* SGAnimationToSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGAnimationToSettings.h; sourceTree = "<group>"; };
+		0FBF4C0118B3614A00994247 /* SGAnimationToSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAnimationToSettings.m; sourceTree = "<group>"; };
 		0FBFF4BC1884410000F1E1DC /* SoraGal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoraGal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FBFF4BF1884410000F1E1DC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0FBFF4C11884410000F1E1DC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -181,10 +181,10 @@
 		0FB494501886A650000C743C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0FB494511886C8D1000C743C /* SGBackgroundView.h */,
-				0FB494521886C8D1000C743C /* SGBackgroundView.m */,
 				0FB494541886C8E1000C743C /* SGDialogView.h */,
 				0FB494551886C8E1000C743C /* SGDialogView.m */,
+				0FBF4C0018B3614A00994247 /* SGAnimationToSettings.h */,
+				0FBF4C0118B3614A00994247 /* SGAnimationToSettings.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -391,11 +391,11 @@
 				0F15E3851887E3BB00B83AEF /* SGScriptExecutor.m in Sources */,
 				0F4B2ACF18A0470F0068B77E /* SGProcessCenter.m in Sources */,
 				0F7DEFC01890DCD90096FFE4 /* SGScriptExpression.m in Sources */,
+				0FBF4C0218B3614A00994247 /* SGAnimationToSettings.m in Sources */,
 				0F15E38918882A5600B83AEF /* SGScriptReader.m in Sources */,
 				0F15E3921889324F00B83AEF /* SGScriptHelper.m in Sources */,
 				0F8BA74518A09F6B0013ECF9 /* SGScriptCommand.m in Sources */,
 				0FBFF4D61884410000F1E1DC /* SGViewController.m in Sources */,
-				0FB494531886C8D1000C743C /* SGBackgroundView.m in Sources */,
 				0F15E38F1889288300B83AEF /* SGScriptToken.m in Sources */,
 				0FBFF4CC1884410000F1E1DC /* main.m in Sources */,
 				0F15E37D18878A6E00B83AEF /* SGSettingsViewController.m in Sources */,

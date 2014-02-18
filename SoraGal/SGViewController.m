@@ -10,10 +10,11 @@
 #import "SGDialogView.h"
 #import "SGAudioModule.h"
 #import "SGSettingsViewController.h"
+#import "SGAnimationToSettings.h"
 #import "SGCommandFormater.h"
 
 
-@interface SGViewController () <SGSettingsViewControllerDelegate>
+@interface SGViewController () <SGSettingsViewControllerDelegate, UIViewControllerTransitioningDelegate>
 
 //The view conponents.
 @property (weak, nonatomic) IBOutlet UIImageView *CGView;
@@ -184,7 +185,11 @@
         settingsViewController.audioDelegate = (id)self.soraGalAudioModule; //Set the delegate for audio related settings.
         settingsViewController.viewRelatedDelegate = (id)self; //Set the delegate for view related settings.
         
-        settingsViewController.settingsStatus = self.settingsSavingDictionary;
+        settingsViewController.settingsStatus = self.settingsSavingDictionary; //Pass the data.
+        
+        //Custom transition.
+        settingsViewController.transitioningDelegate = self;
+        settingsViewController.modalPresentationStyle = UIModalPresentationCustom;
     }
 }
 
@@ -206,6 +211,27 @@
     else{
         self.CGView.contentMode = UIViewContentModeScaleAspectFit;
     }
+}
+
+
+#pragma mark - Custom modal segue transition Delegate
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
+                                                                  presentingController:(UIViewController *)presenting
+                                                                      sourceController:(UIViewController *)source{
+    
+    SGAnimationToSettings *animator = [SGAnimationToSettings new];
+    
+    animator.ifInAnimating = YES;
+    
+    return animator;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed{
+    SGAnimationToSettings *animator = [SGAnimationToSettings new];
+    
+    animator.ifInAnimating = NO;
+    
+    return animator;
 }
 
 
