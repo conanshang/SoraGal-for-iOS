@@ -16,8 +16,7 @@
 @property (strong, nonatomic) AVAudioPlayer *backgroundPlayer;
 @property (strong, nonatomic) AVAudioPlayer *voicePlayer;
 
-@property dispatch_queue_t backgroundPlayerQ;
-@property dispatch_queue_t characterVoicePlayerQ;
+@property dispatch_queue_t audioPlayerQ;
 
 @property (nonatomic) float backgroundMusicVolume;
 @property (nonatomic) float voiceVolume;
@@ -31,6 +30,8 @@
     if(self){
         self.backgroundMusicVolume = 0.5;
         self.voiceVolume = 0.5;
+        
+        self.audioPlayerQ = dispatch_queue_create("audioPlayer", NULL);
     }
     return self;
 }
@@ -40,7 +41,7 @@
         _backgroundMusicVolume = backgroundMusicVolume;
         
         if(self.backgroundPlayer){
-            dispatch_async(self.backgroundPlayerQ, ^{
+            dispatch_async(self.audioPlayerQ, ^{
                 self.backgroundPlayer.volume = backgroundMusicVolume;
             });
         }
@@ -52,7 +53,7 @@
         _voiceVolume = voiceVolume;
         
         if(self.voicePlayer){
-            dispatch_async(self.characterVoicePlayerQ, ^{
+            dispatch_async(self.audioPlayerQ, ^{
                 self.voicePlayer.volume = voiceVolume;
             });
         }
@@ -65,9 +66,7 @@
     NSString *bgmFilePath = [[NSBundle mainBundle] pathForResource:bgmName ofType:bgmType inDirectory:@"GameData/BGMs"];
     
     if(bgmFilePath){
-        self.backgroundPlayerQ = dispatch_queue_create("backgroundPlayer", NULL);
-        
-        dispatch_async(self.backgroundPlayerQ, ^{
+        dispatch_async(self.audioPlayerQ, ^{
             NSURL *soundFileURL = [NSURL fileURLWithPath:bgmFilePath];
             self.backgroundPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
             
@@ -85,7 +84,7 @@
 
 - (void)stopBackgroundMusic{
     if(self.backgroundPlayer){
-        dispatch_async(self.backgroundPlayerQ, ^{
+        dispatch_async(self.audioPlayerQ, ^{
             [self.backgroundPlayer stop];
         });
     }
@@ -99,9 +98,7 @@
     NSString *voiceFilePath = [[NSBundle mainBundle] pathForResource:voiceName ofType:voiceType inDirectory:@"GameData/Voices"];
     
     if(voiceFilePath){
-        self.characterVoicePlayerQ = dispatch_queue_create("characterVoicePlayer", NULL);
-        
-        dispatch_async(self.characterVoicePlayerQ, ^{
+        dispatch_async(self.audioPlayerQ, ^{
             NSURL *soundFileURL = [NSURL fileURLWithPath:voiceFilePath];
             self.voicePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
             
@@ -119,15 +116,13 @@
 
 - (void)stopCharacterVoice{
     if(self.voicePlayer){
-        dispatch_async(self.characterVoicePlayerQ, ^{
+        dispatch_async(self.audioPlayerQ, ^{
             [self.voicePlayer stop];
         });
     }
     
     self.voicePlayer = nil;
 }
-
-
 
 
 #pragma mark - SGSettingsViewController Delegate

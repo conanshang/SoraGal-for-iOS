@@ -13,6 +13,8 @@
 #import "SGAnimationToSettings.h"
 #import "SGCommandFormater.h"
 
+#define IMAGEVIEW_TRANSITION_TIME_DEFAULT 300.00
+#define IMAGEVIEW_TRANSITION_TIME_MAX 5000.00
 
 @interface SGViewController () <SGSettingsViewControllerDelegate, UIViewControllerTransitioningDelegate>
 
@@ -51,6 +53,7 @@
     self.dialogView.dialogAlpha = 1.0; //Set the initial alpha to 0.5.
     
     self.soraGalAudioModule = [[SGAudioModule alloc] init]; //Create the instance of audio module.
+    
     //Create the instance of command formatter in another queue.
     self.getNextCommandQ = dispatch_queue_create("getNextCommand", NULL);
     dispatch_async(self.getNextCommandQ, ^{
@@ -60,66 +63,124 @@
 
 
 #pragma mark - Views related methods.
-//Change the Background image.
-- (BOOL)changeBackground:(NSString *)bgName withType:(NSString *)imageType andTransitionTime:(float)transitionTime{
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:bgName ofType:imageType inDirectory:@"GameData/BGs"];
-    UIImage *imageBG = [[UIImage alloc] initWithContentsOfFile:imagePath];
+//Set the transition style of changing images.
+- (BOOL)updateTransitionStyleForImageView:(UIImageView *)theImageView withTransitionTime:(float)transitionTime{
+    transitionTime = transitionTime / 1000.00;
     
-    if(imageBG != nil){
-        self.CGView.image = imageBG;
+    if((transitionTime > 0) && (transitionTime < IMAGEVIEW_TRANSITION_TIME_MAX)){
+        //Clear old transition style.
+        [theImageView.layer removeAllAnimations];
+        
+        //Create new transition style.
+        CATransition *transition = [CATransition animation];
+        transition.duration = transitionTime;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        transition.type = kCATransitionFade;
+        
+        //Apply new transition style.
+        [theImageView.layer addAnimation:transition forKey:nil];
+        
+        return YES;
+    }
+    else{
+        [self updateTransitionStyleForImageView:theImageView withTransitionTime:IMAGEVIEW_TRANSITION_TIME_DEFAULT];
         
         return YES;
     }
     
     return NO;
+}
+
+//Change the Background image.
+- (void)changeBackground:(NSString *)bgName withType:(NSString *)imageType andTransitionTime:(float)transitionTime{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //Change the transition style.
+        [self updateTransitionStyleForImageView:self.CGView withTransitionTime:transitionTime];
+        
+        //Get the image.
+        NSString *imagePath = [[NSBundle mainBundle] pathForResource:bgName ofType:imageType inDirectory:@"GameData/BGs"];
+        UIImage *imageBG = [[UIImage alloc] initWithContentsOfFile:imagePath];
+        
+        //Set the image.
+        if(imageBG != nil){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.CGView.image = imageBG;
+            });
+        }
+    });
 }
 
 //Change the CG image.
-- (BOOL)changeCGImage:(NSString *)cgName withType:(NSString *)imageType andTransitionTime:(float)transitionTime{
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:cgName ofType:imageType inDirectory:@"GameData/CGs"];
-    UIImage *imageCG = [[UIImage alloc] initWithContentsOfFile:imagePath];
-    
-    if(imageCG != nil){
-        self.CGView.image = imageCG;
+- (void)changeCGImage:(NSString *)cgName withType:(NSString *)imageType andTransitionTime:(float)transitionTime{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //Change the transition style.
+        [self updateTransitionStyleForImageView:self.CGView withTransitionTime:transitionTime];
         
-        return YES;
-    }
-    
-    return NO;
+        //Get the image.
+        NSString *imagePath = [[NSBundle mainBundle] pathForResource:cgName ofType:imageType inDirectory:@"GameData/CGs"];
+        UIImage *imageCG = [[UIImage alloc] initWithContentsOfFile:imagePath];
+        
+        //Set the image.
+        if(imageCG != nil){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.CGView.image = imageCG;
+            });
+        }
+    });
 }
 
 //Change the CG image with pure color.
-- (BOOL)changePureColorBackground:(NSString *)rgbColor{
-    UIColor *pureColor;
-    
-    char colorIndicator = [rgbColor characterAtIndex:0];
-    if(colorIndicator == '#'){
-        NSString *rgbValue = [rgbColor substringFromIndex:1];
-        NSUInteger rgbValueAverageLength = [rgbValue length] / 3;
+- (void)changePureColorBackground:(NSString *)rgbColor andTransitionTime:(float)transitionTime{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //Change the transition style.
+        [self updateTransitionStyleForImageView:self.CGView withTransitionTime:transitionTime];
         
-        NSRange range;
-        range.location = 0;
-        range.length = rgbValueAverageLength;
+        UIColor *pureColor;
+        if([rgbColor characterAtIndex:0] == '#'){
+            //Seperate the color string.
+            NSString *rgbValue = [rgbColor substringFromIndex:1];
+            NSUInteger rgbValueAverageLength = [rgbValue length] / 3;
+            
+            NSRange range;
+            range.location = 0;
+            range.length = rgbValueAverageLength;
+            
+            NSString *red = [rgbValue substringWithRange:range];
+            
+            range.location = range.location + rgbValueAverageLength;
+            NSString *green = [rgbValue substringWithRange:range];
+            
+            range.location = range.location + rgbValueAverageLength;
+            NSString *blue = [rgbValue substringWithRange:range];
+            
+            //Get color's float value.
+            unsigned r = 0;
+            NSScanner *redColorScanner = [NSScanner scannerWithString:red];
+            [redColorScanner scanHexInt:&r];
+            
+            unsigned g = 0;
+            NSScanner *greenColorScanner = [NSScanner scannerWithString:green];
+            [greenColorScanner scanHexInt:&g];
+            
+            unsigned b = 0;
+            NSScanner *blueColorScanner = [NSScanner scannerWithString:blue];
+            [blueColorScanner scanHexInt:&b];
+            
+            //Create the color.
+            pureColor = [UIColor colorWithRed:(r/255.0) green:(g/255.0) blue:(b/255.0) alpha:1.0];
+        }
+        else{
+            pureColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1.0];
+        }
         
-        float r = [[rgbValue substringWithRange:range] integerValue] / 255.0;
-        
-        range.location = range.location + rgbValueAverageLength;
-        float g = [[rgbValue substringWithRange:range] integerValue] / 255.0;
-        
-        range.location = range.location + rgbValueAverageLength;
-        float b = [[rgbValue substringWithRange:range] integerValue] / 255.0;
-        
-        pureColor = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
-    }
-    
-    if(pureColor){
-        self.CGView.backgroundColor = pureColor;
-        self.CGView.image = nil;
-        
-        return YES;
-    }
-    
-    return NO;
+        //Set the image.
+        if(pureColor){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.CGView.image = nil;
+                self.CGView.backgroundColor = pureColor;
+            });
+        }
+    });
 }
 
 //Chnage the character image.
@@ -266,11 +327,6 @@
                     [self changeCGImage:[command objectAtIndex:1] withType:[command objectAtIndex:2] andTransitionTime:[[command objectAtIndex:3] floatValue]];
                 });
             }
-            else if([commandName isEqualToString:@"changePureColorBackground"]){
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self changePureColorBackground:[command objectAtIndex:1]];
-                });
-            }
             else if([commandName isEqualToString:@"changeCharacterImage"]){
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self changeCharacterImage:[command objectAtIndex:1] withType:[command objectAtIndex:2] andTransitionTime:[[command objectAtIndex:3] floatValue]];
@@ -279,8 +335,13 @@
             else if([commandName isEqualToString:@"playBackgroundMusic"]){
                 [self playBackgroundMusic:[command objectAtIndex:1] andType:[command objectAtIndex:2]];
             }
+            else if([commandName isEqualToString:@"changePureColorBackground"]){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self changePureColorBackground:[command objectAtIndex:1] andTransitionTime:[[command objectAtIndex:2] floatValue]];
+                });
+            }
             
-            NSLog(@"SGViewController : Command : %@", commandName);
+            NSLog(@"SGViewController : Command : %@ \n", commandName);
         }
      
     });
@@ -289,11 +350,11 @@
 #pragma mark - Test methods.
 - (void)testTheFunctions{
     //[self changeBackground:@"B04a" withType:@"jpg" andTransitionTime:1.0];
-    [self changeCGImage:@"eden_2" withType:@"jpg" andTransitionTime:1.0];
+    [self changeCGImage:@"eden_2" withType:@"jpg" andTransitionTime:500.0];
     //[self changePureColorBackground:@"#000"];
     //[self showDialog:@"悠" andText:@"我本以为,自由我才会有这种稀奇古怪的想法吧,可没想到的是前几天看的推理小说中,里面的犯人也和我同样的幻想着."];
     //[self.soraGalAudioModule playBackgroundMusic:@"02" andType:@"m4a"];
-    //[self.soraGalAudioModule playCharacterVoice:@"e1" andType:@"wav"];
+    //[self.soraGalAudioModule playCharacterVoice:@"16" andType:@"m4a"];
     //[self changeCharacterImage:@"CA01_01S" withType:@"png" andTransitionTime:1.0];
     
 }

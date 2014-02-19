@@ -10,6 +10,8 @@
 #import "SGProcessCenter.h"
 #import "SGScriptCommand.h"
 
+#define IMAGEVIEW_TRANSITION_TIME_DEFAULT 300.00
+
 @interface SGCommandFormater()
 
 //Class properities.
@@ -57,7 +59,7 @@
             //Image related.
             else if ([commandName isEqualToString:@"setBG"]){
                 if([commandParameters count] == 1){
-                    singleCommandArray = [NSArray arrayWithObjects:@"changeBackground", [commandParameters objectAtIndex:0], @"jpg", @"1000", nil];
+                    singleCommandArray = [NSArray arrayWithObjects:@"changeBackground", [commandParameters objectAtIndex:0], @"jpg", [NSString stringWithFormat:@"%f", IMAGEVIEW_TRANSITION_TIME_DEFAULT], nil];
                 }
                 else if([commandParameters count] == 2){
                     singleCommandArray = [NSArray arrayWithObjects:@"changeBackground", [commandParameters objectAtIndex:0], @"jpg", [commandParameters objectAtIndex:1], nil];
@@ -65,14 +67,14 @@
             }
             else if ([commandName isEqualToString:@"setCG"]){
                 if([commandParameters count] == 1){
-                    singleCommandArray = [NSArray arrayWithObjects:@"changeCGImage", [commandParameters objectAtIndex:0], @"jpg", @"1000", nil];
+                    singleCommandArray = [NSArray arrayWithObjects:@"changeCGImage", [commandParameters objectAtIndex:0], @"jpg", [NSString stringWithFormat:@"%f", IMAGEVIEW_TRANSITION_TIME_DEFAULT], nil];
                 }
                 else if([commandParameters count] == 2){
                     singleCommandArray = [NSArray arrayWithObjects:@"changeCGImage", [commandParameters objectAtIndex:0], @"jpg", [commandParameters objectAtIndex:1], nil];
                 }
             }
             else if([commandName isEqualToString:@"setBGColor"]){
-                singleCommandArray = [NSArray arrayWithObjects:@"changePureColorBackground", [commandParameters objectAtIndex:0], nil];
+                singleCommandArray = [NSArray arrayWithObjects:@"changePureColorBackground", [commandParameters objectAtIndex:0], [commandParameters objectAtIndex:1], nil];
             }
             //Character related/
             else if([commandName isEqualToString:@"setCharacterName"]){
@@ -81,7 +83,7 @@
             }
             else if([commandName isEqualToString:@"setCharacterImage"]){
                 if([commandParameters count] == 1){
-                    singleCommandArray = [NSArray arrayWithObjects:@"changeCharacterImage", [commandParameters objectAtIndex:0], @"png", @"1000", nil];
+                    singleCommandArray = [NSArray arrayWithObjects:@"changeCharacterImage", [commandParameters objectAtIndex:0], @"png", [NSString stringWithFormat:@"%f", IMAGEVIEW_TRANSITION_TIME_DEFAULT], nil];
                 }
                 else if([commandParameters count] == 2){
                     singleCommandArray = [NSArray arrayWithObjects:@"changeCharacterImage", [commandParameters objectAtIndex:0], @"png", [commandParameters objectAtIndex:1], nil];
