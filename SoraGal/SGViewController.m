@@ -51,6 +51,7 @@
 //Initialize the viewController settings.
 - (void)initialAllSettings{
     self.dialogView.dialogAlpha = 1.0; //Set the initial alpha to 0.5.
+    self.dialogView.dialogTextDisplaySpeedInSecond = 0.05; //Set the dialog text display speed to per letter/0.05s.
     
     self.soraGalAudioModule = [[SGAudioModule alloc] init]; //Create the instance of audio module.
     
@@ -199,24 +200,32 @@
 
 //Display the dialog.
 - (void)showDialog:(NSString *)characterName andText:(NSString *)dialogText{
-    if((![characterName isEqualToString:@""]) && (characterName != nil)){
-        if([characterName length] > 25){
-            characterName = [characterName substringToIndex:99];
-            
-            NSLog(@"Charater name text exceed max length.");
-        }
-        self.dialogView.dialogName = [characterName stringByAppendingString:@"："];
-    }
-    else{
-        self.dialogView.dialogName = @"";
-    }
-
-    if([dialogText length] > 140){
-        dialogText = [dialogText substringToIndex:139];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *localCharacterName = characterName;
+        NSString *localDialogText = dialogText;
         
-        NSLog(@"Dialog text exceed max length in a single page.");
-    }
-    self.dialogView.dialogText = dialogText; 
+        if((![localCharacterName isEqualToString:@""]) && (localCharacterName != nil)){
+            if([localCharacterName length] > 25){
+                localCharacterName = [localCharacterName substringToIndex:99];
+                
+                NSLog(@"Charater name text exceed max length.");
+            }
+            self.dialogView.dialogName = [localCharacterName stringByAppendingString:@"："];
+        }
+        else{
+            self.dialogView.dialogName = @"";
+        }
+        
+        if([localDialogText length] > 140){
+            localDialogText = [localDialogText substringToIndex:139];
+            
+            NSLog(@"Dialog text exceed max length in a single page.");
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.dialogView.dialogText = localDialogText;
+        });
+    });
 }
 
 
@@ -263,6 +272,10 @@
 #pragma mark - SGSettingsViewController Delegate
 - (void)shouldChangeDialogBoxTransparency:(float)OpaqueValue{
     self.dialogView.dialogAlpha = 1 - OpaqueValue;  //Change the alpha of dialog box.
+}
+
+- (void)shouldCHangeDialogTextDisplaySpeed:(float)displaySpeed{
+    self.dialogView.dialogTextDisplaySpeedInSecond = displaySpeed;
 }
 
 - (void)shouldChangeBackgroundFillType:(BOOL)ifFillTheScreen{

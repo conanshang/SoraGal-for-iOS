@@ -16,5 +16,6 @@
 
 //For settings use.
 @property (nonatomic, readwrite) CGFloat dialogAlpha;
+@property (nonatomic, readwrite) float dialogTextDisplaySpeedInSecond;
 
 @end

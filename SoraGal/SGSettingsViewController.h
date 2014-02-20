@@ -14,6 +14,7 @@
 
 @optional
 - (void)shouldChangeDialogBoxTransparency:(float)OpaqueValue;
+- (void)shouldCHangeDialogTextDisplaySpeed:(float)displaySpeed;
 - (void)shouldChangeBackgroundFillType:(BOOL)ifFillTheScreen;
 
 - (void)shouldChangeBackgroundMusicVolume:(float)volume;

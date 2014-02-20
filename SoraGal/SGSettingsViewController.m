@@ -12,6 +12,7 @@
 
 //The UI elements.
 @property (weak, nonatomic) IBOutlet UISlider *dialogBoxOpaqueSlider;
+@property (weak, nonatomic) IBOutlet UISlider *dialogTextDisplaySpeedSlider;
 @property (weak, nonatomic) IBOutlet UISlider *bgmVolumeSlider;
 @property (weak, nonatomic) IBOutlet UISlider *voiceVolumeSlider;
 @property (weak, nonatomic) IBOutlet UISwitch *cgModeSwitch;
@@ -35,7 +36,7 @@
     
 	//Load or initial the settingsStatus.
     if(!self.settingsStatus){
-        self.settingsStatus = [[NSMutableDictionary alloc] initWithCapacity:5];
+        self.settingsStatus = [[NSMutableDictionary alloc] initWithCapacity:6];
     }
     else{
         [self loadPreviousSettings];
@@ -44,6 +45,7 @@
 
 - (void)loadPreviousSettings{
     self.dialogBoxOpaqueSlider.value = [[self.settingsStatus objectForKey:@"dialogBoxOpaque"] floatValue];
+    self.dialogTextDisplaySpeedSlider.value = [[self.settingsStatus objectForKey:@"dialogTextDisplaySpeed"] floatValue];
     self.bgmVolumeSlider.value = [[self.settingsStatus objectForKey:@"bgmVolume"] floatValue];
     self.voiceVolumeSlider.value = [[self.settingsStatus objectForKey:@"voiceVolume"] floatValue];
     self.cgModeSwitch.on = [[self.settingsStatus objectForKey:@"cgMode"] boolValue];
@@ -55,6 +57,13 @@
     //Use delegate to change the transparency of dialog box in realtime.
     [_viewRelatedDelegate shouldChangeDialogBoxTransparency:dialogBoxTransparencySlider.value];
 }
+
+- (IBAction)dialogTextDisplaySpeedSlider:(id)sender {
+    UISlider *dialogDisplaySpeed = sender;
+    //Use delegate to change the dialog text display speed.
+    [_viewRelatedDelegate shouldCHangeDialogTextDisplaySpeed:dialogDisplaySpeed.value];
+}
+
 
 - (IBAction)bgmVolumeSlider:(id)sender {
     UISlider *bgmSlider = sender;
@@ -74,6 +83,7 @@
 //Doing something before unwind.
 - (void)saveSettingsStatus{
     [self.settingsStatus setObject:[NSNumber numberWithFloat:self.dialogBoxOpaqueSlider.value] forKey:@"dialogBoxOpaque"];
+    [self.settingsStatus setObject:[NSNumber numberWithFloat:self.dialogTextDisplaySpeedSlider.value] forKey:@"dialogTextDisplaySpeed"];
     [self.settingsStatus setObject:[NSNumber numberWithFloat:self.bgmVolumeSlider.value] forKey:@"bgmVolume"];
     [self.settingsStatus setObject:[NSNumber numberWithFloat:self.voiceVolumeSlider.value] forKey:@"voiceVolume"];
     [self.settingsStatus setObject:[NSNumber numberWithBool:self.cgModeSwitch.on] forKey:@"cgMode"];

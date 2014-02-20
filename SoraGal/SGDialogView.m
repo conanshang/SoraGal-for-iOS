@@ -7,9 +7,16 @@
 //
 
 #import "SGDialogView.h"
+
 @interface SGDialogView()
 
+//If display the name box.
 @property BOOL ifShowDialogNameBox;
+
+//For display text one by one.
+@property NSUInteger currentPosition;
+@property (nonatomic, strong) NSString *currentText;
+@property (nonatomic, strong) NSTimer *timer;
 
 @end
 
@@ -32,6 +39,12 @@
     }
 }
 
+- (void)setDialogTextDisplaySpeedInSecond:(float)dialogTextDisplaySpeedInSecond{
+    if(dialogTextDisplaySpeedInSecond != _dialogTextDisplaySpeedInSecond){
+        _dialogTextDisplaySpeedInSecond = dialogTextDisplaySpeedInSecond;
+    }
+}
+
 - (void)setDialogName:(NSString *)dialogName{
     if([dialogName isEqualToString:@""]){
         self.ifShowDialogNameBox = NO;
@@ -49,13 +62,38 @@
 - (void)setDialogText:(NSString *)dialogText{
     if(dialogText != _dialogText){
         _dialogText = dialogText;
-        [self setNeedsDisplay];
+        
+        if(self.dialogTextDisplaySpeedInSecond == 0){
+            self.currentText = self.dialogText;
+            [self setNeedsDisplay];
+        }
+        else{
+            //For display text one by one.
+            [self.timer invalidate];
+            
+            self.currentText = [NSString new];
+            self.currentPosition = 0;
+            
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:self.dialogTextDisplaySpeedInSecond target:self selector:@selector(typingDialog) userInfo:nil repeats:YES];
+        }
+    }
+}
+
+- (void)typingDialog{
+    self.currentText = [self.dialogText substringToIndex:self.currentPosition];
+    
+    [self setNeedsDisplay];
+    
+    self.currentPosition++;
+    
+    if(self.currentPosition >= [self.dialogText length]){
+        [self.timer invalidate];
     }
 }
 
 - (CGFloat)calculateDialogNameBoxLengthUseFontsInfomation:(NSDictionary *)fonts{
     CGSize nameSize = [self.dialogName sizeWithAttributes:fonts];
-   
+    
     return nameSize.width;
 }
 
@@ -93,7 +131,7 @@
     
     NSDictionary* dialogTextFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Helvetica" size: 15], NSForegroundColorAttributeName: [UIColor blackColor], NSParagraphStyleAttributeName: dialogTextStyle};
     
-    [self.dialogText drawInRect: dialogTextRect withAttributes: dialogTextFontAttributes];
+    [self.currentText drawInRect: dialogTextRect withAttributes: dialogTextFontAttributes];
     
     //// Name Box Drawing & Name Text Drawing
     if(self.ifShowDialogNameBox){
