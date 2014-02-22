@@ -16,7 +16,6 @@
 
 @property (nonatomic, strong) NSDictionary *gameConfigMap;
 @property (nonatomic, strong) NSArray *currentCommandArray;
-@property (nonatomic, strong) NSMutableDictionary *gameStatus;
 
 @end
 
@@ -36,9 +35,6 @@
     
     //Create the SGScriptExecutor instance.
     [self createScriptExecutorInstance];
-    
-    //Alloc the variable for saving game status.
-    self.gameStatus = [[NSMutableDictionary alloc] init];
 }
 
 - (void)loadGameConfiguration{
@@ -99,8 +95,6 @@
     if([self.gameExecutor next]){
         self.currentCommandArray = self.gameExecutor.waitingCommandArray;
         
-        [self recordCurrentGameStatus]; //Need put in other block.
-        
         return self.currentCommandArray;
     }
     else{
@@ -108,24 +102,12 @@
     }
 }
 
-- (void)recordCurrentGameStatus{
-    for(int i=0; i<[self.currentCommandArray count]; i++){
-        SGScriptCommand *currentCommand = [self.currentCommandArray objectAtIndex:i];
-        NSString *commandName = currentCommand.commandName;
-        NSArray *commandParameters = currentCommand.commandParameters;
-        
-        [self.gameStatus setObject:commandParameters forKey:commandName];
-    }
-    
-    [self.gameStatus setObject:[NSNumber numberWithInteger:[self.gameExecutor askCurrentLine]] forKey:@"currentLine"];
+- (NSNumber *)saveGameInScriptProcessorLevel{
+    return [NSNumber numberWithUnsignedInteger:[self.gameExecutor askCurrentLine]];
 }
 
-- (NSDictionary *)saveGameInScriptProcessorLevel{
-    return [NSDictionary dictionaryWithDictionary:self.gameStatus];
-}
-
-- (void)loadGameInScriptProcessorLevel:(NSUInteger)currentLine{
-    [self.gameExecutor reloadCurrentLine:currentLine];
+- (void)loadGameInScriptProcessorLevel:(NSNumber *)currentLine{
+    [self.gameExecutor reloadCurrentLine:[currentLine unsignedIntegerValue]];
 }
 
 

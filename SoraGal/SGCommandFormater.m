@@ -143,9 +143,13 @@
     }  
 }
 
+- (NSNumber *)getCurrentLineNumber{
+    return [self.soraGalProcessCenter saveGameInScriptProcessorLevel];
+}
 
-
-
+- (void)reloadLineFrom:(NSNumber *)lineNumber{
+    [self.soraGalProcessCenter loadGameInScriptProcessorLevel:lineNumber];
+}
 
 
 

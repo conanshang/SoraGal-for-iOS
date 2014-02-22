@@ -11,5 +11,7 @@
 @interface SGCommandFormater : NSObject
 
 - (NSArray *)getNextCommand;
+- (NSNumber *)getCurrentLineNumber;
+- (void)reloadLineFrom:(NSNumber *)lineNumber;
 
 @end

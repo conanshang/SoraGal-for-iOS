@@ -11,7 +11,7 @@
 @interface SGProcessCenter : NSObject
 
 - (NSArray *)nextLine;
-- (NSDictionary *)saveGameInScriptProcessorLevel;
-- (void)loadGameInScriptProcessorLevel:(NSUInteger)currentLine;
+- (NSNumber *)saveGameInScriptProcessorLevel;
+- (void)loadGameInScriptProcessorLevel:(NSNumber *)currentLine;
 
 @end

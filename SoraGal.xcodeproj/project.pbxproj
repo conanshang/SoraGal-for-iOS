@@ -20,6 +20,7 @@
 		0F4B2ACF18A0470F0068B77E /* SGProcessCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F4B2ACE18A0470F0068B77E /* SGProcessCenter.m */; };
 		0F591EF218A9F4F100C99A99 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD8A1E918A9F30B00869B51 /* AVFoundation.framework */; };
 		0F591EF418A9F6F300C99A99 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F591EF318A9F6F300C99A99 /* AudioToolbox.framework */; };
+		0F7AB5FC18B70BA400D045E3 /* SGSaveAndLoadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7AB5FB18B70BA400D045E3 /* SGSaveAndLoadViewController.m */; };
 		0F7DEFB4188FE6200096FFE4 /* SGScriptParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7DEFB3188FE6200096FFE4 /* SGScriptParser.m */; };
 		0F7DEFC01890DCD90096FFE4 /* SGScriptExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7DEFBF1890DCD90096FFE4 /* SGScriptExpression.m */; };
 		0F8BA74518A09F6B0013ECF9 /* SGScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8BA74418A09F6B0013ECF9 /* SGScriptCommand.m */; };
@@ -76,6 +77,8 @@
 		0F4B2ACD18A0470F0068B77E /* SGProcessCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGProcessCenter.h; sourceTree = "<group>"; };
 		0F4B2ACE18A0470F0068B77E /* SGProcessCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGProcessCenter.m; sourceTree = "<group>"; };
 		0F591EF318A9F6F300C99A99 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		0F7AB5FA18B70BA400D045E3 /* SGSaveAndLoadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGSaveAndLoadViewController.h; sourceTree = "<group>"; };
+		0F7AB5FB18B70BA400D045E3 /* SGSaveAndLoadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGSaveAndLoadViewController.m; sourceTree = "<group>"; };
 		0F7DEFB2188FE6200096FFE4 /* SGScriptParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScriptParser.h; sourceTree = "<group>"; };
 		0F7DEFB3188FE6200096FFE4 /* SGScriptParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptParser.m; sourceTree = "<group>"; };
 		0F7DEFBE1890DCD90096FFE4 /* SGScriptExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScriptExpression.h; sourceTree = "<group>"; };
@@ -145,6 +148,8 @@
 				0FBFF4D51884410000F1E1DC /* SGViewController.m */,
 				0F15E37B18878A6E00B83AEF /* SGSettingsViewController.h */,
 				0F15E37C18878A6E00B83AEF /* SGSettingsViewController.m */,
+				0F7AB5FA18B70BA400D045E3 /* SGSaveAndLoadViewController.h */,
+				0F7AB5FB18B70BA400D045E3 /* SGSaveAndLoadViewController.m */,
 				0F40B52018ADA6E8005B9E09 /* SGAudioModule.h */,
 				0F40B52118ADA6E8005B9E09 /* SGAudioModule.m */,
 				0FBF4BFD18B3240200994247 /* SGCommandFormater.h */,
@@ -390,6 +395,7 @@
 				0FBF4BFF18B3240200994247 /* SGCommandFormater.m in Sources */,
 				0F15E3851887E3BB00B83AEF /* SGScriptExecutor.m in Sources */,
 				0F4B2ACF18A0470F0068B77E /* SGProcessCenter.m in Sources */,
+				0F7AB5FC18B70BA400D045E3 /* SGSaveAndLoadViewController.m in Sources */,
 				0F7DEFC01890DCD90096FFE4 /* SGScriptExpression.m in Sources */,
 				0FBF4C0218B3614A00994247 /* SGAnimationToSettings.m in Sources */,
 				0F15E38918882A5600B83AEF /* SGScriptReader.m in Sources */,
