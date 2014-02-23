@@ -261,13 +261,19 @@
         settingsViewController.transitioningDelegate = self;
         settingsViewController.modalPresentationStyle = UIModalPresentationCustom;
     }
+    else if([segue.identifier isEqualToString:@"saveAndLoad"]){
+        //UITabBarController *tabBarController = segue.destinationViewController;
+        
+        //Custom transition.
+        //tabBarController.transitioningDelegate = self;
+        //tabBarController.modalPresentationStyle = UIModalPresentationCustom;
+    }
 }
 
 - (IBAction)unwindFromSettings:(UIStoryboardSegue *)sender {
     SGSettingsViewController *receivedSettingsViewController = sender.sourceViewController;
     self.settingsSavingDictionary = receivedSettingsViewController.settingsStatus;
 }
-
 
 #pragma mark - SGSettingsViewController Delegate
 - (void)shouldChangeDialogBoxTransparency:(float)OpaqueValue{
@@ -293,19 +299,34 @@
                                                                   presentingController:(UIViewController *)presenting
                                                                       sourceController:(UIViewController *)source{
     
-    SGAnimationToSettings *animator = [SGAnimationToSettings new];
+    if([presented.title isEqualToString:@"SGSettingsViewController"]){
+        SGAnimationToSettings *animator = [SGAnimationToSettings new];
+        
+        animator.ifInAnimating = YES;
+        
+        return animator;
+    }
+    else if([presented.title isEqualToString:@"SGSaveLoadTabBarController"]){
+        SGAnimationToSettings *animator = [SGAnimationToSettings new];
+        
+        animator.ifInAnimating = YES;
+        
+        return animator;
+    }
     
-    animator.ifInAnimating = YES;
-    
-    return animator;
+    return nil;
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed{
-    SGAnimationToSettings *animator = [SGAnimationToSettings new];
+    if([dismissed.title isEqualToString:@"SGSettingsViewController"]){
+        SGAnimationToSettings *animator = [SGAnimationToSettings new];
+        
+        animator.ifInAnimating = NO;
+        
+        return animator;
+    }
     
-    animator.ifInAnimating = NO;
-    
-    return animator;
+    return nil;
 }
 
 

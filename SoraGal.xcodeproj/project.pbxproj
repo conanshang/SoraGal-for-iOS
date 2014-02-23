@@ -20,7 +20,6 @@
 		0F4B2ACF18A0470F0068B77E /* SGProcessCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F4B2ACE18A0470F0068B77E /* SGProcessCenter.m */; };
 		0F591EF218A9F4F100C99A99 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD8A1E918A9F30B00869B51 /* AVFoundation.framework */; };
 		0F591EF418A9F6F300C99A99 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F591EF318A9F6F300C99A99 /* AudioToolbox.framework */; };
-		0F7AB5FC18B70BA400D045E3 /* SGSaveAndLoadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7AB5FB18B70BA400D045E3 /* SGSaveAndLoadViewController.m */; };
 		0F7DEFB4188FE6200096FFE4 /* SGScriptParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7DEFB3188FE6200096FFE4 /* SGScriptParser.m */; };
 		0F7DEFC01890DCD90096FFE4 /* SGScriptExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7DEFBF1890DCD90096FFE4 /* SGScriptExpression.m */; };
 		0F8BA74518A09F6B0013ECF9 /* SGScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8BA74418A09F6B0013ECF9 /* SGScriptCommand.m */; };
@@ -42,6 +41,9 @@
 		0FBFF4E11884410000F1E1DC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FBFF4C31884410000F1E1DC /* UIKit.framework */; };
 		0FBFF4E91884410000F1E1DC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0FBFF4E71884410000F1E1DC /* InfoPlist.strings */; };
 		0FBFF4EB1884410000F1E1DC /* SoraGalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FBFF4EA1884410000F1E1DC /* SoraGalTests.m */; };
+		0FD7657418B9DBBF00463770 /* SGSaveLoadItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD7657318B9DBBF00463770 /* SGSaveLoadItemCell.m */; };
+		0FD7657D18B9DDA400463770 /* SGSaveLoadCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD7657C18B9DDA400463770 /* SGSaveLoadCollectionViewController.m */; };
+		0FD7658018B9EC5C00463770 /* SGAnimatedToSaveAndLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD7657F18B9EC5C00463770 /* SGAnimatedToSaveAndLoad.m */; };
 		0FEF02BE18928BD0000A4EF6 /* TestScript.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0FEF02BD18928BD0000A4EF6 /* TestScript.txt */; };
 /* End PBXBuildFile section */
 
@@ -77,8 +79,6 @@
 		0F4B2ACD18A0470F0068B77E /* SGProcessCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGProcessCenter.h; sourceTree = "<group>"; };
 		0F4B2ACE18A0470F0068B77E /* SGProcessCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGProcessCenter.m; sourceTree = "<group>"; };
 		0F591EF318A9F6F300C99A99 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		0F7AB5FA18B70BA400D045E3 /* SGSaveAndLoadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGSaveAndLoadViewController.h; sourceTree = "<group>"; };
-		0F7AB5FB18B70BA400D045E3 /* SGSaveAndLoadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGSaveAndLoadViewController.m; sourceTree = "<group>"; };
 		0F7DEFB2188FE6200096FFE4 /* SGScriptParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScriptParser.h; sourceTree = "<group>"; };
 		0F7DEFB3188FE6200096FFE4 /* SGScriptParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptParser.m; sourceTree = "<group>"; };
 		0F7DEFBE1890DCD90096FFE4 /* SGScriptExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScriptExpression.h; sourceTree = "<group>"; };
@@ -111,6 +111,12 @@
 		0FBFF4E61884410000F1E1DC /* SoraGalTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SoraGalTests-Info.plist"; sourceTree = "<group>"; };
 		0FBFF4E81884410000F1E1DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0FBFF4EA1884410000F1E1DC /* SoraGalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SoraGalTests.m; sourceTree = "<group>"; };
+		0FD7657218B9DBBF00463770 /* SGSaveLoadItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGSaveLoadItemCell.h; sourceTree = "<group>"; };
+		0FD7657318B9DBBF00463770 /* SGSaveLoadItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGSaveLoadItemCell.m; sourceTree = "<group>"; };
+		0FD7657B18B9DDA400463770 /* SGSaveLoadCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SGSaveLoadCollectionViewController.h; path = ../SGSaveLoadCollectionViewController.h; sourceTree = "<group>"; };
+		0FD7657C18B9DDA400463770 /* SGSaveLoadCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SGSaveLoadCollectionViewController.m; path = ../SGSaveLoadCollectionViewController.m; sourceTree = "<group>"; };
+		0FD7657E18B9EC5C00463770 /* SGAnimatedToSaveAndLoad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGAnimatedToSaveAndLoad.h; sourceTree = "<group>"; };
+		0FD7657F18B9EC5C00463770 /* SGAnimatedToSaveAndLoad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAnimatedToSaveAndLoad.m; sourceTree = "<group>"; };
 		0FD8A1E918A9F30B00869B51 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		0FEF02BD18928BD0000A4EF6 /* TestScript.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestScript.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,8 +154,8 @@
 				0FBFF4D51884410000F1E1DC /* SGViewController.m */,
 				0F15E37B18878A6E00B83AEF /* SGSettingsViewController.h */,
 				0F15E37C18878A6E00B83AEF /* SGSettingsViewController.m */,
-				0F7AB5FA18B70BA400D045E3 /* SGSaveAndLoadViewController.h */,
-				0F7AB5FB18B70BA400D045E3 /* SGSaveAndLoadViewController.m */,
+				0FD7657B18B9DDA400463770 /* SGSaveLoadCollectionViewController.h */,
+				0FD7657C18B9DDA400463770 /* SGSaveLoadCollectionViewController.m */,
 				0F40B52018ADA6E8005B9E09 /* SGAudioModule.h */,
 				0F40B52118ADA6E8005B9E09 /* SGAudioModule.m */,
 				0FBF4BFD18B3240200994247 /* SGCommandFormater.h */,
@@ -190,6 +196,10 @@
 				0FB494551886C8E1000C743C /* SGDialogView.m */,
 				0FBF4C0018B3614A00994247 /* SGAnimationToSettings.h */,
 				0FBF4C0118B3614A00994247 /* SGAnimationToSettings.m */,
+				0FD7657218B9DBBF00463770 /* SGSaveLoadItemCell.h */,
+				0FD7657318B9DBBF00463770 /* SGSaveLoadItemCell.m */,
+				0FD7657E18B9EC5C00463770 /* SGAnimatedToSaveAndLoad.h */,
+				0FD7657F18B9EC5C00463770 /* SGAnimatedToSaveAndLoad.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -393,10 +403,11 @@
 				0F7DEFB4188FE6200096FFE4 /* SGScriptParser.m in Sources */,
 				0F40B52218ADA6E8005B9E09 /* SGAudioModule.m in Sources */,
 				0FBF4BFF18B3240200994247 /* SGCommandFormater.m in Sources */,
+				0FD7658018B9EC5C00463770 /* SGAnimatedToSaveAndLoad.m in Sources */,
 				0F15E3851887E3BB00B83AEF /* SGScriptExecutor.m in Sources */,
 				0F4B2ACF18A0470F0068B77E /* SGProcessCenter.m in Sources */,
-				0F7AB5FC18B70BA400D045E3 /* SGSaveAndLoadViewController.m in Sources */,
 				0F7DEFC01890DCD90096FFE4 /* SGScriptExpression.m in Sources */,
+				0FD7657418B9DBBF00463770 /* SGSaveLoadItemCell.m in Sources */,
 				0FBF4C0218B3614A00994247 /* SGAnimationToSettings.m in Sources */,
 				0F15E38918882A5600B83AEF /* SGScriptReader.m in Sources */,
 				0F15E3921889324F00B83AEF /* SGScriptHelper.m in Sources */,
@@ -405,6 +416,7 @@
 				0F15E38F1889288300B83AEF /* SGScriptToken.m in Sources */,
 				0FBFF4CC1884410000F1E1DC /* main.m in Sources */,
 				0F15E37D18878A6E00B83AEF /* SGSettingsViewController.m in Sources */,
+				0FD7657D18B9DDA400463770 /* SGSaveLoadCollectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

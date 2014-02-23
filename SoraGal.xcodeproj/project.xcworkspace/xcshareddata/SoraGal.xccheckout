@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>D9141B3D-EED4-47E2-AB11-738E4C96BF03</string>
+	<string>E936115C-1442-4AA4-A470-965851BDB320</string>
 	<key>IDESourceControlProjectName</key>
 	<string>SoraGal</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -14,11 +14,11 @@
 		<string>https://github.com/conanshang/SoraGal-for-iOS.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>SoraGal/SoraGal.xcodeproj/project.xcworkspace</string>
+	<string>SoraGal.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>E7A01147-EDE3-4078-AB4E-B2923168CA34</key>
-		<string>../../..</string>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/conanshang/SoraGal-for-iOS.git</string>
