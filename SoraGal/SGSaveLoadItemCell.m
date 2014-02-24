@@ -19,8 +19,9 @@
         [self addSubview:self.saveDataScreenShotImage];
         
         //Temp set the creation date, need set it in Collection Controller.
-        self.saveDateCreationDateString = @"Creation Date";
+        self.saveDateCreationDateString = @"02/23/2014";
         
+        //Clear the background color.
         self.backgroundColor = [UIColor clearColor];
     }
     

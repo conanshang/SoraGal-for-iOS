@@ -63,23 +63,25 @@
 - (void)playBackgroundMusic:(NSString *)bgmName andType:(NSString *)bgmType{
     [self stopBackgroundMusic];
     
-    NSString *bgmFilePath = [[NSBundle mainBundle] pathForResource:bgmName ofType:bgmType inDirectory:@"GameData/BGMs"];
-    
-    if(bgmFilePath){
-        dispatch_async(self.audioPlayerQ, ^{
-            NSURL *soundFileURL = [NSURL fileURLWithPath:bgmFilePath];
-            self.backgroundPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
-            
-            if(self.backgroundPlayer){
-                self.backgroundPlayer.numberOfLoops = -1;
-                self.backgroundPlayer.volume = self.backgroundMusicVolume;
-                [self.backgroundPlayer play];
-            }
-        });
-    }
-    else{
-        NSLog(@"Can't find the requested BGM file.");
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *bgmFilePath = [[NSBundle mainBundle] pathForResource:bgmName ofType:bgmType inDirectory:@"GameData/BGMs"];
+        
+        if(bgmFilePath){
+            dispatch_async(self.audioPlayerQ, ^{
+                NSURL *soundFileURL = [NSURL fileURLWithPath:bgmFilePath];
+                self.backgroundPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+                
+                if(self.backgroundPlayer){
+                    self.backgroundPlayer.numberOfLoops = -1;
+                    self.backgroundPlayer.volume = self.backgroundMusicVolume;
+                    [self.backgroundPlayer play];
+                }
+            });
+        }
+        else{
+            NSLog(@"Can't find the requested BGM file.");
+        }
+    });
 }
 
 - (void)stopBackgroundMusic{
@@ -95,23 +97,25 @@
 - (void)playCharacterVoice:(NSString *)voiceName andType:(NSString *)voiceType{
     [self stopCharacterVoice];
     
-    NSString *voiceFilePath = [[NSBundle mainBundle] pathForResource:voiceName ofType:voiceType inDirectory:@"GameData/Voices"];
-    
-    if(voiceFilePath){
-        dispatch_async(self.audioPlayerQ, ^{
-            NSURL *soundFileURL = [NSURL fileURLWithPath:voiceFilePath];
-            self.voicePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
-            
-            if(self.voicePlayer){
-                self.voicePlayer.numberOfLoops = 0;
-                self.voicePlayer.volume = self.voiceVolume;
-                [self.voicePlayer play];
-            }
-        });
-    }
-    else{
-        NSLog(@"Can't find the requested voice file.");
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *voiceFilePath = [[NSBundle mainBundle] pathForResource:voiceName ofType:voiceType inDirectory:@"GameData/Voices"];
+        
+        if(voiceFilePath){
+            dispatch_async(self.audioPlayerQ, ^{
+                NSURL *soundFileURL = [NSURL fileURLWithPath:voiceFilePath];
+                self.voicePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+                
+                if(self.voicePlayer){
+                    self.voicePlayer.numberOfLoops = 0;
+                    self.voicePlayer.volume = self.voiceVolume;
+                    [self.voicePlayer play];
+                }
+            });
+        }
+        else{
+            NSLog(@"Can't find the requested voice file.");
+        }
+    });
 }
 
 - (void)stopCharacterVoice{

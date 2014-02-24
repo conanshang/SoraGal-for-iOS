@@ -10,6 +10,7 @@
 #import "SGDialogView.h"
 #import "SGAudioModule.h"
 #import "SGSettingsViewController.h"
+#import "SGSaveLoadCollectionViewController.h"
 #import "SGCommandFormater.h"
 #import "SGAnimationToSettings.h"
 #import "SGAnimatedToSaveAndLoad.h"
@@ -17,7 +18,7 @@
 #define IMAGEVIEW_TRANSITION_TIME_DEFAULT 300.00
 #define IMAGEVIEW_TRANSITION_TIME_MAX 5000.00
 
-@interface SGViewController () <SGSettingsViewControllerDelegate, UIViewControllerTransitioningDelegate>
+@interface SGViewController () <SGSettingsViewControllerDelegate, SGSaveCollectionViewControllerDelegate, SGLoadCollectionViewControllerDelegate, UIViewControllerTransitioningDelegate>
 
 //The view conponents.
 @property (weak, nonatomic) IBOutlet UIImageView *CGView;
@@ -31,7 +32,9 @@
 //Private variables.
 @property (nonatomic, strong) NSMutableDictionary *settingsSavingDictionary;
 @property (nonatomic, strong) NSArray *currentCommands;
+@property (nonatomic, strong) NSMutableDictionary *dictionaryForSaveGame;
 
+//Private dispatch_queue.
 @property dispatch_queue_t getNextCommandQ;
 
 @end
@@ -60,6 +63,11 @@
     self.getNextCommandQ = dispatch_queue_create("getNextCommand", NULL);
     dispatch_async(self.getNextCommandQ, ^{
         self.soraGalCommandFormatter = [[SGCommandFormater alloc] init];
+    });
+    
+    //Initial the variables.
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        self.dictionaryForSaveGame = [NSMutableDictionary new];
     });
 }
 
@@ -109,6 +117,14 @@
                 self.CGView.image = imageBG;
             });
         }
+        
+        //Low priority queue for processing saving data.
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            if([self.dictionaryForSaveGame objectForKey:@"cgImage"]){
+                [self.dictionaryForSaveGame setObject:@"NSNull" forKey:@"cgImage"];
+            }
+            [self.dictionaryForSaveGame setObject:bgName forKey:@"backgroundImage"];
+        });
     });
 }
 
@@ -128,6 +144,14 @@
                 self.CGView.image = imageCG;
             });
         }
+        
+        //Low priority queue for processing saving data.
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            if([self.dictionaryForSaveGame objectForKey:@"backgroundImage"]){
+                [self.dictionaryForSaveGame setObject:@"NSNull" forKey:@"backgroundImage"];
+            }
+            [self.dictionaryForSaveGame setObject:cgName forKey:@"cgImage"];
+        });
     });
 }
 
@@ -182,21 +206,36 @@
                 self.CGView.backgroundColor = pureColor;
             });
         }
+        
+        //Low priority queue for processing saving data.
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            if([self.dictionaryForSaveGame objectForKey:@"backgroundImage"]){
+                [self.dictionaryForSaveGame setObject:@"NSNull" forKey:@"backgroundImage"];
+            }
+            if([self.dictionaryForSaveGame objectForKey:@"cgImage"]){
+                [self.dictionaryForSaveGame setObject:@"NSNull" forKey:@"cgImage"];
+            }
+            [self.dictionaryForSaveGame setObject:rgbColor forKey:@"pureColorBackground"];
+        });
     });
 }
 
 //Chnage the character image.
-- (BOOL)changeCharacterImage:(NSString *)chName withType:(NSString *)chType andTransitionTime:(float)transitionTime{
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:chName ofType:chType inDirectory:@"GameData/CHs"];
-    UIImage *imageCH = [[UIImage alloc] initWithContentsOfFile:imagePath];
-    
-    if(imageCH != nil){
-        self.CHView.image = imageCH;
+- (void)changeCharacterImage:(NSString *)chName withType:(NSString *)chType andTransitionTime:(float)transitionTime{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *imagePath = [[NSBundle mainBundle] pathForResource:chName ofType:chType inDirectory:@"GameData/CHs"];
+        UIImage *imageCH = [[UIImage alloc] initWithContentsOfFile:imagePath];
         
-        return YES;
-    }
-    
-    return NO;
+        if(imageCH != nil){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.CHView.image = imageCH;
+            });
+        }
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [self.dictionaryForSaveGame setObject:chName forKey:@"characterImage"];
+        });
+    });
 }
 
 //Display the dialog.
@@ -226,6 +265,13 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             self.dialogView.dialogText = localDialogText;
         });
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            if(characterName){
+                [self.dictionaryForSaveGame setObject:characterName forKey:@"characterName"];
+            }
+            [self.dictionaryForSaveGame setObject:dialogText forKey:@"dialogText"];
+        });
     });
 }
 
@@ -233,18 +279,34 @@
 #pragma mark - Audio and video controlling methods.
 - (void)playBackgroundMusic:(NSString *)bgmName andType:(NSString *)bgmType{
     [self.soraGalAudioModule playBackgroundMusic:bgmName andType:bgmType];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [self.dictionaryForSaveGame setObject:bgmName forKey:@"backgroundMusic"];
+    });
 }
 
 - (void)stopBackgroundMusic{
     [self.soraGalAudioModule stopBackgroundMusic];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [self.dictionaryForSaveGame setObject:@"NSNull" forKey:@"backgroundMusic"];
+    });
 }
 
 - (void)playCharacterVoice:(NSString *)voiceName andType:(NSString *)voiceType{
     [self.soraGalAudioModule playCharacterVoice:voiceName andType:voiceType];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [self.dictionaryForSaveGame setObject:voiceName forKey:@"characterVoice"];
+    });
 }
 
 - (void)stopCharacterVoice{
     [self.soraGalAudioModule stopCharacterVoice];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [self.dictionaryForSaveGame setObject:@"NSNull" forKey:@"characterVoice"];
+    });
 }
 
 
@@ -262,9 +324,22 @@
         settingsViewController.transitioningDelegate = self;
         settingsViewController.modalPresentationStyle = UIModalPresentationCustom;
     }
-    else if([segue.identifier isEqualToString:@"saveGame"] || [segue.identifier isEqualToString:@"loadGame"]){
-        UICollectionViewController *collectionViewController = segue.destinationViewController;
+    else if([segue.identifier isEqualToString:@"saveGame"]){
+        SGSaveCollectionViewController *collectionViewController = segue.destinationViewController;
 
+        //Set delegate.
+        collectionViewController.delegate = (id)self;
+        
+        //Custom transition.
+        collectionViewController.transitioningDelegate = self;
+        collectionViewController.modalPresentationStyle = UIModalPresentationCustom;
+    }
+    else if([segue.identifier isEqualToString:@"loadGame"]){
+        SGLoadCollectionViewController *collectionViewController = segue.destinationViewController;
+        
+        //Set delegate.
+        collectionViewController.delegate = (id)self;
+        
         //Custom transition.
         collectionViewController.transitioningDelegate = self;
         collectionViewController.modalPresentationStyle = UIModalPresentationCustom;
@@ -275,6 +350,7 @@
     SGSettingsViewController *receivedSettingsViewController = sender.sourceViewController;
     self.settingsSavingDictionary = receivedSettingsViewController.settingsStatus;
 }
+
 
 #pragma mark - SGSettingsViewController Delegate
 - (void)shouldChangeDialogBoxTransparency:(float)OpaqueValue{
@@ -292,6 +368,23 @@
     else{
         self.CGView.contentMode = UIViewContentModeScaleAspectFit;
     }
+}
+
+
+#pragma mark - SGSaveLoadCollectionViewController Delegate
+- (NSDictionary *)returnCurrentGameStatus{
+    NSNumber *currentLine = [self.soraGalCommandFormatter getCurrentLineNumber];
+    
+    [self.dictionaryForSaveGame setObject:currentLine forKey:@"currentLine"];
+    NSDictionary *returnDic = [NSDictionary dictionaryWithDictionary:self.dictionaryForSaveGame];
+    
+    return returnDic;
+}
+
+- (BOOL)reloadGameStatus:(NSDictionary *)gameStatus{
+    
+    
+    return YES;
 }
 
 

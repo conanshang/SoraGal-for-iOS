@@ -11,9 +11,13 @@
 
 #pragma mark - Save Game UICollectionViewController
 
-@interface SGSaveCollectionViewController ()
+@interface SGSaveCollectionViewController () <UICollectionViewDelegate, UIAlertViewDelegate>
 
+//IBOutlets.
 @property (strong, nonatomic) IBOutlet SGCustomCollectionViewFlowLayout *saveCollectionViewFlowLayout;
+
+//Private variables.
+@property (nonatomic, strong) NSMutableArray *savingDataArray;
 
 @end
 
@@ -37,6 +41,12 @@
     
     //Setup the layout.
     [self setupTheLayout];
+    
+    //Set the deleagte of collectionView.
+    self.collectionView.delegate = self;
+    
+    //Load saving data from file.
+    [self loadGameSavingFile];
 }
 
 - (void)setupTheLayout{
@@ -53,29 +63,81 @@
     [self.collectionView setShowsVerticalScrollIndicator:NO];
 }
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+//Load game saving data from Document folder.
+- (void)loadGameSavingFile{
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    NSURL *usersDocumentURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSString *saveDataPath = [usersDocumentURL.path stringByAppendingPathComponent:@"soraGalSavingData.plist"];
     
-    return 1;
+    if([fileManager fileExistsAtPath:saveDataPath]){
+        self.savingDataArray = [NSMutableArray arrayWithContentsOfFile:saveDataPath];
+    }
+    else{
+        NSMutableArray *saveDataArrayCreate = [[NSMutableArray alloc] initWithCapacity:10];
+        for(int i = 0; i < 10; i++){
+            [saveDataArrayCreate addObject:@"NSNull"];
+        }
+        
+        self.savingDataArray = saveDataArrayCreate;
+        BOOL ifSave = [self.savingDataArray writeToFile:saveDataPath atomically:YES];
+        if(ifSave){
+            NSLog(@"New Save Data Created.");
+        }
+    }
 }
 
+//Get the screenshot image.
+- (UIImage *)getSaveDataScreenShotImageByName:(NSString *)imageName{
+    NSURL *usersDocumentURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSString *imageDataPath = [usersDocumentURL.path stringByAppendingPathComponent:imageName];
+    
+    return [UIImage imageWithContentsOfFile:imageDataPath];
+}
+
+//Load the cells.
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return 10;
+    return [self.savingDataArray count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier = @"saveGameCollectionCell";
-    
     SGSaveLoadItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"eden_1" ofType:@"jpg" inDirectory:@"GameData/CGs"];
-    cell.saveDataScreenShotImage.image = [[UIImage alloc] initWithContentsOfFile:imagePath];
-    
+    if([[self.savingDataArray objectAtIndex:indexPath.item] isKindOfClass:[NSDictionary class]]){
+        //Get the specific save data.
+        NSDictionary *saveDataOverAll = [self.savingDataArray objectAtIndex:indexPath.item];
+        //Set the cell.
+        cell.saveDateCreationDateString = [saveDataOverAll objectForKey:@"creationTime"];
+        cell.saveDataScreenShotImage.image = [self getSaveDataScreenShotImageByName:[saveDataOverAll objectForKey:@"imageName"]];
+    }
+    else{
+        cell.saveDateCreationDateString = @"No Data";
+        cell.saveDataScreenShotImage.image = nil;
+    }
+
     return cell;
 }
 
+//Get the current game status.
+- (NSDictionary *)getCurrentGameStatus{
+    NSDictionary *returnData = [_delegate returnCurrentGameStatus];
+    if(returnData){
+        return returnData;
+    }
+    else{
+        return nil;
+    }
+}
+
+//If a cell was tapped - Delegate Method.
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    //NSLog([[self getCurrentGameStatus] description]);
+}
+
+//Back to game.
 - (IBAction)exitSaveGameScreen:(id)sender {
-    //NSLog(@"Exit");
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

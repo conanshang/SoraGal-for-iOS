@@ -10,14 +10,38 @@
 
 #pragma mark - Save Game UICollectionViewController
 
+@class SGSaveCollectionViewController;
+//Delegate
+@protocol SGSaveCollectionViewControllerDelegate <NSObject>
+
+@required
+- (NSDictionary *)returnCurrentGameStatus;
+
+@end
+
+//Interface
 @interface SGSaveCollectionViewController : UICollectionViewController
+
+@property (nonatomic, weak) id <SGSaveCollectionViewControllerDelegate> delegate;
 
 @end
 
 
 #pragma mark - Load Game UICollectionViewController
 
+@class SGLoadCollectionViewController;
+//Delegate
+@protocol SGLoadCollectionViewControllerDelegate <NSObject>
+
+@required
+- (BOOL)reloadGameStatus:(NSDictionary *)gameStatus;
+
+@end
+
+//Interface
 @interface SGLoadCollectionViewController : UICollectionViewController
+
+@property (nonatomic, weak) id <SGLoadCollectionViewControllerDelegate> delegate;
 
 @end
 
