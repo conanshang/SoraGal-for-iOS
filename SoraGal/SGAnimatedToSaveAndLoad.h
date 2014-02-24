@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SGAnimatedToSaveAndLoad : NSObject
+@interface SGAnimatedToSaveAndLoad : NSObject <UIViewControllerAnimatedTransitioning>
+
+@property BOOL ifInAnimating;
+@property BOOL ifToSaveCollectionViewController;
 
 @end

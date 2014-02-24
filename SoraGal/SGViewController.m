@@ -10,8 +10,9 @@
 #import "SGDialogView.h"
 #import "SGAudioModule.h"
 #import "SGSettingsViewController.h"
-#import "SGAnimationToSettings.h"
 #import "SGCommandFormater.h"
+#import "SGAnimationToSettings.h"
+#import "SGAnimatedToSaveAndLoad.h"
 
 #define IMAGEVIEW_TRANSITION_TIME_DEFAULT 300.00
 #define IMAGEVIEW_TRANSITION_TIME_MAX 5000.00
@@ -261,12 +262,12 @@
         settingsViewController.transitioningDelegate = self;
         settingsViewController.modalPresentationStyle = UIModalPresentationCustom;
     }
-    else if([segue.identifier isEqualToString:@"saveAndLoad"]){
-        //UITabBarController *tabBarController = segue.destinationViewController;
-        
+    else if([segue.identifier isEqualToString:@"saveGame"] || [segue.identifier isEqualToString:@"loadGame"]){
+        UICollectionViewController *collectionViewController = segue.destinationViewController;
+
         //Custom transition.
-        //tabBarController.transitioningDelegate = self;
-        //tabBarController.modalPresentationStyle = UIModalPresentationCustom;
+        collectionViewController.transitioningDelegate = self;
+        collectionViewController.modalPresentationStyle = UIModalPresentationCustom;
     }
 }
 
@@ -306,10 +307,19 @@
         
         return animator;
     }
-    else if([presented.title isEqualToString:@"SGSaveLoadTabBarController"]){
-        SGAnimationToSettings *animator = [SGAnimationToSettings new];
+    else if([presented.title isEqualToString:@"SGSaveGameCollectionViewController"]){
+        SGAnimatedToSaveAndLoad *animator = [SGAnimatedToSaveAndLoad new];
         
         animator.ifInAnimating = YES;
+        animator.ifToSaveCollectionViewController = YES;
+        
+        return animator;
+    }
+    else if([presented.title isEqualToString:@"SGLoadGameCollectionViewController"]){
+        SGAnimatedToSaveAndLoad *animator = [SGAnimatedToSaveAndLoad new];
+        
+        animator.ifInAnimating = YES;
+        animator.ifToSaveCollectionViewController = NO;
         
         return animator;
     }
@@ -322,6 +332,22 @@
         SGAnimationToSettings *animator = [SGAnimationToSettings new];
         
         animator.ifInAnimating = NO;
+        
+        return animator;
+    }
+    else if([dismissed.title isEqualToString:@"SGSaveGameCollectionViewController"]){
+        SGAnimatedToSaveAndLoad *animator = [SGAnimatedToSaveAndLoad new];
+        
+        animator.ifInAnimating = NO;
+        animator.ifToSaveCollectionViewController = YES;
+        
+        return animator;
+    }
+    else if([dismissed.title isEqualToString:@"SGLoadGameCollectionViewController"]){
+        SGAnimatedToSaveAndLoad *animator = [SGAnimatedToSaveAndLoad new];
+        
+        animator.ifInAnimating = NO;
+        animator.ifToSaveCollectionViewController = NO;
         
         return animator;
     }

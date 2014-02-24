@@ -42,7 +42,7 @@
 - (void)setupTheLayout{
     //Setup the flow layout.
     self.saveCollectionViewFlowLayout = [[SGCustomCollectionViewFlowLayout alloc] init];
-    [self.saveCollectionViewFlowLayout setItemSize:CGSizeMake(279, 108)];
+    [self.saveCollectionViewFlowLayout setItemSize:CGSizeMake(279, 108)]; //The cell's size.
     [self.saveCollectionViewFlowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
     self.saveCollectionViewFlowLayout.minimumLineSpacing = 2.0f;
     
@@ -68,12 +68,16 @@
     
     SGSaveLoadItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
-    //NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"eden_1" ofType:@"jpg"];
-    //cell.imageView.image = [[UIImage alloc] initWithContentsOfFile:imagePath];
+    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"eden_1" ofType:@"jpg" inDirectory:@"GameData/CGs"];
+    cell.saveDataScreenShotImage.image = [[UIImage alloc] initWithContentsOfFile:imagePath];
     
     return cell;
 }
 
+- (IBAction)exitSaveGameScreen:(id)sender {
+    //NSLog(@"Exit");
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 
@@ -87,10 +91,11 @@
 
 
 
-
 #pragma mark - Load Game UICollectionViewController
 
 @interface SGLoadCollectionViewController ()
+
+@property (strong, nonatomic) IBOutlet SGCustomCollectionViewFlowLayout *loadCollectionViewFlowLayout;
 
 @end
 
@@ -108,9 +113,31 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
     
+    //Register the class.
     [self.collectionView registerClass:[SGSaveLoadItemCell class] forCellWithReuseIdentifier:@"loadGameCollectionCell"];
+    
+    //Setup the layout.
+    [self setupTheLayout];
+}
+
+- (void)setupTheLayout{
+    //Setup the flow layout.
+    self.loadCollectionViewFlowLayout = [[SGCustomCollectionViewFlowLayout alloc] init];
+    [self.loadCollectionViewFlowLayout setItemSize:CGSizeMake(279, 108)]; //The cell's size.
+    [self.loadCollectionViewFlowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
+    self.loadCollectionViewFlowLayout.minimumLineSpacing = 2.0f;
+    
+    //Setup the collectionView.
+    [self.collectionView setCollectionViewLayout:self.loadCollectionViewFlowLayout];
+    self.collectionView.bounces = YES;
+    [self.collectionView setShowsHorizontalScrollIndicator:NO];
+    [self.collectionView setShowsVerticalScrollIndicator:NO];
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    
+    return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -123,10 +150,14 @@
     
     SGSaveLoadItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
-    //    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"eden_1" ofType:@"jpg"];
-    //    cell.imageView.image = [[UIImage alloc] initWithContentsOfFile:imagePath];
+    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"eden_1" ofType:@"jpg" inDirectory:@"GameData/CGs"];
+    cell.saveDataScreenShotImage.image = [[UIImage alloc] initWithContentsOfFile:imagePath];
     
     return cell;
+}
+
+- (IBAction)exitLoadGameScreen:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -145,7 +176,7 @@
 
 @implementation SGCustomCollectionViewFlowLayout
 
-- (NSArray *) layoutAttributesForElementsInRect:(CGRect)rect {
+- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
     NSArray *theLayout = [[super layoutAttributesForElementsInRect:rect] mutableCopy];
     
     for(int i = 1; i < [theLayout count]; ++i) {

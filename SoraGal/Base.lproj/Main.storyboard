@@ -36,7 +36,8 @@
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="35r-06-DKB" appends="YES" id="kxT-99-Nk8"/>
                             <outletCollection property="gestureRecognizers" destination="NXD-j9-fzF" appends="YES" id="QOr-OU-pKz"/>
-                            <outletCollection property="gestureRecognizers" destination="tIt-1w-6tl" appends="YES" id="vFd-Nm-AT7"/>
+                            <outletCollection property="gestureRecognizers" destination="6eb-yH-wat" appends="YES" id="xR7-PT-TlT"/>
+                            <outletCollection property="gestureRecognizers" destination="hJs-gA-I0A" appends="YES" id="zwe-2P-NBc"/>
                         </connections>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -57,9 +58,14 @@
                         <action selector="tappedForNextCommand:" destination="vXZ-lx-hvc" id="cHE-SF-BvP"/>
                     </connections>
                 </tapGestureRecognizer>
-                <swipeGestureRecognizer direction="up" numberOfTouchesRequired="2" id="tIt-1w-6tl" userLabel="Swipe - Save and Load">
+                <swipeGestureRecognizer direction="left" id="6eb-yH-wat" userLabel="Swipe - SaveGame">
                     <connections>
-                        <segue destination="L0e-dF-fUb" kind="modal" identifier="saveAndLoad" modalTransitionStyle="coverVertical" id="aMi-Gs-DcW"/>
+                        <segue destination="VKG-zd-ULW" kind="modal" identifier="saveGame" id="Ywk-2N-juG"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="hJs-gA-I0A" userLabel="Swipe - LoadGame">
+                    <connections>
+                        <segue destination="izV-sj-hxx" kind="modal" identifier="loadGame" id="tg6-79-xRG"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
@@ -169,20 +175,21 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="662" y="68"/>
+            <point key="canvasLocation" x="662" y="26"/>
         </scene>
-        <!--Save Collection View Controller - Save Game-->
+        <!--Save Collection View Controller - SGSaveGameCollectionViewController-->
         <scene sceneID="dAr-Cd-DPz">
             <objects>
-                <collectionViewController autoresizesArchivedViewToFullSize="NO" id="VKG-zd-ULW" customClass="SGSaveCollectionViewController" sceneMemberID="viewController">
-                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="CHf-XP-EFP">
+                <collectionViewController autoresizesArchivedViewToFullSize="NO" title="SGSaveGameCollectionViewController" id="VKG-zd-ULW" customClass="SGSaveCollectionViewController" sceneMemberID="viewController">
+                    <collectionView key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="CHf-XP-EFP">
                         <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <collectionViewLayout key="collectionViewLayout" id="9GS-R4-ZwZ" customClass="SGCustomCollectionViewFlowLayout"/>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="saveGameCollectionCell" id="Wao-e1-AeV" customClass="SGSaveLoadItemCell">
+                            <collectionViewCell multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="saveGameCollectionCell" id="Wao-e1-AeV" customClass="SGSaveLoadItemCell">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -190,79 +197,72 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
                             </collectionViewCell>
                         </cells>
                         <connections>
                             <outlet property="dataSource" destination="VKG-zd-ULW" id="nCR-uS-0vD"/>
                             <outlet property="delegate" destination="VKG-zd-ULW" id="aSN-kd-sc8"/>
+                            <outletCollection property="gestureRecognizers" destination="f4O-1D-cRX" appends="YES" id="BAc-7T-gV8"/>
                         </connections>
                     </collectionView>
-                    <tabBarItem key="tabBarItem" title="Save Game" id="M5z-1i-AZR"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="saveCollectionViewFlowLayout" destination="9GS-R4-ZwZ" id="gDh-cE-Hgg"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0m1-Iy-iAb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="f4O-1D-cRX" userLabel="Swipe - Back">
+                    <connections>
+                        <action selector="exitSaveGameScreen:" destination="VKG-zd-ULW" id="HIA-OD-trQ"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1482" y="514"/>
+            <point key="canvasLocation" x="662" y="450"/>
         </scene>
-        <!--Load Collection View Controller - Load Game-->
+        <!--Load Collection View Controller - SGLoadGameCollectionViewController-->
         <scene sceneID="mwD-DD-UYZ">
             <objects>
-                <collectionViewController autoresizesArchivedViewToFullSize="NO" id="izV-sj-hxx" customClass="SGLoadCollectionViewController" sceneMemberID="viewController">
+                <collectionViewController autoresizesArchivedViewToFullSize="NO" title="SGLoadGameCollectionViewController" id="izV-sj-hxx" customClass="SGLoadCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="VkB-PG-avJ">
                         <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Qju-1u-eR7">
-                            <size key="itemSize" width="279" height="108"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
+                        <collectionViewLayout key="collectionViewLayout" id="hsJ-kb-JSZ" customClass="SGCustomCollectionViewFlowLayout"/>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="loadGameCollectionCell" id="wnL-X5-fH9" customClass="SGSaveLoadItemCell">
-                                <rect key="frame" x="0.0" y="0.0" width="279" height="108"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="loadGameCollectionCell" id="wnL-X5-fH9" customClass="SGSaveLoadItemCell">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="279" height="108"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </collectionViewCell>
                         </cells>
                         <connections>
                             <outlet property="dataSource" destination="izV-sj-hxx" id="mmB-oF-UBH"/>
                             <outlet property="delegate" destination="izV-sj-hxx" id="8XJ-rJ-3JS"/>
+                            <outletCollection property="gestureRecognizers" destination="Aym-w0-Sxa" appends="YES" id="RsR-MO-pUS"/>
                         </connections>
                     </collectionView>
-                    <tabBarItem key="tabBarItem" title="Load Game" id="sN5-vi-ash"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="loadCollectionViewFlowLayout" destination="hsJ-kb-JSZ" id="OeH-Wh-iq5"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nWJ-pu-j30" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1482" y="991"/>
-        </scene>
-        <!--Tab Bar Controller - SGSaveLoadTabBarController-->
-        <scene sceneID="gM0-Ag-qwx">
-            <objects>
-                <tabBarController title="SGSaveLoadTabBarController" definesPresentationContext="YES" id="L0e-dF-fUb" sceneMemberID="viewController">
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="YZ9-5M-Igl">
-                        <rect key="frame" x="129" y="330" width="163" height="49"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
+                <swipeGestureRecognizer direction="left" id="Aym-w0-Sxa" userLabel="Swipe - Back">
                     <connections>
-                        <segue destination="VKG-zd-ULW" kind="relationship" relationship="viewControllers" id="Ql9-OK-He1"/>
-                        <segue destination="izV-sj-hxx" kind="relationship" relationship="viewControllers" id="fnj-52-AL7"/>
+                        <action selector="exitLoadGameScreen:" destination="izV-sj-hxx" id="sL8-Wk-aaR"/>
                     </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LsL-gd-hOf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="662" y="776"/>
+            <point key="canvasLocation" x="662" y="884"/>
         </scene>
         <!--Test Functions View Controller-->
         <scene sceneID="TC5-of-fFL">

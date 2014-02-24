@@ -10,4 +10,7 @@
 
 @interface SGSaveLoadItemCell : UICollectionViewCell
 
+@property (nonatomic, retain) UIImageView *saveDataScreenShotImage;
+@property (nonatomic, strong) NSString *saveDateCreationDateString;
+
 @end
