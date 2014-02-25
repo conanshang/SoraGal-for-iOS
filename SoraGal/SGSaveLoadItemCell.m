@@ -19,7 +19,8 @@
         [self addSubview:self.saveDataScreenShotImage];
         
         //Temp set the creation date, need set it in Collection Controller.
-        self.saveDateCreationDateString = @"02/23/2014";
+        self.saveDateCreationDateString = @"Null";
+        self.saveDateCreationTimeString = @"Null";
         
         //Clear the background color.
         self.backgroundColor = [UIColor clearColor];
@@ -47,8 +48,9 @@
     CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradientColors, gradientLocations);
     
     //// Abstracted Attributes
-    NSString* createDateContent = @"Creation Date";
+    NSString* createTimeContent = @"Creation Time";
     NSString* dateContent = self.saveDateCreationDateString;
+    NSString* timeContent= self.saveDateCreationTimeString;
     
     
     //// Rounded Rectangle Drawing
@@ -62,14 +64,24 @@
     [roundedRectanglePath stroke];
     
     
-    //// Create Date Drawing
-    CGRect createDateRect = CGRectMake(185, 10, 70, 12);
-    NSMutableParagraphStyle* createDateStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
-    [createDateStyle setAlignment: NSTextAlignmentCenter];
+    //// Create Time Drawing
+    CGRect createTimeRect = CGRectMake(185, 10, 70, 12);
+    NSMutableParagraphStyle* createTimeStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+    [createTimeStyle setAlignment: NSTextAlignmentCenter];
     
-    NSDictionary* createDateFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Helvetica" size: 11], NSForegroundColorAttributeName: color3, NSParagraphStyleAttributeName: createDateStyle};
+    NSDictionary* createTimeFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Helvetica" size: 11], NSForegroundColorAttributeName: color3, NSParagraphStyleAttributeName: createTimeStyle};
     
-    [createDateContent drawInRect: createDateRect withAttributes: createDateFontAttributes];
+    [createTimeContent drawInRect: createTimeRect withAttributes: createTimeFontAttributes];
+    
+    
+    //// Time Drawing
+    CGRect timeRect = CGRectMake(185, 41.5, 70, 12.5);
+    NSMutableParagraphStyle* timeStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+    [timeStyle setAlignment: NSTextAlignmentCenter];
+    
+    NSDictionary* timeFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Helvetica" size: 11], NSForegroundColorAttributeName: [UIColor blackColor], NSParagraphStyleAttributeName: timeStyle};
+    
+    [timeContent drawInRect: timeRect withAttributes: timeFontAttributes];
     
     
     //// Date Drawing

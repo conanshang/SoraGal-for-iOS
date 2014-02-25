@@ -16,6 +16,7 @@
 
 @required
 - (NSDictionary *)returnCurrentGameStatus;
+- (UIImage *)returnCurrentScreenshot;
 
 @end
 

@@ -9,6 +9,9 @@
 #import "SGSaveLoadCollectionViewController.h"
 #import "SGSaveLoadItemCell.h"
 
+#define CONVERT_DATE 0
+#define CONVERT_TIME 1
+
 #pragma mark - Save Game UICollectionViewController
 
 @interface SGSaveCollectionViewController () <UICollectionViewDelegate, UIAlertViewDelegate>
@@ -67,17 +70,22 @@
 - (void)loadGameSavingFile{
     NSFileManager *fileManager = [[NSFileManager alloc] init];
     NSURL *usersDocumentURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    NSString *saveDataPath = [usersDocumentURL.path stringByAppendingPathComponent:@"soraGalSavingData.plist"];
+    NSString *saveDataPath = [usersDocumentURL.path stringByAppendingPathComponent:@"saveData/soraGalSavingData.plist"];
     
     if([fileManager fileExistsAtPath:saveDataPath]){
         self.savingDataArray = [NSMutableArray arrayWithContentsOfFile:saveDataPath];
     }
     else{
+        //If create the saveData folder.
+        [self checkIfNeedToCreateTheSaveDataFolder];
+        
+        //Create an empty saveData array.
         NSMutableArray *saveDataArrayCreate = [[NSMutableArray alloc] initWithCapacity:10];
         for(int i = 0; i < 10; i++){
             [saveDataArrayCreate addObject:@"NSNull"];
         }
         
+        //Save the empty saveData file.
         self.savingDataArray = saveDataArrayCreate;
         BOOL ifSave = [self.savingDataArray writeToFile:saveDataPath atomically:YES];
         if(ifSave){
@@ -86,12 +94,20 @@
     }
 }
 
-//Get the screenshot image.
-- (UIImage *)getSaveDataScreenShotImageByName:(NSString *)imageName{
-    NSURL *usersDocumentURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    NSString *imageDataPath = [usersDocumentURL.path stringByAppendingPathComponent:imageName];
+//Check if need to create the saveData folder. If need, create it.
+- (void)checkIfNeedToCreateTheSaveDataFolder{
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    NSURL *usersDocumentURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSString *saveDataFolderPath = [usersDocumentURL.path stringByAppendingPathComponent:@"saveData"];
     
-    return [UIImage imageWithContentsOfFile:imageDataPath];
+    BOOL ifItsFolder;
+    BOOL ifExsitSaveDataFolder = [fileManager fileExistsAtPath:saveDataFolderPath isDirectory:&ifItsFolder];
+    if(ifExsitSaveDataFolder && ifItsFolder){
+        return;
+    }
+    else{
+        [fileManager createDirectoryAtPath:saveDataFolderPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
 }
 
 //Load the cells.
@@ -100,6 +116,7 @@
     return [self.savingDataArray count];
 }
 
+//Set the cell.
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier = @"saveGameCollectionCell";
     SGSaveLoadItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
@@ -108,8 +125,9 @@
         //Get the specific save data.
         NSDictionary *saveDataOverAll = [self.savingDataArray objectAtIndex:indexPath.item];
         //Set the cell.
-        cell.saveDateCreationDateString = [saveDataOverAll objectForKey:@"creationTime"];
-        cell.saveDataScreenShotImage.image = [self getSaveDataScreenShotImageByName:[saveDataOverAll objectForKey:@"imageName"]];
+        cell.saveDateCreationDateString = [self createCreationTimeString:[saveDataOverAll objectForKey:@"creationTime"] forTimeOrDate:CONVERT_DATE];
+        cell.saveDateCreationTimeString = [self createCreationTimeString:[saveDataOverAll objectForKey:@"creationTime"] forTimeOrDate:CONVERT_TIME];
+        cell.saveDataScreenShotImage.image = [self getSaveDataScreenShotImageByName:[saveDataOverAll objectForKey:@"screenshotName"]];
     }
     else{
         cell.saveDateCreationDateString = @"No Data";
@@ -119,7 +137,66 @@
     return cell;
 }
 
-//Get the current game status.
+//Load the screenshot image.
+- (UIImage *)getSaveDataScreenShotImageByName:(NSString *)screenshotName{
+    NSURL *usersDocumentURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSString *imageDataPath = [usersDocumentURL.path stringByAppendingPathComponent:[NSString stringWithFormat:@"saveData/screenShots/%@", screenshotName]];
+    
+    return [UIImage imageWithContentsOfFile:imageDataPath];
+}
+
+//Output formatted date string.
+- (NSString *)createCreationTimeString:(NSDate *)date forTimeOrDate:(NSInteger)typeInteger{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    
+    if(typeInteger == CONVERT_DATE){
+        [formatter setDateFormat:@"yyyy-MM-dd"];
+    }
+    else if(typeInteger == CONVERT_TIME){
+        [formatter setDateFormat:@"HH:mm"];
+    }
+    
+    //Optionally for time zone converstions
+    [formatter setTimeZone:[NSTimeZone localTimeZone]];
+    
+    NSString *stringFromDate = [formatter stringFromDate:date];
+    
+    return stringFromDate;
+}
+
+//If a cell was tapped - Delegate Method.
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    //Get current time.
+    NSDate *currentTime = [NSDate date];
+    
+    //Create screenshot and its image name.
+    UIImage *screenshotImage = [self getAndSaveCurrentGameScreenshot:indexPath.item];
+    NSString *screenShotName = [NSString stringWithFormat:@"%ld.png", (long)indexPath.item];
+    
+    //Get saveData
+    NSDictionary *saveDataDictionary = [self getCurrentGameStatus];
+    
+    //Create the plist.
+    NSDictionary *saveDataObject = [NSDictionary dictionaryWithObjectsAndKeys:currentTime, @"creationTime", screenShotName, @"screenshotName", saveDataDictionary, @"saveData", nil];
+    
+    //Write to file.
+    [self.savingDataArray replaceObjectAtIndex:indexPath.item withObject:saveDataObject];
+    NSURL *usersDocumentURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSString *saveDataPath = [usersDocumentURL.path stringByAppendingPathComponent:@"saveData/soraGalSavingData.plist"];
+    BOOL ifSaveGameSuccess = [self.savingDataArray writeToFile:saveDataPath atomically:YES];
+    
+    //Display in the saveGame page.
+    if(ifSaveGameSuccess){
+        static NSString *identifier = @"saveGameCollectionCell";
+        SGSaveLoadItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+        
+        cell.saveDataScreenShotImage.image = screenshotImage;
+        //Reload the collection view to display the changes.
+        [self.collectionView reloadData];
+    }
+}
+
+//Get the current game status - use delegate.
 - (NSDictionary *)getCurrentGameStatus{
     NSDictionary *returnData = [_delegate returnCurrentGameStatus];
     if(returnData){
@@ -130,10 +207,38 @@
     }
 }
 
-//If a cell was tapped - Delegate Method.
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+//Get and save the screenshot - use delegate.
+- (UIImage *)getAndSaveCurrentGameScreenshot:(NSInteger)screenshotIndexNumber{
+    //Get the generated screenshot from delegate.
+    UIImage *currentGameScreenshotImage = [_delegate returnCurrentScreenshot];
     
-    //NSLog([[self getCurrentGameStatus] description]);
+    //Get the path.
+    NSURL *usersDocumentURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSString *imageDataPath = [usersDocumentURL.path stringByAppendingPathComponent:[NSString stringWithFormat:@"saveData/screenShots/%ld.png", screenshotIndexNumber]];
+    
+    //Check if need to create the screenshots folder.
+    [self checkIfNeedToCreateTheScreenshotsFolder];
+    
+    //Save the image.
+    [UIImagePNGRepresentation(currentGameScreenshotImage) writeToFile:imageDataPath atomically:YES];
+    
+    return currentGameScreenshotImage;
+}
+
+//Check if need to create the screenshots' folder in saveData folder. If need, create it.
+- (void)checkIfNeedToCreateTheScreenshotsFolder{
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    NSURL *usersDocumentURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSString *screenshotsFolderPath = [usersDocumentURL.path stringByAppendingPathComponent:@"saveData/screenShots"];
+    
+    BOOL ifItsFolder;
+    BOOL ifExsitScreenshotsFolder = [fileManager fileExistsAtPath:screenshotsFolderPath isDirectory:&ifItsFolder];
+    if(ifExsitScreenshotsFolder && ifItsFolder){
+        return;
+    }
+    else{
+        [fileManager createDirectoryAtPath:screenshotsFolderPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
 }
 
 //Back to game.

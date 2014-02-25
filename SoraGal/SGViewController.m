@@ -381,6 +381,22 @@
     return returnDic;
 }
 
+- (UIImage *)returnCurrentScreenshot{
+    //Create the image context
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(568, 320), NO, 0.0);
+    
+    // There he is! The new API method
+    [self.view drawViewHierarchyInRect:CGRectMake(0, 0, 568, 320) afterScreenUpdates:NO];
+    
+    // Get the snapshot
+    UIImage *snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    // Be nice and clean your mess up
+    UIGraphicsEndImageContext();
+    
+    return snapshotImage;
+}
+
 - (BOOL)reloadGameStatus:(NSDictionary *)gameStatus{
     
     

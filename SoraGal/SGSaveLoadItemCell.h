@@ -12,5 +12,6 @@
 
 @property (nonatomic, retain) UIImageView *saveDataScreenShotImage;
 @property (nonatomic, strong) NSString *saveDateCreationDateString;
+@property (nonatomic, strong) NSString *saveDateCreationTimeString;
 
 @end
