@@ -124,16 +124,18 @@
     if([[self.savingDataArray objectAtIndex:indexPath.item] isKindOfClass:[NSDictionary class]]){
         //Get the specific save data.
         NSDictionary *saveDataOverAll = [self.savingDataArray objectAtIndex:indexPath.item];
+        
         //Set the cell.
-        cell.saveDateCreationDateString = [self createCreationTimeString:[saveDataOverAll objectForKey:@"creationTime"] forTimeOrDate:CONVERT_DATE];
-        cell.saveDateCreationTimeString = [self createCreationTimeString:[saveDataOverAll objectForKey:@"creationTime"] forTimeOrDate:CONVERT_TIME];
         cell.saveDataScreenShotImage.image = [self getSaveDataScreenShotImageByName:[saveDataOverAll objectForKey:@"screenshotName"]];
+        cell.dateLabel.text = [self createCreationTimeString:[saveDataOverAll objectForKey:@"creationTime"] forTimeOrDate:CONVERT_DATE];
+        cell.timeLabel.text = [self createCreationTimeString:[saveDataOverAll objectForKey:@"creationTime"] forTimeOrDate:CONVERT_TIME];
     }
     else{
-        cell.saveDateCreationDateString = @"No Data";
         cell.saveDataScreenShotImage.image = nil;
+        cell.dateLabel.text = @"No Data";
+        cell.timeLabel.text = @"No Data";
     }
-
+    
     return cell;
 }
 
@@ -160,6 +162,8 @@
     [formatter setTimeZone:[NSTimeZone localTimeZone]];
     
     NSString *stringFromDate = [formatter stringFromDate:date];
+    
+    //NSLog(stringFromDate);
     
     return stringFromDate;
 }
@@ -190,7 +194,11 @@
         static NSString *identifier = @"saveGameCollectionCell";
         SGSaveLoadItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
         
+        //Set the screenshot and time text.
         cell.saveDataScreenShotImage.image = screenshotImage;
+        cell.dateLabel.text = [self createCreationTimeString:currentTime forTimeOrDate:CONVERT_DATE];
+        cell.timeLabel.text = [self createCreationTimeString:currentTime forTimeOrDate:CONVERT_TIME];
+        
         //Reload the collection view to display the changes.
         [self.collectionView reloadData];
     }

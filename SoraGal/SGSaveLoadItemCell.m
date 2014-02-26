@@ -15,12 +15,18 @@
     self = [super initWithFrame:frame];
     if (self) {
         //Initial the Save Data Image.
-        self.saveDataScreenShotImage = [[UIImageView alloc] initWithFrame:CGRectMake(5, 10, 156, 88)];
+        self.saveDataScreenShotImage = [[UIImageView alloc] initWithFrame:CGRectMake(17.5, 9.5, 156, 88)];
         [self addSubview:self.saveDataScreenShotImage];
         
-        //Temp set the creation date, need set it in Collection Controller.
-        self.saveDateCreationDateString = @"Null";
-        self.saveDateCreationTimeString = @"Null";
+        self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(188, 48, 76, 15)];
+        self.dateLabel.font = [UIFont fontWithName: @"Helvetica" size: 11];
+        self.dateLabel.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:self.dateLabel];
+        
+        self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(188, 63, 76, 15)];
+        self.timeLabel.font = [UIFont fontWithName: @"Helvetica" size: 11];
+        self.timeLabel.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:self.timeLabel];
         
         //Clear the background color.
         self.backgroundColor = [UIColor clearColor];
@@ -48,9 +54,7 @@
     CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradientColors, gradientLocations);
     
     //// Abstracted Attributes
-    NSString* createTimeContent = @"Creation Time";
-    NSString* dateContent = self.saveDateCreationDateString;
-    NSString* timeContent= self.saveDateCreationTimeString;
+    NSString* createTimeContent = @"Create Time";
     
     
     //// Rounded Rectangle Drawing
@@ -65,33 +69,13 @@
     
     
     //// Create Time Drawing
-    CGRect createTimeRect = CGRectMake(185, 10, 70, 12);
+    CGRect createTimeRect = CGRectMake(188, 31, 76, 17);
     NSMutableParagraphStyle* createTimeStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
     [createTimeStyle setAlignment: NSTextAlignmentCenter];
     
-    NSDictionary* createTimeFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Helvetica" size: 11], NSForegroundColorAttributeName: color3, NSParagraphStyleAttributeName: createTimeStyle};
+    NSDictionary* createTimeFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Helvetica" size: 13], NSForegroundColorAttributeName: color3, NSParagraphStyleAttributeName: createTimeStyle};
     
     [createTimeContent drawInRect: createTimeRect withAttributes: createTimeFontAttributes];
-    
-    
-    //// Time Drawing
-    CGRect timeRect = CGRectMake(185, 41.5, 70, 12.5);
-    NSMutableParagraphStyle* timeStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
-    [timeStyle setAlignment: NSTextAlignmentCenter];
-    
-    NSDictionary* timeFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Helvetica" size: 11], NSForegroundColorAttributeName: [UIColor blackColor], NSParagraphStyleAttributeName: timeStyle};
-    
-    [timeContent drawInRect: timeRect withAttributes: timeFontAttributes];
-    
-    
-    //// Date Drawing
-    CGRect dateRect = CGRectMake(185, 27, 70, 12.5);
-    NSMutableParagraphStyle* dateStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
-    [dateStyle setAlignment: NSTextAlignmentCenter];
-    
-    NSDictionary* dateFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Helvetica" size: 11], NSForegroundColorAttributeName: [UIColor blackColor], NSParagraphStyleAttributeName: dateStyle};
-    
-    [dateContent drawInRect: dateRect withAttributes: dateFontAttributes];
     
     
     //// Cleanup

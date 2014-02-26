@@ -11,7 +11,7 @@
 @interface SGSaveLoadItemCell : UICollectionViewCell
 
 @property (nonatomic, retain) UIImageView *saveDataScreenShotImage;
-@property (nonatomic, strong) NSString *saveDateCreationDateString;
-@property (nonatomic, strong) NSString *saveDateCreationTimeString;
+@property (nonatomic, retain) UILabel *dateLabel;
+@property (nonatomic, retain) UILabel *timeLabel;
 
 @end
