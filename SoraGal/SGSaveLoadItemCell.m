@@ -68,7 +68,7 @@
     [roundedRectanglePath stroke];
     
     
-    //// Create Time Drawing
+    //// Create Time Drawing`
     CGRect createTimeRect = CGRectMake(188, 31, 76, 17);
     NSMutableParagraphStyle* createTimeStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
     [createTimeStyle setAlignment: NSTextAlignmentCenter];

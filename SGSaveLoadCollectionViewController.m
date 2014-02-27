@@ -21,6 +21,7 @@
 
 //Private variables.
 @property (nonatomic, strong) NSMutableArray *savingDataArray;
+@property (nonatomic, strong) NSIndexPath *willSaveDataIndexPath;
 
 @end
 
@@ -170,6 +171,43 @@
 
 //If a cell was tapped - Delegate Method.
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    //Ask user if overide the savedata.
+    if([[self.savingDataArray objectAtIndex:indexPath.item] isKindOfClass:[NSDictionary class]]){
+        self.willSaveDataIndexPath = indexPath;
+        
+        //Create alert view.
+        UIAlertView *overideAlert = [[UIAlertView alloc] init];
+        overideAlert.delegate = self;
+        overideAlert.title = @"Already have a save data";
+        overideAlert.message = @"Do you want to overide it ?";
+        [overideAlert addButtonWithTitle:@"Cancel"];
+        overideAlert.cancelButtonIndex = 0;
+        [overideAlert addButtonWithTitle:@"Overide"];
+        
+        [overideAlert show];
+    }
+    else{
+        [self saveDataAndAllowOverideInCollectionView:collectionView AtIndexPath:indexPath];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:
+            break;
+            
+        case 1:
+            [self saveDataAndAllowOverideInCollectionView:self.collectionView AtIndexPath:self.willSaveDataIndexPath];
+            self.willSaveDataIndexPath = nil;
+            
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (BOOL)saveDataAndAllowOverideInCollectionView:(UICollectionView *)collectionView AtIndexPath:(NSIndexPath *)indexPath{
     //Get current time.
     NSDate *currentTime = [NSDate date];
     
@@ -201,7 +239,11 @@
         
         //Reload the collection view to display the changes.
         [self.collectionView reloadData];
+        
+        return YES;
     }
+    
+    return NO;
 }
 
 //Get the current game status - use delegate.
@@ -222,7 +264,7 @@
     
     //Get the path.
     NSURL *usersDocumentURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    NSString *imageDataPath = [usersDocumentURL.path stringByAppendingPathComponent:[NSString stringWithFormat:@"saveData/screenShots/%ld.png", screenshotIndexNumber]];
+    NSString *imageDataPath = [usersDocumentURL.path stringByAppendingPathComponent:[NSString stringWithFormat:@"saveData/screenShots/%ld.png", (long)screenshotIndexNumber]];
     
     //Check if need to create the screenshots folder.
     [self checkIfNeedToCreateTheScreenshotsFolder];

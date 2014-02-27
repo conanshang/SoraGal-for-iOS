@@ -52,10 +52,11 @@
 
 //Remove the blanks in a string.
 - (NSString *)trimTheWhiteSpaceOfAString:(NSString *)string{
-    NSArray *newString = [string componentsSeparatedByCharactersInSet :[NSCharacterSet whitespaceCharacterSet]];
-    NSString *noSpaceString = [newString componentsJoinedByString:@""];
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^\\s+|\\s+$" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSString *noFrontAndRearSpaceString = [regex stringByReplacingMatchesInString:string options:0 range:NSMakeRange(0, [string length]) withTemplate:@""];
     
-    return noSpaceString;
+    return noFrontAndRearSpaceString;
 }
 
 //Handle the errors.
