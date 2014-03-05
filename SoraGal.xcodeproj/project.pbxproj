@@ -18,6 +18,7 @@
 		0F40B52218ADA6E8005B9E09 /* SGAudioModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F40B52118ADA6E8005B9E09 /* SGAudioModule.m */; };
 		0F47825C18ADDDBB009F23ED /* GameData in Resources */ = {isa = PBXBuildFile; fileRef = 0F47825B18ADDDBB009F23ED /* GameData */; };
 		0F4B2ACF18A0470F0068B77E /* SGProcessCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F4B2ACE18A0470F0068B77E /* SGProcessCenter.m */; };
+		0F53AFFA18BF2B51006847F0 /* TestScript2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0F53AFF918BF2B51006847F0 /* TestScript2.txt */; };
 		0F591EF218A9F4F100C99A99 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD8A1E918A9F30B00869B51 /* AVFoundation.framework */; };
 		0F591EF418A9F6F300C99A99 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F591EF318A9F6F300C99A99 /* AudioToolbox.framework */; };
 		0F7DEFB4188FE6200096FFE4 /* SGScriptParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7DEFB3188FE6200096FFE4 /* SGScriptParser.m */; };
@@ -78,6 +79,7 @@
 		0F47825B18ADDDBB009F23ED /* GameData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GameData; sourceTree = "<group>"; };
 		0F4B2ACD18A0470F0068B77E /* SGProcessCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGProcessCenter.h; sourceTree = "<group>"; };
 		0F4B2ACE18A0470F0068B77E /* SGProcessCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGProcessCenter.m; sourceTree = "<group>"; };
+		0F53AFF918BF2B51006847F0 /* TestScript2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestScript2.txt; sourceTree = "<group>"; };
 		0F591EF318A9F6F300C99A99 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0F7DEFB2188FE6200096FFE4 /* SGScriptParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGScriptParser.h; sourceTree = "<group>"; };
 		0F7DEFB3188FE6200096FFE4 /* SGScriptParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGScriptParser.m; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				0F8BA74C18A1E1460013ECF9 /* gameConfiguration.txt */,
 				0F15E3811887E31300B83AEF /* scriptExample.txt */,
 				0FEF02BD18928BD0000A4EF6 /* TestScript.txt */,
+				0F53AFF918BF2B51006847F0 /* TestScript2.txt */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				0F15E3821887E31300B83AEF /* scriptExample.txt in Resources */,
 				0FBFF4D81884410000F1E1DC /* Images.xcassets in Resources */,
 				0FBFF4CA1884410000F1E1DC /* InfoPlist.strings in Resources */,
+				0F53AFFA18BF2B51006847F0 /* TestScript2.txt in Resources */,
 				0FBFF4D31884410000F1E1DC /* Main.storyboard in Resources */,
 				0F8BA74D18A1E1460013ECF9 /* gameConfiguration.txt in Resources */,
 			);

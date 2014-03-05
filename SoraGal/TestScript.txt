@@ -1,12 +1,15 @@
-Start
+Game Start
+
+The BGM (Background Music) will be changed, and display a new BG (Background).
 
 @setBGM "02"
 
 @setBG "EA01a"
 
-蔚蓝的天空让 人觉得 异常清澈.不同城 市的天空 ,纯粹的蓝
+蔚蓝的天空让人觉得异常清澈。不同城市的天空，纯粹的蓝。
+(This is a dialog in Chinese. And sorry for the inconvience if you don't know Chinese, because I can't get an English one.)
 
-悠：CG changing  time 300
+悠：........
 
 @setBG "EA09a",300
 

@@ -11,64 +11,38 @@
 
 #define CONVERT_DATE 0
 #define CONVERT_TIME 1
+#define TOTAL_AVAILABLE_SAVINGDATA 10
 
-#pragma mark - Save Game UICollectionViewController
 
-@interface SGSaveCollectionViewController () <UICollectionViewDelegate, UIAlertViewDelegate>
 
-//IBOutlets.
-@property (strong, nonatomic) IBOutlet SGCustomCollectionViewFlowLayout *saveCollectionViewFlowLayout;
+#pragma mark - Base CollectionViewController
 
-//Private variables.
+@interface SGBaseCollectionViewController()
+
+//Variables.
 @property (nonatomic, strong) NSMutableArray *savingDataArray;
-@property (nonatomic, strong) NSIndexPath *willSaveDataIndexPath;
 
 @end
 
-@implementation SGSaveCollectionViewController
+@implementation SGBaseCollectionViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    //Register the class.
-    [self.collectionView registerClass:[SGSaveLoadItemCell class] forCellWithReuseIdentifier:@"saveGameCollectionCell"];
-    
-    //Setup the layout.
-    [self setupTheLayout];
-    
-    //Set the deleagte of collectionView.
-    self.collectionView.delegate = self;
-    
-    //Load saving data from file.
-    [self loadGameSavingFile];
-}
-
-- (void)setupTheLayout{
+//Layout setup.
+- (void)setupTheLayout:(SGCustomCollectionViewFlowLayout *)layout forCollectionView:(UICollectionView *)collectionView{
     //Setup the flow layout.
-    self.saveCollectionViewFlowLayout = [[SGCustomCollectionViewFlowLayout alloc] init];
-    [self.saveCollectionViewFlowLayout setItemSize:CGSizeMake(279, 108)]; //The cell's size.
-    [self.saveCollectionViewFlowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    self.saveCollectionViewFlowLayout.minimumLineSpacing = 2.0f;
+    layout = [[SGCustomCollectionViewFlowLayout alloc] init];
+    [layout setItemSize:CGSizeMake(279, 108)]; //The cell's size.
+    [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
+    layout.minimumLineSpacing = 2.0f;
     
     //Setup the collectionView.
-    [self.collectionView setCollectionViewLayout:self.saveCollectionViewFlowLayout];
-    self.collectionView.bounces = YES;
-    [self.collectionView setShowsHorizontalScrollIndicator:NO];
-    [self.collectionView setShowsVerticalScrollIndicator:NO];
+    [collectionView setCollectionViewLayout:layout];
+    collectionView.bounces = YES;
+    [collectionView setShowsHorizontalScrollIndicator:NO];
+    [collectionView setShowsVerticalScrollIndicator:NO];
 }
 
 //Load game saving data from Document folder.
-- (void)loadGameSavingFile{
+- (void)loadGameSavingFileToArray:(NSArray *)receivingArray{
     NSFileManager *fileManager = [[NSFileManager alloc] init];
     NSURL *usersDocumentURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     NSString *saveDataPath = [usersDocumentURL.path stringByAppendingPathComponent:@"saveData/soraGalSavingData.plist"];
@@ -81,8 +55,8 @@
         [self checkIfNeedToCreateTheSaveDataFolder];
         
         //Create an empty saveData array.
-        NSMutableArray *saveDataArrayCreate = [[NSMutableArray alloc] initWithCapacity:10];
-        for(int i = 0; i < 10; i++){
+        NSMutableArray *saveDataArrayCreate = [[NSMutableArray alloc] initWithCapacity:TOTAL_AVAILABLE_SAVINGDATA];
+        for(int i = 0; i < TOTAL_AVAILABLE_SAVINGDATA; i++){
             [saveDataArrayCreate addObject:@"NSNull"];
         }
         
@@ -109,35 +83,6 @@
     else{
         [fileManager createDirectoryAtPath:saveDataFolderPath withIntermediateDirectories:YES attributes:nil error:nil];
     }
-}
-
-//Load the cells.
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    
-    return [self.savingDataArray count];
-}
-
-//Set the cell.
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *identifier = @"saveGameCollectionCell";
-    SGSaveLoadItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    
-    if([[self.savingDataArray objectAtIndex:indexPath.item] isKindOfClass:[NSDictionary class]]){
-        //Get the specific save data.
-        NSDictionary *saveDataOverAll = [self.savingDataArray objectAtIndex:indexPath.item];
-        
-        //Set the cell.
-        cell.saveDataScreenShotImage.image = [self getSaveDataScreenShotImageByName:[saveDataOverAll objectForKey:@"screenshotName"]];
-        cell.dateLabel.text = [self createCreationTimeString:[saveDataOverAll objectForKey:@"creationTime"] forTimeOrDate:CONVERT_DATE];
-        cell.timeLabel.text = [self createCreationTimeString:[saveDataOverAll objectForKey:@"creationTime"] forTimeOrDate:CONVERT_TIME];
-    }
-    else{
-        cell.saveDataScreenShotImage.image = nil;
-        cell.dateLabel.text = @"No Data";
-        cell.timeLabel.text = @"No Data";
-    }
-    
-    return cell;
 }
 
 //Load the screenshot image.
@@ -169,6 +114,72 @@
     return stringFromDate;
 }
 
+
+@end
+
+
+
+#pragma mark - Save Game UICollectionViewController
+
+@interface SGSaveCollectionViewController()
+
+//IBOutlets.
+@property (strong, nonatomic) IBOutlet SGCustomCollectionViewFlowLayout *saveCollectionViewFlowLayout;
+
+//Private variables.
+@property (nonatomic, strong) NSIndexPath *willSaveDataIndexPath;
+
+@end
+
+@implementation SGSaveCollectionViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    //Register the class.
+    [self.collectionView registerClass:[SGSaveLoadItemCell class] forCellWithReuseIdentifier:@"saveGameCollectionCell"];
+    
+    //Setup the layout.
+    [self setupTheLayout:self.saveCollectionViewFlowLayout forCollectionView:self.collectionView];
+    
+    //Set the deleagte of collectionView.
+    self.collectionView.delegate = self;
+    
+    //Load saving data from file.
+    [self loadGameSavingFileToArray:self.savingDataArray];
+}
+
+//Load the cells.
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
+    return [self.savingDataArray count];
+}
+
+//Set the cell.
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *identifier = @"saveGameCollectionCell";
+    SGSaveLoadItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    
+    if([[self.savingDataArray objectAtIndex:indexPath.item] isKindOfClass:[NSDictionary class]]){
+        //Get the specific save data.
+        NSDictionary *saveDataOverAll = [self.savingDataArray objectAtIndex:indexPath.item];
+        
+        //Set the cell.
+        cell.saveDataScreenShotImage.image = [self getSaveDataScreenShotImageByName:[saveDataOverAll objectForKey:@"screenshotName"]];
+        cell.dateLabel.text = [self createCreationTimeString:[saveDataOverAll objectForKey:@"creationTime"] forTimeOrDate:CONVERT_DATE];
+        cell.timeLabel.text = [self createCreationTimeString:[saveDataOverAll objectForKey:@"creationTime"] forTimeOrDate:CONVERT_TIME];
+    }
+    else{
+        cell.saveDataScreenShotImage.image = nil;
+        cell.dateLabel.text = @"No Data";
+        cell.timeLabel.text = @"No Data";
+    }
+    
+    return cell;
+}
+
+
 //If a cell was tapped - Delegate Method.
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     //Ask user if overide the savedata.
@@ -179,10 +190,10 @@
         UIAlertView *overideAlert = [[UIAlertView alloc] init];
         overideAlert.delegate = self;
         overideAlert.title = @"Already have a save data";
-        overideAlert.message = @"Do you want to overide it ?";
+        overideAlert.message = @"Do you want to override it ?";
         [overideAlert addButtonWithTitle:@"Cancel"];
         overideAlert.cancelButtonIndex = 0;
-        [overideAlert addButtonWithTitle:@"Overide"];
+        [overideAlert addButtonWithTitle:@"Override"];
         
         [overideAlert show];
     }
@@ -296,36 +307,22 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 @end
 
 
 
 #pragma mark - Load Game UICollectionViewController
 
-@interface SGLoadCollectionViewController ()
+@interface SGLoadCollectionViewController()
 
 @property (strong, nonatomic) IBOutlet SGCustomCollectionViewFlowLayout *loadCollectionViewFlowLayout;
+
+//Variables
+@property (nonatomic, strong) NSIndexPath *willLoadDataIndexPath;
 
 @end
 
 @implementation SGLoadCollectionViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -335,40 +332,41 @@
     [self.collectionView registerClass:[SGSaveLoadItemCell class] forCellWithReuseIdentifier:@"loadGameCollectionCell"];
     
     //Setup the layout.
-    [self setupTheLayout];
-}
-
-- (void)setupTheLayout{
-    //Setup the flow layout.
-    self.loadCollectionViewFlowLayout = [[SGCustomCollectionViewFlowLayout alloc] init];
-    [self.loadCollectionViewFlowLayout setItemSize:CGSizeMake(279, 108)]; //The cell's size.
-    [self.loadCollectionViewFlowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    self.loadCollectionViewFlowLayout.minimumLineSpacing = 2.0f;
+    [self setupTheLayout:self.loadCollectionViewFlowLayout forCollectionView:self.collectionView];
     
-    //Setup the collectionView.
-    [self.collectionView setCollectionViewLayout:self.loadCollectionViewFlowLayout];
-    self.collectionView.bounces = YES;
-    [self.collectionView setShowsHorizontalScrollIndicator:NO];
-    [self.collectionView setShowsVerticalScrollIndicator:NO];
-}
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    //Set the deleagte of collectionView.
+    self.collectionView.delegate = self;
     
-    return 1;
+    //Load saving data from file.
+    [self loadGameSavingFileToArray:self.savingDataArray];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return 10;
+    return [self.savingDataArray count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier = @"loadGameCollectionCell";
-    
     SGSaveLoadItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"eden_1" ofType:@"jpg" inDirectory:@"GameData/CGs"];
-    cell.saveDataScreenShotImage.image = [[UIImage alloc] initWithContentsOfFile:imagePath];
+    //Set the cell to no data for initial.
+    cell.saveDataScreenShotImage.image = nil;
+    cell.dateLabel.text = @"No Data";
+    cell.timeLabel.text = @"No Data";
+    
+    //If having savedata, set the cell.
+    if(self.savingDataArray){
+        if([[self.savingDataArray objectAtIndex:indexPath.item] isKindOfClass:[NSDictionary class]]){
+            //Get the specific save data for item of the inde path.
+            NSDictionary *saveDataOverAll = [self.savingDataArray objectAtIndex:indexPath.item];
+            
+            //Set the cell.
+            cell.saveDataScreenShotImage.image = [self getSaveDataScreenShotImageByName:[saveDataOverAll objectForKey:@"screenshotName"]];
+            cell.dateLabel.text = [self createCreationTimeString:[saveDataOverAll objectForKey:@"creationTime"] forTimeOrDate:CONVERT_DATE];
+            cell.timeLabel.text = [self createCreationTimeString:[saveDataOverAll objectForKey:@"creationTime"] forTimeOrDate:CONVERT_TIME];
+        }
+    }
     
     return cell;
 }
@@ -377,12 +375,43 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+//If a cell was tapped - Delegate Method.
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    //Ask user if load the game data.
+    if([[self.savingDataArray objectAtIndex:indexPath.item] isKindOfClass:[NSDictionary class]]){
+        self.willLoadDataIndexPath = indexPath;
+        
+        //Create alert view.
+        UIAlertView *overideAlert = [[UIAlertView alloc] init];
+        overideAlert.delegate = self;
+        overideAlert.title = @"Load Game";
+        overideAlert.message = @"Do you want to load this save data ?";
+        [overideAlert addButtonWithTitle:@"Cancel"];
+        overideAlert.cancelButtonIndex = 0;
+        [overideAlert addButtonWithTitle:@"Load Game"];
+        
+        [overideAlert show];
+    }
+}
 
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+//Alert view delegate.
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:
+            break;
+            
+        case 1:
+            //Return the game status dictionary to the main view controller.
+            [_delegate reloadGameStatus:[[self.savingDataArray objectAtIndex:self.willLoadDataIndexPath.item] objectForKey:@"saveData"]];
+            
+            //Dismiss this view controller.
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end

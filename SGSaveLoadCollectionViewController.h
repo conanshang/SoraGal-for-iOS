@@ -8,6 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+#pragma mark - Base CollectionViewController
+
+@class SGCustomCollectionViewFlowLayout;
+@interface SGBaseCollectionViewController : UICollectionViewController <UICollectionViewDelegate, UIAlertViewDelegate>
+
+/* Reusing methods. For in the same file, so it's no need to write in the public area. */
+//- (void)setupTheLayout:(SGCustomCollectionViewFlowLayout *)layout forCollectionView:(UICollectionView *)collectionView;
+//- (void)loadGameSavingFileToArray:(NSArray *)receivingArray;
+//- (void)checkIfNeedToCreateTheSaveDataFolder;
+//- (UIImage *)getSaveDataScreenShotImageByName:(NSString *)screenshotName;
+//- (NSString *)createCreationTimeString:(NSDate *)date forTimeOrDate:(NSInteger)typeInteger;
+
+@end
+
 #pragma mark - Save Game UICollectionViewController
 
 @class SGSaveCollectionViewController;
@@ -21,7 +35,7 @@
 @end
 
 //Interface
-@interface SGSaveCollectionViewController : UICollectionViewController
+@interface SGSaveCollectionViewController : SGBaseCollectionViewController
 
 @property (nonatomic, weak) id <SGSaveCollectionViewControllerDelegate> delegate;
 
@@ -40,7 +54,7 @@
 @end
 
 //Interface
-@interface SGLoadCollectionViewController : UICollectionViewController
+@interface SGLoadCollectionViewController : SGBaseCollectionViewController
 
 @property (nonatomic, weak) id <SGLoadCollectionViewControllerDelegate> delegate;
 
