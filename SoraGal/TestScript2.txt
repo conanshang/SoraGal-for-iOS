@@ -1,7 +1,8 @@
 This is a short demo for SoraGal for iOS.
+(Demo Version 2)
 
 The BGM (Background Music) will change, 
-and display a new BG (Background).
+The BG (Background) will also change.
 
 @setBGM "06"
 
@@ -14,11 +15,11 @@ and display a new BG (Background).
 悠：......喂,你不吃点东西吗?
 (This dialog is different from the previous one, for it shows name for the person who said it.)
 
-The background will be changed, and the changing time is 300ms, which can be indicate on the script.
+The background will changed, and the changing time is 300ms, which can be indicate on the script.
 
 @setBG "EA09a",300
 
-The background will be changed again, and the changing time is 3000ms.
+The background will changed again, and the changing time is 3000ms.
 
 @setBG "B07e",3000
 
@@ -30,8 +31,10 @@ The background display mode has changed, and you can see it in realy time.
 Please focus on the display speed of the text. Lets change the speed.
 
 话虽如此，可是穹从刚才就一直望着窗外的风景，一动也不动，而且也不理我。
+(Low speed.)
 
 她小口咀嚼着嘴里的食物，好像是在遮羞似的。
+(High speed.)
 
 Do you see the difference ?
 
@@ -39,10 +42,13 @@ Well, lets change the background music, and adjust the volume.
 
 @setBGM "08"
 
-Finally, lets change the background image, and I'll show you the save game function.
+Lets change the background image, and I'll show you the save game function.
 (To save the game, just swipe left.)
 
 @setBG "EA01a"
+
+The Game has been saved, and lets go back to a previous save point.
+And then I'll load back here.
 
 Ok, this is the end of the demo.
 
@@ -50,4 +56,4 @@ Ok, this is the end of the demo.
 
 This engine is still under developing, for more, check it on Github : https://github.com/conanshang/SoraGal-for-iOS.
 
-Thank you. by conanshang
+Thank you.  by conanshang

@@ -565,7 +565,7 @@
 #pragma mark - Test methods.
 - (void)testTheFunctions{
     //[self changeBackground:@"B04a" withType:@"jpg" andTransitionTime:1.0];
-    [self changeCGImage:@"eden_3" withType:@"jpg" andTransitionTime:500.0];
+    [self changeCGImage:@"eden_2" withType:@"jpg" andTransitionTime:500.0];
     //[self changePureColorBackground:@"#000"];
     //[self showDialog:@"悠" andText:@"我本以为,自由我才会有这种稀奇古怪的想法吧,可没想到的是前几天看的推理小说中,里面的犯人也和我同样的幻想着."];
     //[self.soraGalAudioModule playBackgroundMusic:@"02" andType:@"m4a"];
