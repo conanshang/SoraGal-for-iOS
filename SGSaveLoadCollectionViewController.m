@@ -186,14 +186,9 @@
     if([[self.savingDataArray objectAtIndex:indexPath.item] isKindOfClass:[NSDictionary class]]){
         self.willSaveDataIndexPath = indexPath;
         
-        //Create alert view.
-        UIAlertView *overideAlert = [[UIAlertView alloc] init];
+        //Create the alert view, by using the custom version.
+        TCustomAlertView *overideAlert = [[TCustomAlertView alloc] initWithSuperView:self.view title:@"Already have a save data" detail:@"Do you want to override it ?" confirmText:@"Override" andCancelText:@"Cancel"];
         overideAlert.delegate = self;
-        overideAlert.title = @"Already have a save data";
-        overideAlert.message = @"Do you want to override it ?";
-        [overideAlert addButtonWithTitle:@"Cancel"];
-        overideAlert.cancelButtonIndex = 0;
-        [overideAlert addButtonWithTitle:@"Override"];
         
         [overideAlert show];
     }
@@ -201,21 +196,10 @@
         [self saveDataAndAllowOverideInCollectionView:collectionView AtIndexPath:indexPath];
     }
 }
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    switch (buttonIndex) {
-        case 0:
-            break;
-            
-        case 1:
-            [self saveDataAndAllowOverideInCollectionView:self.collectionView AtIndexPath:self.willSaveDataIndexPath];
-            self.willSaveDataIndexPath = nil;
-            
-            break;
-            
-        default:
-            break;
-    }
+//The delegate of custom alert view.
+- (void)didConfirmButtonPressed{
+    [self saveDataAndAllowOverideInCollectionView:self.collectionView AtIndexPath:self.willSaveDataIndexPath];
+    self.willSaveDataIndexPath = nil;
 }
 
 - (BOOL)saveDataAndAllowOverideInCollectionView:(UICollectionView *)collectionView AtIndexPath:(NSIndexPath *)indexPath{
@@ -381,38 +365,25 @@
     if([[self.savingDataArray objectAtIndex:indexPath.item] isKindOfClass:[NSDictionary class]]){
         self.willLoadDataIndexPath = indexPath;
         
-        //Create alert view.
-        UIAlertView *overideAlert = [[UIAlertView alloc] init];
+        //Create the alert view, by using the custom version.
+        TCustomAlertView *overideAlert = [[TCustomAlertView alloc] initWithSuperView:self.view title:@"Load Game" detail:@"Do you want to load this save data ?" confirmText:@"Load Game" andCancelText:@"Cancel"];
         overideAlert.delegate = self;
-        overideAlert.title = @"Load Game";
-        overideAlert.message = @"Do you want to load this save data ?";
-        [overideAlert addButtonWithTitle:@"Cancel"];
-        overideAlert.cancelButtonIndex = 0;
-        [overideAlert addButtonWithTitle:@"Load Game"];
         
         [overideAlert show];
     }
 }
-
-//Alert view delegate.
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    switch (buttonIndex) {
-        case 0:
-            break;
-            
-        case 1:
-            //Return the game status dictionary to the main view controller.
-            [_delegate reloadGameStatus:[[self.savingDataArray objectAtIndex:self.willLoadDataIndexPath.item] objectForKey:@"saveData"]];
-            
-            //Dismiss this view controller.
-            [self dismissViewControllerAnimated:YES completion:nil];
-            
-            break;
-            
-        default:
-            break;
-    }
+//The delegate of custom alert view.
+- (void)didConfirmButtonPressed{
+    //Return the game status dictionary to the main view controller.
+    [_delegate reloadGameStatus:[[self.savingDataArray objectAtIndex:self.willLoadDataIndexPath.item] objectForKey:@"saveData"]];
+    
+    
 }
+- (void)didAlertViewDisappeared{
+    //Dismiss this view controller.
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 @end
 

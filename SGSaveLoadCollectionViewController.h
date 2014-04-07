@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TCustomAlertView.h"
 
 #pragma mark - Base CollectionViewController
 
 @class SGCustomCollectionViewFlowLayout;
-@interface SGBaseCollectionViewController : UICollectionViewController <UICollectionViewDelegate, UIAlertViewDelegate>
+@interface SGBaseCollectionViewController : UICollectionViewController <UICollectionViewDelegate, TCustomAlertViewDelegate>
 
 /* Reusing methods. For in the same file, so it's no need to write in the public area. */
 //- (void)setupTheLayout:(SGCustomCollectionViewFlowLayout *)layout forCollectionView:(UICollectionView *)collectionView;

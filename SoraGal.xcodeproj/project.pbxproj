@@ -42,6 +42,7 @@
 		0FBFF4E11884410000F1E1DC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FBFF4C31884410000F1E1DC /* UIKit.framework */; };
 		0FBFF4E91884410000F1E1DC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0FBFF4E71884410000F1E1DC /* InfoPlist.strings */; };
 		0FBFF4EB1884410000F1E1DC /* SoraGalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FBFF4EA1884410000F1E1DC /* SoraGalTests.m */; };
+		0FC3AB2D18F249340052EC83 /* TCustomAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC3AB2C18F249340052EC83 /* TCustomAlertView.m */; };
 		0FD7657418B9DBBF00463770 /* SGSaveLoadItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD7657318B9DBBF00463770 /* SGSaveLoadItemCell.m */; };
 		0FD7657D18B9DDA400463770 /* SGSaveLoadCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD7657C18B9DDA400463770 /* SGSaveLoadCollectionViewController.m */; };
 		0FD7658018B9EC5C00463770 /* SGAnimatedToSaveAndLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD7657F18B9EC5C00463770 /* SGAnimatedToSaveAndLoad.m */; };
@@ -113,6 +114,8 @@
 		0FBFF4E61884410000F1E1DC /* SoraGalTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SoraGalTests-Info.plist"; sourceTree = "<group>"; };
 		0FBFF4E81884410000F1E1DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0FBFF4EA1884410000F1E1DC /* SoraGalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SoraGalTests.m; sourceTree = "<group>"; };
+		0FC3AB2B18F249340052EC83 /* TCustomAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCustomAlertView.h; sourceTree = "<group>"; };
+		0FC3AB2C18F249340052EC83 /* TCustomAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCustomAlertView.m; sourceTree = "<group>"; };
 		0FD7657218B9DBBF00463770 /* SGSaveLoadItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGSaveLoadItemCell.h; sourceTree = "<group>"; };
 		0FD7657318B9DBBF00463770 /* SGSaveLoadItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGSaveLoadItemCell.m; sourceTree = "<group>"; };
 		0FD7657B18B9DDA400463770 /* SGSaveLoadCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SGSaveLoadCollectionViewController.h; path = ../SGSaveLoadCollectionViewController.h; sourceTree = "<group>"; };
@@ -202,6 +205,8 @@
 				0FD7657318B9DBBF00463770 /* SGSaveLoadItemCell.m */,
 				0FD7657E18B9EC5C00463770 /* SGAnimatedToSaveAndLoad.h */,
 				0FD7657F18B9EC5C00463770 /* SGAnimatedToSaveAndLoad.m */,
+				0FC3AB2B18F249340052EC83 /* TCustomAlertView.h */,
+				0FC3AB2C18F249340052EC83 /* TCustomAlertView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -342,7 +347,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SG;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Zihang Wang";
 				TargetAttributes = {
 					0FBFF4DC1884410000F1E1DC = {
@@ -401,6 +406,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FB494561886C8E1000C743C /* SGDialogView.m in Sources */,
+				0FC3AB2D18F249340052EC83 /* TCustomAlertView.m in Sources */,
 				0F15E38C18883B3300B83AEF /* SGScriptScanner.m in Sources */,
 				0FBFF4D01884410000F1E1DC /* SGAppDelegate.m in Sources */,
 				0F15E3801887DE4A00B83AEF /* SGTestFunctionsViewController.m in Sources */,
@@ -474,7 +480,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -513,7 +518,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -571,7 +575,6 @@
 		0FBFF4F21884410000F1E1DC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SoraGal.app/SoraGal";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -594,7 +597,6 @@
 		0FBFF4F31884410000F1E1DC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SoraGal.app/SoraGal";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
